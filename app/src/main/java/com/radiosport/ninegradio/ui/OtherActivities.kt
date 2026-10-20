@@ -931,14 +931,14 @@ class AcarsActivity : AppCompatActivity() {
             return
         }
         val text = buildString {
-            appendLine("# ACARS Log — ${SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US).format(Date())}")
-            appendLine("# " + getString(R.string.ui_acars_channel, "%.3f".format(currentFreqHz / 1e6), allMessages.size))
+            appendLine(getString(R.string.ui_acars_log_header, SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US).format(Date())))
+            appendLine(getString(R.string.ui_acars_export_channel, "%.3f".format(currentFreqHz / 1e6), allMessages.size))
             appendLine()
             for (msg in allMessages.reversed()) {
                 val ts = TS_FMT.format(Date(msg.timestamp))
                 val desc = com.radiosport.ninegradio.dsp.AcarsDecoder.LABEL_DESCRIPTIONS[msg.label] ?: getString(R.string.ui_unknown)
                 appendLine("[$ts] ${msg.registration.padEnd(8)} [${msg.label}] $desc")
-                if (msg.flightId.isNotBlank()) appendLine("  " + getString(R.string.ui_acars_flight, msg.flightId))
+                if (msg.flightId.isNotBlank()) appendLine(getString(R.string.ui_acars_export_flight, msg.flightId))
                 appendLine("  ${msg.text}")
                 appendLine()
             }
