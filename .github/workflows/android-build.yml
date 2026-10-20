@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - feature/simplified-chinese
-  pull_request:
-    branches:
-      - master
   workflow_dispatch:
 
 permissions:
