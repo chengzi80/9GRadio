@@ -35,7 +35,7 @@ class RtlSdrTestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rtlsdr_test)
-        supportActionBar?.apply { title = "RTL-SDR Tests"; setDisplayHomeAsUpEnabled(true) }
+        supportActionBar?.apply { title = getString(R.string.rtl_sdr_tests); setDisplayHomeAsUpEnabled(true) }
 
         tvLog      = findViewById(R.id.tvTestLog)
         btnRun     = findViewById(R.id.btnRunTests)
@@ -64,7 +64,7 @@ class RtlSdrTestActivity : AppCompatActivity() {
             log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
 
             // ── 1. Hardware constants ─────────────────────────────────────
-            section("1. Hardware Constants")
+            section(getString(R.string.test_section_hw))
             test("XTAL frequency is 28.8 MHz") {
                 RtlSdrDevice.XTAL_FREQ == 28_800_000L
             }
@@ -161,7 +161,7 @@ class RtlSdrTestActivity : AppCompatActivity() {
             }
 
             // ── 2. Demodulation modes ─────────────────────────────────────
-            section("2. Demodulation Modes")
+            section(getString(R.string.test_section_demod))
             test("All modes have positive bandwidth") {
                 DemodMode.values().all { it.defaultBwHz > 0 }
             }
@@ -183,7 +183,7 @@ class RtlSdrTestActivity : AppCompatActivity() {
             }
 
             // ── 3. FFT engine correctness ─────────────────────────────────
-            section("3. FFT Engine — Correctness")
+            section(getString(R.string.test_section_fft))
             val fft = FftEngine(1024)
             test("Output length matches FFT size") {
                 fft.processFloat(FloatArray(2048)).size == 1024
@@ -211,7 +211,7 @@ class RtlSdrTestActivity : AppCompatActivity() {
             }
 
             // ── 4. Demodulator correctness ────────────────────────────────
-            section("4. Demodulators — Correctness")
+            section(getString(R.string.test_section_demodulators))
             test("AM envelope is non-negative") {
                 val iq = tone(1_000.0, 11025, 512)
                 AmDemodulator().demodulate(iq, 11025).drop(50).all { it >= -0.01f }
@@ -238,7 +238,7 @@ class RtlSdrTestActivity : AppCompatActivity() {
             }
 
             // ── 5. Polyphase resampler ────────────────────────────────────
-            section("5. Polyphase Resampler")
+            section(getString(R.string.test_section_resampler))
             test("1920k→48k output length is ~48 samples for 2048-sample input") {
                 val r = PolyphaseResampler(1_920_000, 48_000)
                 val n = r.process(FloatArray(2048) { sin(it * 0.01).toFloat() }).size
@@ -255,7 +255,7 @@ class RtlSdrTestActivity : AppCompatActivity() {
             }
 
             // ── 6. Gain calibration ───────────────────────────────────────
-            section("6. Gain Calibration")
+            section(getString(R.string.test_section_gain))
             test("Noise figure interpolates across full frequency range") {
                 listOf(500_000L, 100_000_000L, 433_000_000L, 1_090_000_000L, 1_766_000_000L)
                     .all { GainCalibration.noiseFigureAtFreq(it) in 1f..30f }
@@ -286,7 +286,7 @@ class RtlSdrTestActivity : AppCompatActivity() {
             }
 
             // ── 7. Audio DSP ──────────────────────────────────────────────
-            section("7. Audio DSP")
+            section(getString(R.string.test_section_audio))
             test("DcBlocker removes DC offset") {
                 val dc = AudioDsp.DcBlocker()
                 // R=0.9995 needs ~4600 samples to decay below 0.1; use 8192 to be safe
@@ -340,7 +340,7 @@ class RtlSdrTestActivity : AppCompatActivity() {
             }
 
             // ── 8. Performance benchmarks ─────────────────────────────────
-            section("8. Performance (real-time headroom)")
+            section(getString(R.string.test_section_performance))
             val SR = 1_920_000   // 48 000 × 40 — standard main-band rate
             // ── Pre-build ALL objects so construction cost is NEVER included in timing ──
             // (constructing FftEngine/Demodulator/Resampler inside a perfTest lambda was
@@ -403,7 +403,7 @@ class RtlSdrTestActivity : AppCompatActivity() {
             //   250 kS/s, 1024 kS/s, 1536 kS/s, 1792 kS/s, 1920 kS/s,
             //   2048 kS/s, 2160 kS/s, 2560 kS/s, 2880 kS/s, 3200 kS/s
             // ─────────────────────────────────────────────────────────────
-            section("9. Sample-Rate Sequence  (5 s per rate, in sequence)")
+            section(getString(R.string.test_section_rates))
             for (rate in RtlSdrDevice.SAMPLE_RATES) {
                 val rateStr = when {
                     rate < 1_000_000 -> "${rate / 1_000} kS/s"
@@ -445,13 +445,13 @@ class RtlSdrTestActivity : AppCompatActivity() {
             // ── Summary ───────────────────────────────────────────────────
             val total = passed + failed
             log("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-            log("  PASSED $passed / $total")
-            if (failed > 0) log("  FAILED $failed / $total")
+            log("  通过 $passed / $total")
+            if (failed > 0) log("  失败 $failed / $total")
             log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
 
             withContext(Dispatchers.Main) {
-                tvSummary.text = if (failed == 0) "✓ All $total tests passed"
-                                 else             "✗ $failed of $total tests failed"
+                tvSummary.text = if (failed == 0) getString(R.string.test_all_passed, total)
+                                 else             getString(R.string.test_some_failed, failed, total)
                 tvSummary.setTextColor(
                     if (failed == 0) 0xFF00CC44.toInt() else 0xFFFF3333.toInt()
                 )
@@ -464,6 +464,46 @@ class RtlSdrTestActivity : AppCompatActivity() {
     //  Helpers
     // ─────────────────────────────────────────────────────────────────────────
 
+    private fun localizeTestName(name: String): String = when (name) {
+            "XTAL frequency is 28.8 MHz" -> "晶振频率为 28.8 MHz"
+            "Frequency range 500 kHz – 1766 MHz" -> "频率范围为 500 kHz–1766 MHz"
+            "HF cutoff at 28.8 MHz" -> "短波截止频率为 28.8 MHz"
+            "Direct-sampling constants 0/1/2" -> "直采模式常量为 0/1/2"
+            "Bias-tee GPIO bit is 0x08" -> "偏置供电 GPIO 位为 0x08"
+            "Gain table has 29 entries" -> "增益表包含 29 个条目"
+            "Gain table is monotonically non-decreasing" -> "增益表单调不递减"
+            "Sample-rate PLL ratio in valid range for ALL rates (low-band and main-band)" -> "所有采样率（低频段和主频段）的 PLL 比率均在有效范围内"
+            "Low-rate band entries are within valid IQ range (225 001–300 000 Hz)" -> "低采样率频段条目位于有效 IQ 范围内（225001–300000 Hz）"
+            "nearestSampleRate snaps dead-zone value to nearer band boundary" -> "nearestSampleRate 将禁用区采样率映射到较近的频段边界"
+            "nearestSampleRate stays within low-rate band for low-band requests" -> "低频段请求的采样率保持在低频段内"
+            "nearestSampleRate stays within main band for main-band requests" -> "主频段请求的采样率保持在主频段内"
+            "ADS-B pinned at 1090 MHz" -> "ADS-B 固定使用 1090 MHz"
+            "All modes have positive bandwidth" -> "所有模式的带宽均为正数"
+            "DRM requires direct sampling; FM/NFM/WFM/AM/ADSB do not" -> "DRM 需要直采；FM/NFM/WFM/AM/ADSB 不需要"
+            "All window types produce NaN-free output" -> "所有窗函数的输出均不含 NaN"
+            "DC input peaks at centre bin" -> "直流输入在中心频点产生峰值"
+            "FFT size change: 256/512/1024/2048/4096 all correct length" -> "FFT 点数切换 256/512/1024/2048/4096 后输出长度均正确"
+            "Output length matches FFT size" -> "输出长度与 FFT 点数一致"
+            "DemodulatorFactory creates correct type for every mode" -> "DemodulatorFactory 为每种模式创建正确的解调器类型"
+            "NFM output bounded (no overflow)" -> "NFM 输出范围正常（无溢出）"
+            "NFM demodulator ≥ 10× real-time" -> "NFM 解调器速度达到实时的 10 倍以上"
+            "WFM mono output length = N/2" -> "WFM 单声道输出长度为 N/2"
+            "WFM is max 250k" -> "WFM 最高为 250 kS/s"
+            "USB zero-input gives near-zero output" -> "USB 零输入产生接近零的输出"
+            "RAW demodulator produces non-negative magnitudes" -> "RAW 解调器产生非负幅度值"
+            "AM envelope is non-negative" -> "AM 包络为非负值"
+            "LSB zero-input gives near-zero output" -> "LSB 零输入产生接近零的输出"
+            "DcBlocker removes DC offset" -> "DcBlocker 可去除直流偏移"
+            "NoiseReducer calibrates in 20 frames and processes without throwing" -> "NoiseReducer 在 20 帧内完成校准并正常处理"
+            "NoiseBlanker passes low-level signal at steady state" -> "NoiseBlanker 在稳态下可通过低电平信号"
+            "AudioAgc reduces loud signal below input level" -> "AudioAgc 将大音量信号降低到输入电平以下"
+            "AutoNotchFilter converges on a pure tone" -> "AutoNotchFilter 对纯音收敛"
+            "estimateSaturation on clipped data returns near-100 %" -> "削波数据的 estimateSaturation 结果接近 100%"
+            "estimateSaturation on mid-range data returns near-zero" -> "中等幅度数据的 estimateSaturation 结果接近零"
+            "suggestGain returns index in 0..28 for all scenarios" -> "suggestGain 在所有场景中返回 0–28 的索引"
+            else -> name
+    }
+
     private suspend fun section(title: String) = log("\n▸ $title")
 
     private suspend fun test(name: String, block: () -> Boolean) {
@@ -471,7 +511,7 @@ class RtlSdrTestActivity : AppCompatActivity() {
         if (ok) passed++ else failed++
         val icon = if (ok) "  ✓" else "  ✗"
         val color = if (ok) "" else "  ← FAIL"
-        log("$icon  $name$color")
+        log("$icon  ${localizeTestName(name)}$color")
     }
 
     /**
@@ -493,10 +533,10 @@ class RtlSdrTestActivity : AppCompatActivity() {
             if (ok) passed++ else failed++
             val icon = if (ok) "  ✓" else "  ✗"
             val detail = "%.1f× RT".format(throughput / minThroughput)
-            log("$icon  $name  [$detail]${if (!ok) "  ← FAIL" else ""}")
+            log("$icon  ${localizeTestName(name)}  [$detail]${if (!ok) "  ← 失败" else ""}")
         } catch (e: Throwable) {
             failed++
-            log("  ✗  $name  [exception: ${e.message}]")
+            log("  ✗  ${localizeTestName(name)}  [异常：${e.message}]")
         }
     }
 

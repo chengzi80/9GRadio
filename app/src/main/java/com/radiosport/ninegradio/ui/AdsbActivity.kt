@@ -65,9 +65,9 @@ class AdsbActivity : AppCompatActivity() {
             launch {
                 svc.connectionState.collectLatest { state ->
                     tvStatus.text = when (state) {
-                        is RtlSdrService.ConnectionState.Connected  -> "LIVE — 1090 MHz"
-                        is RtlSdrService.ConnectionState.Connecting -> "Connecting…"
-                        else -> "No Device"
+                        is RtlSdrService.ConnectionState.Connected  -> getString(R.string.adsb_live)
+                        is RtlSdrService.ConnectionState.Connecting -> getString(R.string.adsb_connecting)
+                        else -> getString(R.string.adsb_no_device)
                     }
                 }
             }
@@ -83,7 +83,7 @@ class AdsbActivity : AppCompatActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         setContentView(R.layout.activity_adsb)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        title = "ADS-B Radar (1090 MHz)"
+        title = getString(R.string.adsb_title)
 
         bindService(Intent(this, RtlSdrService::class.java), serviceConnection, BIND_AUTO_CREATE)
 
@@ -97,9 +97,9 @@ class AdsbActivity : AppCompatActivity() {
         listAircraft.setOnItemClickListener { _, _, pos, _ ->
             val entry = aircraftList.getOrNull(pos) ?: return@setOnItemClickListener
             android.app.AlertDialog.Builder(this)
-                .setTitle("Aircraft Detail")
+                .setTitle(getString(R.string.adsb_aircraft_detail))
                 .setMessage(entry.replace(" | ", "\n"))
-                .setPositiveButton("OK", null).show()
+                .setPositiveButton(getString(R.string.adsb_ok), null).show()
         }
 
         // Auto-tune to 1090 MHz and switch to ADS-B mode.
@@ -129,7 +129,7 @@ class AdsbActivity : AppCompatActivity() {
                 val cutoff = System.currentTimeMillis() - 120_000L
                 aircraft.entries.removeAll { it.value.timestamp < cutoff }
                 radarView.updateAircraft(aircraft.values.toList())
-                tvAircraftCount.text = "Aircraft: ${aircraft.size}"
+                tvAircraftCount.text = getString(R.string.adsb_aircraft_count, aircraft.size)
 
                 // Update text list
                 aircraftList.clear()
@@ -140,7 +140,7 @@ class AdsbActivity : AppCompatActivity() {
                         val alt = ac.altitude?.let { "FL${it / 100}" } ?: "??"
                         val pos = if (ac.latitude != null && ac.longitude != null)
                             "${"%.2f".format(ac.latitude)},${"%.2f".format(ac.longitude)}"
-                        else "no pos"
+                        else getString(R.string.adsb_no_position)
                         val spd = ac.velocity?.let { "${it}kt" } ?: ""
                         aircraftList.add("$callsign | $alt | $pos $spd")
                     }
@@ -151,7 +151,7 @@ class AdsbActivity : AppCompatActivity() {
         // Status indicator — read connectionState directly from the bound service.
         // viewModel.connectionState is scoped to this Activity's own ViewModel instance
         // (separate from MainActivity's), so it always starts Disconnected and shows
-        // "No Device" even when a device is live.  We start the observer in
+        // getString(R.string.adsb_no_device) even when a device is live.  We start the observer in
         // startIqFeed() once sdrService is available instead.
     }
 

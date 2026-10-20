@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="APRS Monitor"
+        android:text="@string/aprs_title"
         android:textColor="#00CCFF"
         android:textSize="13sp"
         android:textAllCaps="true"
@@ -31,7 +31,7 @@
         android:id="@+id/tvAprsTabMode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Not active"
+        android:text="@string/protocol_not_active"
         android:textColor="#66FFFFFF"
         android:textSize="10sp"
         android:fontFamily="monospace"
@@ -51,7 +51,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Idle"
+            android:text="@string/protocol_idle"
             android:textColor="#44FF88"
             android:textSize="11sp"
             android:fontFamily="monospace"/>
@@ -60,7 +60,7 @@
             android:id="@+id/tvAprsTabCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Packets: 0"
+            android:text="@string/protocol_packets_zero"
             android:textColor="#FFAA00"
             android:textSize="11sp"
             android:fontFamily="monospace"/>
@@ -74,7 +74,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Recent Packets (tap for detail)"
+        android:text="@string/protocol_recent_packets"
         android:textColor="#88FFFFFF"
         android:textSize="10sp"
         android:layout_marginBottom="4dp"/>

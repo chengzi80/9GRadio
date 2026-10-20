@@ -16,7 +16,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
-    <!-- Required on Android 11+ to detect the RTLSDR Driver app (com.sdrtouch.rtlsdr) -->
     <queries>
         <package android:name="com.sdrtouch.rtlsdr" />
         <intent>
@@ -57,19 +56,19 @@
             android:parentActivityName=".ui.MainActivity" android:label="@string/settings" />
         <activity android:name=".ui.SpectrumActivity" android:exported="false"
             android:configChanges="orientation|screenSize" android:label="@string/spectrum" />
-        <activity android:name=".ui.MemoryActivity"   android:exported="false" android:label="@string/memory_channels" />
+        <activity android:name=".ui.MemoryActivity" android:exported="false" android:label="@string/memory_channels" />
         <activity android:name=".ui.RecordingActivity" android:exported="false" android:label="@string/recordings" />
-        <activity android:name=".ui.BookmarkActivity"  android:exported="false" android:label="Bookmarks" />
-        <activity android:name=".ui.AdsbActivity"     android:exported="false"
-            android:configChanges="orientation|screenSize" android:label="ADS-B Radar" />
-        <activity android:name=".ui.AprsActivity"     android:exported="false" android:label="APRS Monitor" />
-        <activity android:name=".ui.AcarsActivity"    android:exported="false" android:label="ACARS Monitor" />
+        <activity android:name=".ui.BookmarkActivity" android:exported="false" android:label="@string/bookmarks" />
+        <activity android:name=".ui.AdsbActivity" android:exported="false"
+            android:configChanges="orientation|screenSize" android:label="@string/adsb_radar" />
+        <activity android:name=".ui.AprsActivity" android:exported="false" android:label="@string/aprs_monitor" />
+        <activity android:name=".ui.AcarsActivity" android:exported="false" android:label="@string/acars_monitor" />
 
         <activity android:name=".ui.DebugPanelActivity" android:exported="false"
-            android:label="Debug Panel" android:parentActivityName=".ui.MainActivity" />
+            android:label="@string/debug_panel" android:parentActivityName=".ui.MainActivity" />
 
         <activity android:name=".ui.RtlSdrTestActivity" android:exported="false"
-            android:label="RTL-SDR Tests" android:parentActivityName=".ui.MainActivity" />
+            android:label="@string/rtl_sdr_tests" android:parentActivityName=".ui.MainActivity" />
 
         <service android:name=".usb.RtlSdrService" android:exported="false"
             android:foregroundServiceType="specialUse" />

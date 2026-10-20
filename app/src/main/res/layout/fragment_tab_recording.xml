@@ -17,19 +17,19 @@
     android:paddingBottom="12dp">
 
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:text="Recording" android:textColor="#FF4444" android:textSize="13sp"
+        android:text="@string/recording" android:textColor="#FF4444" android:textSize="13sp"
         android:textAllCaps="true" android:letterSpacing="0.1" android:layout_marginBottom="8dp"/>
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
         android:orientation="horizontal" android:gravity="center_vertical">
         <Button android:id="@+id/btnRecordIq"
             android:layout_width="0dp" android:layout_height="44dp"
-            android:layout_weight="1" android:text="Record IQ"
+            android:layout_weight="1" android:text="@string/action_record_iq"
             android:backgroundTint="#333333" android:textColor="#FF4444"
             android:layout_marginEnd="8dp"/>
         <Button android:id="@+id/btnRecordAudio"
             android:layout_width="0dp" android:layout_height="44dp"
-            android:layout_weight="1" android:text="Record Audio"
+            android:layout_weight="1" android:text="@string/record_audio"
             android:backgroundTint="#333333" android:textColor="#FF4444"/>
     </LinearLayout>
 
@@ -40,7 +40,7 @@
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
         android:orientation="horizontal" android:gravity="center_vertical">
         <TextView android:layout_width="120dp" android:layout_height="wrap_content"
-            android:text="Auto-Stop" android:textColor="#AAFFFFFF" android:textSize="13sp"/>
+            android:text="@string/auto_stop" android:textColor="#AAFFFFFF" android:textSize="13sp"/>
         <Spinner android:id="@+id/spinnerRecordStop"
             android:layout_width="0dp" android:layout_height="wrap_content"
             android:layout_weight="1" android:backgroundTint="#FF4444"/>
@@ -52,10 +52,10 @@
         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
             android:layout_weight="1" android:orientation="vertical">
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Squelch-Gated Recording"
+                android:text="@string/squelch_gated_recording"
                 android:textColor="#AAFFFFFF" android:textSize="13sp"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Only record when signal is above squelch threshold"
+                android:text="@string/squelch_gated_summary"
                 android:textColor="#66FFFFFF" android:textSize="10sp"/>
         </LinearLayout>
         <Switch android:id="@+id/switchSquelchRecord"
@@ -74,7 +74,7 @@
             android:background="#33FFFFFF" android:layout_marginVertical="12dp"/>
 
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:text="Recordings" android:textColor="#FF4444" android:textSize="13sp"
+            android:text="@string/recordings" android:textColor="#FF4444" android:textSize="13sp"
             android:textAllCaps="true" android:letterSpacing="0.1" android:layout_marginBottom="6dp"/>
 
         <androidx.recyclerview.widget.RecyclerView

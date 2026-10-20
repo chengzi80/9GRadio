@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginEnd="4dp"
-            android:text="Run Tests"
+            android:text="@string/rtlsdr_run_tests"
             android:textColor="#0D1117"
             android:backgroundTint="#00CCFF" />
 
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="4dp"
-            android:text="Clear Log"
+            android:text="@string/rtlsdr_clear_log"
             android:textColor="#FFFFFF"
             android:backgroundTint="#21262D" />
     </LinearLayout>

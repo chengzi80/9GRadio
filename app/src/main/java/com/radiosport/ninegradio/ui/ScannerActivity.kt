@@ -76,7 +76,7 @@ class ScannerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scanner)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        title = "Frequency Scanner"
+        title = getString(R.string.scanner)
 
         // Bind to service
         bindService(
@@ -126,7 +126,7 @@ class ScannerActivity : AppCompatActivity() {
         val memPrefs = getSharedPreferences("scan_memory_slots", MODE_PRIVATE)
         val memSlotLabels = (1..MEMORY_SLOT_COUNT).map { slot ->
             val saved = memPrefs.getString("slot_$slot", null)
-            if (saved != null) "Slot $slot (saved)" else "Slot $slot (empty)"
+            if (saved != null) getString(R.string.scan_slot_saved, slot) else getString(R.string.scan_slot_empty, slot)
         }
         val memSlotAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, memSlotLabels.toMutableList())
         spinnerMemSlot.adapter = memSlotAdapter
@@ -137,7 +137,7 @@ class ScannerActivity : AppCompatActivity() {
                 val saved = memPrefs.getString("slot_$slot", null)
                 memSlotAdapter.getItem(i)
                 memSlotAdapter.remove(memSlotAdapter.getItem(i))
-                memSlotAdapter.insert(if (saved != null) "Slot $slot (saved)" else "Slot $slot (empty)", i)
+                memSlotAdapter.insert(if (saved != null) getString(R.string.scan_slot_saved, slot) else getString(R.string.scan_slot_empty, slot), i)
             }
             memSlotAdapter.notifyDataSetChanged()
         }
@@ -156,14 +156,14 @@ class ScannerActivity : AppCompatActivity() {
             }
             memPrefs.edit().putString("slot_$slot", params.toString()).apply()
             refreshMemSlotLabels()
-            Toast.makeText(this, "Saved scan parameters to slot $slot", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.scan_saved_params, slot), Toast.LENGTH_SHORT).show()
         }
 
         btnMemLoad.setOnClickListener {
             val slot = spinnerMemSlot.selectedItemPosition + 1
             val raw = memPrefs.getString("slot_$slot", null)
             if (raw == null) {
-                Toast.makeText(this, "Slot $slot is empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.scan_empty_slot, slot), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             try {
@@ -176,9 +176,9 @@ class ScannerActivity : AppCompatActivity() {
                 spinnerMode.setSelection(params.optInt("modeIdx", 0))
                 switchDirection.isChecked = params.optBoolean("scanDown", false)
                 switchAdaptive.isChecked = params.optBoolean("adaptive", false)
-                Toast.makeText(this, "Loaded scan parameters from slot $slot", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.scan_loaded_params, slot), Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
-                Toast.makeText(this, "Slot $slot is corrupted", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.scan_corrupt_slot, slot), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -194,12 +194,12 @@ class ScannerActivity : AppCompatActivity() {
             val hz = hitLogFreqs.getOrNull(pos) ?: return@setOnItemLongClickListener true
             AlertDialog.Builder(this)
                 .setTitle("${"%.4f".format(hz / 1e6)} MHz")
-                .setMessage("Lock this frequency out of the current scan? It will be skipped until the scan is stopped.")
-                .setPositiveButton("Lock out") { _, _ ->
+                .setMessage(getString(R.string.scan_lockout_message))
+                .setPositiveButton(getString(R.string.scan_lockout)) { _, _ ->
                     scanner?.lockout(hz)
-                    Toast.makeText(this, "Locked out ${"%.4f".format(hz / 1e6)} MHz", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.scan_locked_out, "%.4f".format(hz / 1e6)), Toast.LENGTH_SHORT).show()
                 }
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(getString(R.string.cancel), null)
                 .show()
             true
         }
@@ -212,22 +212,22 @@ class ScannerActivity : AppCompatActivity() {
             scanning = false
             paused = false
             searching = false
-            btnStartStop.text = "Start Scan"
-            btnPause.text = "Pause"
+            btnStartStop.text = getString(R.string.scan_start)
+            btnPause.text = getString(R.string.scan_pause)
             btnPause.isVisible = false
-            btnSearch.text = "Search Mode"
+            btnSearch.text = getString(R.string.scan_search_mode)
             progressScan.isVisible = false
         }
 
         fun getSourceOrToast(): Pair<RtlSdrService, com.radiosport.ninegradio.source.IqSource>? {
             val svc = sdrService
             if (svc == null) {
-                Toast.makeText(this, "No RTL-SDR connected", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.scan_no_device), Toast.LENGTH_SHORT).show()
                 return null
             }
             val source = svc.source
             if (source == null) {
-                Toast.makeText(this, "No IQ source connected", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.scan_no_iq_source), Toast.LENGTH_SHORT).show()
                 return null
             }
             return svc to source
@@ -247,10 +247,10 @@ class ScannerActivity : AppCompatActivity() {
                 sc.status.collectLatest { status ->
                     progressScan.progress = (status.progress * 100).toInt()
                     tvCurrentFreq.text = "${"%.4f".format(status.currentFreqHz / 1e6)} MHz"
-                    tvHits.text = "Hits: ${status.hitsFound}"
+                    tvHits.text = getString(R.string.scan_hits_label, status.hitsFound)
                     tvSignal.text = "${"%.1f".format(status.signalDb)} dB"
-                    tvNoiseFloor.text = "Floor: ${"%.1f".format(status.noiseFloorDb)} dB"
-                    tvRate.text = "${"%.1f".format(status.channelsPerSecond)} ch/s"
+                    tvNoiseFloor.text = getString(R.string.scan_floor_label, status.noiseFloorDb)
+                    tvRate.text = getString(R.string.scan_rate_label, status.channelsPerSecond)
                 }
             }
             lifecycleScope.launch {
@@ -332,7 +332,7 @@ class ScannerActivity : AppCompatActivity() {
                         attachCollectors(sc)
                     }
                 scanning = true
-                btnStartStop.text = "Stop Scan"
+                btnStartStop.text = getString(R.string.scan_stop)
                 btnPause.isVisible = true
                 progressScan.isVisible = true
                 btnSearch.isEnabled = false
@@ -361,22 +361,22 @@ class ScannerActivity : AppCompatActivity() {
             // Reset the live status readouts.
             progressScan.progress = 0
             tvCurrentFreq.text = "---"
-            tvHits.text = "Hits: 0"
+            tvHits.text = getString(R.string.scan_hits_zero)
             tvSignal.text = "--- dB"
-            tvNoiseFloor.text = "Floor: --- dB"
+            tvNoiseFloor.text = getString(R.string.scan_floor_unknown)
             tvRate.text = "--- ch/s"
 
-            Toast.makeText(this, "Scan list reset", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.scan_reset_list), Toast.LENGTH_SHORT).show()
         }
 
         btnPause.setOnClickListener {
             if (!paused) {
                 scanner?.pauseScan()
-                btnPause.text = "Resume"
+                btnPause.text = getString(R.string.scan_resume)
                 paused = true
             } else {
                 scanner?.resumeScan()
-                btnPause.text = "Pause"
+                btnPause.text = getString(R.string.scan_pause)
                 paused = false
             }
         }
@@ -400,7 +400,7 @@ class ScannerActivity : AppCompatActivity() {
                     }
                 searching = true
                 scanning = true
-                btnSearch.text = "Stop Search"
+                btnSearch.text = getString(R.string.scan_stop_search)
                 btnStartStop.isEnabled = false
                 progressScan.isVisible = true
             } else {
@@ -414,21 +414,21 @@ class ScannerActivity : AppCompatActivity() {
         btnBusiest.setOnClickListener {
             val sc = scanner
             if (sc == null) {
-                Toast.makeText(this, "Start a scan first", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.scan_start_first), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             val top = sc.topFrequencies(15)
             if (top.isEmpty()) {
-                Toast.makeText(this, "No hits recorded yet", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.scan_no_hits), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             val message = top.joinToString("\n") { (hz, count) ->
-                "${"%.4f".format(hz / 1e6)} MHz  —  $count hit${if (count == 1) "" else "s"}"
+                getString(R.string.scan_busiest_item, "%.4f".format(hz / 1e6), count)
             }
             AlertDialog.Builder(this)
-                .setTitle("Busiest Frequencies")
+                .setTitle(getString(R.string.scan_busiest_title))
                 .setMessage(message)
-                .setPositiveButton("Close", null)
+                .setPositiveButton(getString(R.string.scan_close), null)
                 .show()
         }
     }

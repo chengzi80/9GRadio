@@ -47,9 +47,10 @@ class ControlsPagerAdapter : RecyclerView.Adapter<ControlsPagerAdapter.TabHolder
         const val TAB_SCAN      = 12
         const val TAB_COUNT     = 13
 
-        val TAB_TITLES = arrayOf(
-            "Mode", "Tune", "RF", "Display", "Rec", "Settings",
-            "APRS", "ACARS", "DMR", "YSF", "D-STAR", "Dig", "Scan"
+        val TAB_TITLE_RES_IDS = intArrayOf(
+            R.string.tab_mode, R.string.tab_tune, R.string.tab_rf, R.string.tab_display,
+            R.string.tab_recording, R.string.tab_settings, R.string.tab_aprs, R.string.tab_acars,
+            R.string.tab_dmr, R.string.tab_ysf, R.string.tab_dstar, R.string.tab_dig, R.string.tab_scan
         )
 
         private val LAYOUTS = intArrayOf(

@@ -13,14 +13,14 @@
             android:orientation="vertical">
 
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:text="Scan Range (MHz)" android:textColor="#00CCFF" android:textSize="13sp"
+                android:text="@string/scan_range_mhz" android:textColor="#00CCFF" android:textSize="13sp"
                 android:layout_marginBottom="8dp"/>
 
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:layout_weight="1" android:hint="Start MHz"
+                    android:layout_weight="1" android:hint="@string/scan_start_mhz"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_marginEnd="8dp">
                     <com.google.android.material.textfield.TextInputEditText
@@ -31,7 +31,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:layout_weight="1" android:hint="Stop MHz"
+                    android:layout_weight="1" android:hint="@string/scan_stop_mhz"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etScanStop"
@@ -45,7 +45,7 @@
                 android:orientation="horizontal" android:layout_marginTop="8dp">
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:layout_weight="1" android:hint="Step Hz"
+                    android:layout_weight="1" android:hint="@string/scan_step_hz"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_marginEnd="8dp">
                     <com.google.android.material.textfield.TextInputEditText
@@ -56,7 +56,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:layout_weight="1" android:hint="Squelch dB"
+                    android:layout_weight="1" android:hint="@string/scan_squelch_db"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etScanSquelch"
@@ -70,7 +70,7 @@
                 android:orientation="horizontal" android:layout_marginTop="8dp">
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:layout_weight="1" android:hint="Dwell ms"
+                    android:layout_weight="1" android:hint="@string/scan_dwell_ms"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_marginEnd="8dp">
                     <com.google.android.material.textfield.TextInputEditText
@@ -89,7 +89,7 @@
                 android:orientation="horizontal" android:gravity="center_vertical"
                 android:layout_marginTop="12dp">
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:layout_weight="1" android:text="Scan Direction: Down"
+                    android:layout_weight="1" android:text="@string/scan_direction_down"
                     android:textColor="#AAFFFFFF" android:textSize="13sp"/>
                 <Switch android:id="@+id/switchScanDirection"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"/>
@@ -101,7 +101,7 @@
                 android:layout_marginTop="4dp">
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Adaptive Squelch (auto noise-floor tracking)"
+                    android:text="@string/scan_adaptive_squelch"
                     android:textColor="#AAFFFFFF" android:textSize="13sp"/>
                 <Switch android:id="@+id/switchScanAdaptive"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
                 android:orientation="horizontal" android:gravity="center_vertical"
                 android:layout_marginTop="12dp">
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="Memory" android:textColor="#00CCFF" android:textSize="13sp"
+                    android:text="@string/scan_memory" android:textColor="#00CCFF" android:textSize="13sp"
                     android:layout_marginEnd="8dp"/>
                 <Spinner android:id="@+id/spinnerScanMemorySlot"
                     android:layout_width="0dp" android:layout_height="wrap_content"
@@ -121,12 +121,12 @@
                     android:layout_marginEnd="8dp"/>
                 <Button android:id="@+id/btnScanMemSave"
                     android:layout_width="wrap_content" android:layout_height="40dp"
-                    android:text="Save" android:textSize="12sp"
+                    android:text="@string/scan_save" android:textSize="12sp"
                     android:backgroundTint="#2C3440" android:textColor="#FFFFFF"
                     android:layout_marginEnd="8dp"/>
                 <Button android:id="@+id/btnScanMemLoad"
                     android:layout_width="wrap_content" android:layout_height="40dp"
-                    android:text="Load" android:textSize="12sp"
+                    android:text="@string/scan_load" android:textSize="12sp"
                     android:backgroundTint="#2C3440" android:textColor="#FFFFFF"/>
             </LinearLayout>
 
@@ -135,17 +135,17 @@
                 android:orientation="horizontal" android:layout_marginTop="16dp">
                 <Button android:id="@+id/btnScanStartStop"
                     android:layout_width="0dp" android:layout_height="48dp"
-                    android:layout_weight="1" android:text="Start Scan"
+                    android:layout_weight="1" android:text="@string/scan_start"
                     android:backgroundTint="#00CC44" android:textColor="#000000"
                     android:layout_marginEnd="8dp"/>
                 <Button android:id="@+id/btnScanReset"
                     android:layout_width="0dp" android:layout_height="48dp"
-                    android:layout_weight="1" android:text="Reset"
+                    android:layout_weight="1" android:text="@string/scan_reset"
                     android:backgroundTint="#2C3440" android:textColor="#FFFFFF"
                     android:layout_marginEnd="8dp"/>
                 <Button android:id="@+id/btnScanPause"
                     android:layout_width="0dp" android:layout_height="48dp"
-                    android:layout_weight="1" android:text="Pause"
+                    android:layout_weight="1" android:text="@string/scan_pause"
                     android:backgroundTint="#FFAA00" android:textColor="#000000"
                     android:visibility="gone"/>
             </LinearLayout>
@@ -154,13 +154,13 @@
                 android:orientation="horizontal" android:layout_marginTop="8dp">
                 <Button android:id="@+id/btnScanSearch"
                     android:layout_width="0dp" android:layout_height="44dp"
-                    android:layout_weight="1" android:text="Search Mode"
+                    android:layout_weight="1" android:text="@string/scan_search_mode"
                     android:textSize="12sp"
                     android:backgroundTint="#7A5CFF" android:textColor="#FFFFFF"
                     android:layout_marginEnd="8dp"/>
                 <Button android:id="@+id/btnScanBusiest"
                     android:layout_width="0dp" android:layout_height="44dp"
-                    android:layout_weight="1" android:text="Busiest"
+                    android:layout_weight="1" android:text="@string/scan_busiest"
                     android:textSize="12sp"
                     android:backgroundTint="#2C3440" android:textColor="#FFFFFF"/>
             </LinearLayout>
@@ -188,7 +188,7 @@
                     android:layout_marginEnd="16dp"/>
                 <TextView android:id="@+id/tvScanHits"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="Hits: 0" android:textColor="#FFAA00"
+                    android:text="@string/scan_hits_zero" android:textColor="#FFAA00"
                     android:textSize="14sp" android:fontFamily="monospace"/>
             </LinearLayout>
 
@@ -196,7 +196,7 @@
                 android:orientation="horizontal" android:layout_marginTop="4dp">
                 <TextView android:id="@+id/tvScanNoiseFloor"
                     android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:layout_weight="1" android:text="Floor: --- dB"
+                    android:layout_weight="1" android:text="@string/scan_floor_unknown"
                     android:textColor="#77AACCFF" android:textSize="12sp"
                     android:fontFamily="monospace"/>
                 <TextView android:id="@+id/tvScanRate"
@@ -206,7 +206,7 @@
             </LinearLayout>
 
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:text="Active Frequencies (tap to tune, long-press to lock out):"
+                android:text="@string/scan_active_frequencies"
                 android:textColor="#88FFFFFF" android:textSize="12sp"
                 android:layout_marginTop="12dp" android:layout_marginBottom="4dp"/>
         </LinearLayout>

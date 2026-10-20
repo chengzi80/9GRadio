@@ -182,8 +182,8 @@ class AprsActivity : AppCompatActivity() {
             svc.enableDualAprs(currentCentreHz)
             dualWatchActive = true
 
-            title = "APRS Monitor — Dual Watch (NA + EU)"
-            tvMode.text = "Dual Watch: 144.390 + 144.800 MHz  |  ${deviceRate / 1000} kS/s"
+            title = getString(R.string.aprs_title_dual)
+            tvMode.text = getString(R.string.aprs_mode_dual, deviceRate / 1000)
         } else {
             // ── Single-channel: tune directly to singleChannelHz ─────────────
             svc.disableDualAprs()
@@ -192,9 +192,8 @@ class AprsActivity : AppCompatActivity() {
             svc.setFrequency(currentCentreHz)
 
             val label = if (singleChannelHz == DspEngine.APRS_NA_HZ) "NA 144.390" else "EU 144.800"
-            title = "APRS Monitor — $label MHz"
-            tvMode.text = "Single channel: ${"%.3f".format(currentCentreHz / 1e6)} MHz  |  " +
-                          "${deviceRate / 1000} kS/s  (≥820 kS/s for dual-watch)"
+            title = getString(R.string.aprs_title_single, label)
+            tvMode.text = getString(R.string.aprs_mode_single_detail, "%.3f".format(currentCentreHz / 1e6), deviceRate / 1000)
         }
 
         // Keep both decoders' sample-rate caches in sync with the audio rate
@@ -216,15 +215,15 @@ class AprsActivity : AppCompatActivity() {
                 svc.connectionState.collectLatest { state ->
                     when (state) {
                         is RtlSdrService.ConnectionState.Connected -> {
-                            tvStatus.text = "Listening…"
+                            tvStatus.text = getString(R.string.aprs_listening)
                             svc.statsFlow.collect { stats ->
-                                tvStatus.text = if (stats.squelchOpen) "SIGNAL ▲" else "Listening…"
+                                tvStatus.text = if (stats.squelchOpen) getString(R.string.aprs_signal) else getString(R.string.aprs_listening)
                             }
                         }
                         is RtlSdrService.ConnectionState.Connecting ->
-                            tvStatus.text = "Connecting…"
+                            tvStatus.text = getString(R.string.aprs_connecting)
                         else ->
-                            tvStatus.text = "No Device"
+                            tvStatus.text = getString(R.string.aprs_no_device)
                     }
                 }
             }
@@ -303,7 +302,7 @@ class AprsActivity : AppCompatActivity() {
         if (displayList.size > 200) displayList.removeLast()
         adapter.notifyDataSetChanged()
 
-        tvPacketCnt?.text = "Packets: ${packets.size}"
+        tvPacketCnt?.text = getString(R.string.aprs_packets, packets.size)
         aprsMapView?.addPacket(pkt)
     }
 
@@ -389,17 +388,17 @@ class AprsActivity : AppCompatActivity() {
         android.app.AlertDialog.Builder(this)
             .setTitle("[${dp.channel}] ${pkt.source} → ${pkt.destination}")
             .setMessage(buildString {
-                appendLine("Channel:   ${dp.channel}")
-                appendLine("Source:    ${pkt.source}")
-                appendLine("Dest:      ${pkt.destination}")
-                appendLine("Path:      ${pkt.path}")
-                if (pkt.latitude  != null) appendLine("Lat:       ${"%.6f".format(pkt.latitude)}°")
-                if (pkt.longitude != null) appendLine("Lon:       ${"%.6f".format(pkt.longitude)}°")
-                appendLine("Payload:   ${pkt.payload.take(120)}")
-                appendLine("Comment:   ${pkt.comment}")
-                appendLine("Raw:       ${pkt.rawFrame.take(60)}…")
+                appendLine(getString(R.string.aprs_channel_detail, dp.channel))
+                appendLine(getString(R.string.aprs_source_detail, pkt.source))
+                appendLine(getString(R.string.aprs_dest_detail, pkt.destination))
+                appendLine(getString(R.string.aprs_path_detail, pkt.path))
+                if (pkt.latitude  != null) appendLine(getString(R.string.aprs_lat_detail, "%.6f".format(pkt.latitude) + "°"))
+                if (pkt.longitude != null) appendLine(getString(R.string.aprs_lon_detail, "%.6f".format(pkt.longitude) + "°"))
+                appendLine(getString(R.string.aprs_payload_detail, pkt.payload.take(120)))
+                appendLine(getString(R.string.aprs_comment_detail, pkt.comment))
+                appendLine(getString(R.string.aprs_raw_detail, pkt.rawFrame.take(60) + "…"))
             })
-            .setPositiveButton("OK", null)
+            .setPositiveButton(getString(R.string.ui_ok), null)
             .show()
     }
 
@@ -472,7 +471,7 @@ class AprsMapView @JvmOverloads constructor(
 
         // Station count label
         textPaint.color = 0xAAFFFFFF.toInt()
-        canvas.drawText("${stations.size} stations", 8f, h - 8f, textPaint)
+        canvas.drawText(context.getString(R.string.aprs_stations, stations.size), 8f, h - 8f, textPaint)
         textPaint.color = 0xCC44FFAA.toInt()
     }
 }

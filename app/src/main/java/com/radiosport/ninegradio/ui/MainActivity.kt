@@ -457,7 +457,7 @@ class MainActivity : AppCompatActivity() {
                         == PackageManager.PERMISSION_DENIED) {
                     when (perm) {
                         Manifest.permission.RECORD_AUDIO ->
-                            showSnackbar("Audio permission denied - audio output will be silent")
+                            showSnackbar(getString(R.string.ui_audio_permission))
                         Manifest.permission.POST_NOTIFICATIONS ->
                             showSnackbar("Notification permission denied - service notification hidden")
                     }
@@ -552,7 +552,7 @@ class MainActivity : AppCompatActivity() {
         suppressUsbAttach = false
 
         if (resultCode == android.app.Activity.RESULT_OK) {
-            showSnackbar("Rtl-sdr Driver ready -- connecting…")
+            showSnackbar(getString(R.string.ui_driver_ready))
             viewModel.connectTcp(RtlSdrDriverApp.DEFAULT_ADDRESS, RtlSdrDriverApp.DEFAULT_PORT)
         } else {
             // Driver returned failure -- read the error code if available
@@ -710,7 +710,7 @@ class MainActivity : AppCompatActivity() {
     // Bookmarks), the Bookmark/Memory/Scan FABs on the
     // main screen, or — for APRS/ACARS — simply selecting that protocol from
     // the Mode tab's chip group, which already navigates to its drawer tab
-    // automatically (see observeAprsMode/observeAcarsMode). "Connect rtl_tcp…"
+    // automatically (see observeAprsMode/observeAcarsMode). getString(R.string.ui_connect_rtl_tcp)
     // duplicated the Device Info button's action exactly and needed no replacement.
 
     // ─── UI Setup ─────────────────────────────────────────────────────────────
@@ -794,17 +794,17 @@ class MainActivity : AppCompatActivity() {
         val editText = android.widget.EditText(this).apply {
             inputType = android.text.InputType.TYPE_CLASS_NUMBER or
                 android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
-            hint = "MHz (e.g. 145.500)"
+            hint = getString(R.string.ui_frequency_hint)
             setText("%.6f".format(currentHz / 1_000_000.0).trimEnd('0').trimEnd('.'))
             textSize = 18f
             setPadding(48, 32, 48, 16)
             selectAll()
         }
         androidx.appcompat.app.AlertDialog.Builder(this)
-            .setTitle("Enter Frequency")
-            .setMessage("Type frequency in MHz")
+            .setTitle(getString(R.string.dialog_enter_frequency))
+            .setMessage(getString(R.string.ui_type_frequency))
             .setView(editText)
-            .setPositiveButton("Tune") { _, _ ->
+            .setPositiveButton(getString(R.string.ui_tune)) { _, _ ->
                 val mhz = editText.text.toString().toDoubleOrNull()
                 if (mhz != null && mhz > 0) {
                     val hz = (mhz * 1_000_000).toLong()
@@ -817,10 +817,10 @@ class MainActivity : AppCompatActivity() {
                     binding.waterfallView.setHardwareTunedFrequency(trueHardwareCenterFreqHz(hz))
                     showSnackbar("Tuned to ${"%.3f".format(hz / 1e6)} MHz")
                 } else {
-                    showSnackbar("Invalid frequency")
+                    showSnackbar(getString(R.string.ui_invalid_frequency))
                 }
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(getString(R.string.ui_cancel), null)
             .show()
             .also { dialog ->
                 // Auto-show keyboard
@@ -878,7 +878,7 @@ class MainActivity : AppCompatActivity() {
         val modes = listOf(
             DemodMode.AM, DemodMode.NFM, DemodMode.WFM, DemodMode.WFM_STEREO,
             DemodMode.USB, DemodMode.LSB, DemodMode.CW, DemodMode.CWR,
-            DemodMode.DSB, DemodMode.APRS, DemodMode.RAW,
+            DemodMode.DSB, DemodMode.APRS, DemodMode.RAW, DemodMode.ADSB,
             DemodMode.DMR, DemodMode.YSF, DemodMode.DSTAR, DemodMode.DIG
         )
         val chipGroup = ctrlViews.chipGroupDemod ?: return
@@ -889,8 +889,14 @@ class MainActivity : AppCompatActivity() {
                 isCheckable = true
                 tag = mode
                 setOnClickListener {
-                    viewModel.setDemodMode(mode)
-                    syncFrequencyDisplay()
+                    if (mode == DemodMode.ADSB) {
+                        // Selecting ADS-B opens the aircraft radar, which tunes
+                        // to 1090 MHz and configures the ADS-B decoder itself.
+                        startActivity(Intent(this@MainActivity, AdsbActivity::class.java))
+                    } else {
+                        viewModel.setDemodMode(mode)
+                        syncFrequencyDisplay()
+                    }
                 }
             }
             chipGroup.addView(chip)
@@ -957,29 +963,29 @@ class MainActivity : AppCompatActivity() {
                 val remaining = shutdownTargetMs - System.currentTimeMillis()
                 if (remaining <= 0) {
                     shutdownRunnable = null
-                    statusTv?.text = "Disconnects the SDR device and closes the app."
-                    ctrlViews.btnShutdown?.text = "Shutdown"
+                    statusTv?.text = getString(R.string.ui_shutdown_summary)
+                    ctrlViews.btnShutdown?.text = getString(R.string.ui_shutdown)
                     performShutdown()
                     return
                 }
                 val mins = (remaining / 60000).toInt()
                 val secs = ((remaining % 60000) / 1000).toInt()
-                statusTv?.text = "Shutting down in %d:%02d — tap Shutdown to cancel.".format(mins, secs)
-                ctrlViews.btnShutdown?.text = "Cancel"
+                statusTv?.text = getString(R.string.ui_shutdown_countdown, mins, secs)
+                ctrlViews.btnShutdown?.text = getString(R.string.ui_cancel)
                 shutdownHandler.postDelayed(this, 1000)
             }
         }
         shutdownRunnable = ticker
         shutdownHandler.post(ticker)
-        statusTv?.text = "Shutdown scheduled in $label. Tap Shutdown to cancel."
-        ctrlViews.btnShutdown?.text = "Cancel"
+        statusTv?.text = getString(R.string.ui_shutdown_cancel, label)
+        ctrlViews.btnShutdown?.text = getString(R.string.ui_cancel)
     }
 
     private fun cancelShutdownTimer(statusTv: android.widget.TextView?) {
         shutdownRunnable?.let { shutdownHandler.removeCallbacks(it) }
         shutdownRunnable = null
-        statusTv?.text = "Disconnects the SDR device and closes the app."
-        ctrlViews.btnShutdown?.text = "Shutdown"
+        statusTv?.text = getString(R.string.ui_shutdown_summary)
+        ctrlViews.btnShutdown?.text = getString(R.string.ui_shutdown)
     }
 
     /**
@@ -988,10 +994,10 @@ class MainActivity : AppCompatActivity() {
      */
     private fun confirmShutdown() {
         AlertDialog.Builder(this)
-            .setTitle("Shut down 9GRadio?")
-            .setMessage("This will disconnect the SDR device and close the app.")
-            .setPositiveButton("Shutdown") { _, _ -> performShutdown() }
-            .setNegativeButton("Cancel", null)
+            .setTitle(getString(R.string.dialog_shutdown_title))
+            .setMessage(getString(R.string.dialog_shutdown_message))
+            .setPositiveButton(getString(R.string.ui_shutdown)) { _, _ -> performShutdown() }
+            .setNegativeButton(getString(R.string.ui_cancel), null)
             .show()
     }
 
@@ -1302,12 +1308,12 @@ class MainActivity : AppCompatActivity() {
         ctrlViews.btnRecordIq!!.setOnClickListener {
             if (viewModel.dspStats.value.isRecordingIq) {
                 viewModel.stopIqRecording()
-                ctrlViews.btnRecordIq!!.text = "Record IQ"
+                ctrlViews.btnRecordIq!!.text = getString(R.string.action_record_iq)
                 ctrlViews.btnRecordIq!!.setBackgroundColor(0xFF444444.toInt())
             } else {
                 val path = getIqFilePath()
                 viewModel.startIqRecording(path)
-                ctrlViews.btnRecordIq!!.text = "Stop IQ"
+                ctrlViews.btnRecordIq!!.text = getString(R.string.ui_recording_iq)
                 ctrlViews.btnRecordIq!!.setBackgroundColor(0xFFCC0000.toInt())
                 showSnackbar("Recording IQ to: $path")
             }
@@ -1317,12 +1323,12 @@ class MainActivity : AppCompatActivity() {
         ctrlViews.btnRecordAudio!!.setOnClickListener {
             if (viewModel.dspStats.value.isRecordingAudio) {
                 viewModel.stopAudioRecording()
-                ctrlViews.btnRecordAudio!!.text = "Record Audio"
+                ctrlViews.btnRecordAudio!!.text = getString(R.string.action_record_audio)
                 ctrlViews.btnRecordAudio!!.setBackgroundColor(0xFF444444.toInt())
             } else {
                 val path = getAudioFilePath()
                 viewModel.startAudioRecording(path)
-                ctrlViews.btnRecordAudio!!.text = "Stop Audio"
+                ctrlViews.btnRecordAudio!!.text = getString(R.string.ui_recording_audio)
                 ctrlViews.btnRecordAudio!!.setBackgroundColor(0xFFCC0000.toInt())
                 showSnackbar("Recording audio to: $path")
             }
@@ -1939,17 +1945,17 @@ class MainActivity : AppCompatActivity() {
             ControlsPagerAdapter.TAB_RECORDING -> {
                 val stats = v.dspStats.value
                 if (stats.isRecordingIq) {
-                    ctrlViews.btnRecordIq?.text = "Stop IQ"
+                    ctrlViews.btnRecordIq?.text = getString(R.string.ui_recording_iq)
                     ctrlViews.btnRecordIq?.setBackgroundColor(0xFFCC0000.toInt())
                 } else {
-                    ctrlViews.btnRecordIq?.text = "Record IQ"
+                    ctrlViews.btnRecordIq?.text = getString(R.string.action_record_iq)
                     ctrlViews.btnRecordIq?.setBackgroundColor(0xFF444444.toInt())
                 }
                 if (stats.isRecordingAudio) {
-                    ctrlViews.btnRecordAudio?.text = "Stop Audio"
+                    ctrlViews.btnRecordAudio?.text = getString(R.string.ui_recording_audio)
                     ctrlViews.btnRecordAudio?.setBackgroundColor(0xFFCC0000.toInt())
                 } else {
-                    ctrlViews.btnRecordAudio?.text = "Record Audio"
+                    ctrlViews.btnRecordAudio?.text = getString(R.string.action_record_audio)
                     ctrlViews.btnRecordAudio?.setBackgroundColor(0xFF444444.toInt())
                 }
             }
@@ -2058,7 +2064,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         TabLayoutMediator(binding.controlTabLayout, pager) { tab, pos ->
-            tab.text = ControlsPagerAdapter.TAB_TITLES[pos]
+            tab.text = getString(ControlsPagerAdapter.TAB_TITLE_RES_IDS[pos])
         }.attach()
 
         // Scroll to top of the drawer content whenever a tab label is tapped --
@@ -2827,7 +2833,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     is RtlSdrService.ConnectionState.Disconnected -> updateConnectionUi(false)
                     is RtlSdrService.ConnectionState.Connecting -> {
-                        binding.tvDeviceName.text = "Connecting…"
+                        binding.tvDeviceName.text = getString(R.string.ui_connecting)
                         binding.progressConnect.isVisible = true
                     }
                     is RtlSdrService.ConnectionState.Error -> {
@@ -3010,7 +3016,7 @@ class MainActivity : AppCompatActivity() {
                     if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
                         viewModel.connectDevice(device)
                     } else {
-                        showSnackbar("USB permission denied")
+                        showSnackbar(getString(R.string.ui_usb_permission))
                     }
                     try { unregisterReceiver(this) } catch (_: Exception) {}
                     if (pendingPermReceiver === this) pendingPermReceiver = null
@@ -3154,7 +3160,7 @@ class MainActivity : AppCompatActivity() {
         binding.statusIndicator.setImageResource(
             if (connected) R.drawable.ic_connected else R.drawable.ic_disconnected
         )
-        binding.tvDeviceName.text = if (connected) "9GRadio" else "Not Connected"
+        binding.tvDeviceName.text = if (connected) "9GRadio" else getString(R.string.label_not_connected)
 
         // When disconnected, clear the live-data widgets so stale readings
         // (−120.0 dBFS, 0 kS/s) don't persist after the device is unplugged.
@@ -3198,7 +3204,7 @@ class MainActivity : AppCompatActivity() {
      *  └────────────────────────────────────────────────────────┘
      *
      * The toggle switch performs the source transition on its own -- no extra
-     * button press needed.  "Connect" is reserved for manual external TCP only.
+     * button press needed.  getString(R.string.ui_connect) is reserved for manual external TCP only.
      */
     private fun showDeviceInfo() {
         val dp  = resources.displayMetrics.density
@@ -3218,7 +3224,7 @@ class MainActivity : AppCompatActivity() {
                 "Source: ${src.getSourceName()}\n" +
                 "Sample rate: ${src.getSampleRate() / 1000} kS/s\n" +
                 "Frequency: ${"%.4f".format(src.getCenterFrequency() / 1e6)} MHz"
-            else "No device connected"
+            else getString(R.string.ui_no_device_connected)
         }
 
         // ── Root layout ───────────────────────────────────────────────────────
@@ -3252,7 +3258,7 @@ class MainActivity : AppCompatActivity() {
             setPadding(0, 0, 0, (4 * dp).toInt())
         }
         val tvToggleLabel = android.widget.TextView(this).apply {
-            text = if (isDriverMode) "Source: Rtl-sdr Driver" else "Source: USB"
+            text = if (isDriverMode) getString(R.string.ui_source_driver) else getString(R.string.ui_source_usb)
             layoutParams = android.widget.LinearLayout.LayoutParams(
                 0, android.widget.LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
         }
@@ -3272,7 +3278,7 @@ class MainActivity : AppCompatActivity() {
                 else -> {
                     val devs = viewModel.detectUsbDevices()
                     if (devs.isNotEmpty()) "🔌  ${com.radiosport.ninegradio.usb.RtlSdrDevice.getDeviceName(devs.first())}"
-                    else "No USB RTL-SDR device detected"
+                    else getString(R.string.message_no_usb_device)
                 }
             }
             setTextAppearance(com.google.android.material.R.style.TextAppearance_MaterialComponents_Body2)
@@ -3287,15 +3293,15 @@ class MainActivity : AppCompatActivity() {
         var ignoreNext = false
         switchSource.setOnCheckedChangeListener { _, useDriver ->
             if (ignoreNext) { ignoreNext = false; return@setOnCheckedChangeListener }
-            tvToggleLabel.text = if (useDriver) "Source: Rtl-sdr Driver" else "Source: USB"
+            tvToggleLabel.text = if (useDriver) getString(R.string.ui_source_driver) else getString(R.string.ui_source_usb)
 
             if (useDriver) {
                 // USB → Rtl-sdr Driver
                 if (!driverInstalled) {
-                    showSnackbar("Rtl-sdr Driver not installed")
+                    showSnackbar(getString(R.string.ui_driver_not_installed))
                     ignoreNext = true
                     switchSource.isChecked = false
-                    tvToggleLabel.text = "Source: USB"
+                    tvToggleLabel.text = getString(R.string.ui_source_usb)
                     RtlSdrDriverApp.openPlayStore(this)
                     return@setOnCheckedChangeListener
                 }
@@ -3314,8 +3320,8 @@ class MainActivity : AppCompatActivity() {
                 val handler = android.os.Handler(android.os.Looper.getMainLooper())
                 val usbSettleMs = if (wasUsb) 400L else 0L
 
-                showSnackbar(if (wasUsb) "Releasing USB… launching $driverLabel" else "Launching $driverLabel…")
-                tvStatus.text = "📡  $driverLabel  (launching…)"
+                showSnackbar(if (wasUsb) getString(R.string.ui_driver_releasing_usb, driverLabel) else getString(R.string.ui_driver_launching, driverLabel))
+                tvStatus.text = "📡  " + getString(R.string.ui_driver_launching, driverLabel)
 
                 // Wait for USB to settle before launching (only if we just released a USB device).
                 handler.postDelayed({
@@ -3329,11 +3335,11 @@ class MainActivity : AppCompatActivity() {
                     )
                     if (!launched) {
                         suppressUsbAttach = false
-                        showSnackbar("Could not launch $driverLabel")
+                        showSnackbar(getString(R.string.ui_driver_launch_failed, driverLabel))
                         ignoreNext = true
                         switchSource.isChecked = false
-                        tvToggleLabel.text = "Source: USB"
-                        tvStatus.text = "Could not launch $driverLabel"
+                        tvToggleLabel.text = getString(R.string.ui_source_usb)
+                        tvStatus.text = getString(R.string.ui_driver_launch_failed, driverLabel)
                         return@postDelayed
                     }
                     // Driver app is now in foreground -- user grants USB permission there.
@@ -3346,16 +3352,16 @@ class MainActivity : AppCompatActivity() {
                 sdrService?.disconnectSource()
                 val detected = viewModel.detectUsbDevices()
                 if (detected.isEmpty()) {
-                    showSnackbar("No USB RTL-SDR device found")
-                    tvStatus.text = "No USB RTL-SDR device detected"
+                    showSnackbar(getString(R.string.ui_no_device_found))
+                    tvStatus.text = getString(R.string.message_no_usb_device)
                     ignoreNext = true
                     switchSource.isChecked = true
-                    tvToggleLabel.text = "Source: Rtl-sdr Driver"
+                    tvToggleLabel.text = getString(R.string.ui_source_driver)
                 } else {
                     val dev = detected.first()
                     val name = com.radiosport.ninegradio.usb.RtlSdrDevice.getDeviceName(dev)
-                    tvStatus.text = "🔌  $name"
-                    showSnackbar("Switching to USB: $name")
+                    tvStatus.text = getString(R.string.ui_usb_device_name, name)
+                    showSnackbar(getString(R.string.ui_switching_usb, name))
                     viewModel.connectDevice(dev)
                 }
             }
@@ -3388,31 +3394,31 @@ class MainActivity : AppCompatActivity() {
         })
 
         AlertDialog.Builder(this)
-            .setTitle("Device Information")
+            .setTitle(getString(R.string.dialog_device_information))
             .setView(root)
-            .setNeutralButton("🔬 Run Diagnostic") { _, _ -> /* handled below via view click */ }
-            .setPositiveButton("Close", null)
+            .setNeutralButton(getString(R.string.action_run_diagnostic)) { _, _ -> /* handled below via view click */ }
+            .setPositiveButton(getString(R.string.ui_close), null)
             .create()
             .also { dlg ->
                 dlg.show()
-                // Wire "Run Diagnostic" — we grab the button after show() so we can replace it
+                // Wire getString(R.string.ui_diagnostic) — we grab the button after show() so we can replace it
                 dlg.getButton(AlertDialog.BUTTON_NEUTRAL)?.setOnClickListener { btn ->
                     val btn = btn as android.widget.Button
                     val src = sdrService?.source ?: run {
-                        showSnackbar("No active source — connect a device first"); return@setOnClickListener
+                        showSnackbar(getString(R.string.message_no_active_source)); return@setOnClickListener
                     }
                     val dsp = sdrService?.dspEngine ?: run {
                         showSnackbar("DSP engine not running"); return@setOnClickListener
                     }
                     btn.isEnabled = false
-                    btn.text = "⏳ Running…"
+                    btn.text = getString(R.string.ui_running)
                     lifecycleScope.launch {
                         val diagnostic = com.radiosport.ninegradio.dsp.SourceDiagnostic(dsp, src)
                         val report = withContext(kotlinx.coroutines.Dispatchers.Default) {
                             diagnostic.run()
                         }
                         btn.isEnabled = true
-                        btn.text = "🔬 Run Diagnostic"
+                        btn.text = getString(R.string.action_run_diagnostic)
                         showDiagnosticReport(report)
                     }
                 }
@@ -3469,14 +3475,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         AlertDialog.Builder(this)
-            .setTitle("Source Diagnostic")
+            .setTitle(getString(R.string.ui_source_diagnostic))
             .setView(root)
-            .setPositiveButton("Close", null)
+            .setPositiveButton(getString(R.string.ui_close), null)
             .setNeutralButton("📋 Copy") { _, _ ->
                 val cm = getSystemService(android.content.ClipboardManager::class.java)
                 cm?.setPrimaryClip(android.content.ClipData.newPlainText(
-                    "9GRadio Diagnostic", report.formattedText))
-                showSnackbar("Diagnostic report copied to clipboard")
+                    getString(R.string.ui_diagnostic_report), report.formattedText))
+                showSnackbar(getString(R.string.ui_report_copied))
             }
             .show()
             .also { dlg ->
@@ -3497,7 +3503,7 @@ class MainActivity : AppCompatActivity() {
             "  ${it.name}\n  ${it.frequencyHz / 1e6} MHz  [${it.mode}]"
         }
         AlertDialog.Builder(this)
-            .setTitle("Frequency Database")
+            .setTitle(getString(R.string.dialog_frequency_database))
             .setItems(items) { _, which ->
                 val item = items[which]
                 freqMap[item]?.let { entry ->
@@ -3509,7 +3515,7 @@ class MainActivity : AppCompatActivity() {
                     showSnackbar("Tuned to ${entry.name}")
                 }
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(getString(R.string.ui_cancel), null)
             .show()
     }
 
@@ -3520,7 +3526,7 @@ class MainActivity : AppCompatActivity() {
             setText("${"%.3f".format(hz / 1e6)} MHz")
         }
         AlertDialog.Builder(this)
-            .setTitle("Add Bookmark")
+            .setTitle(getString(R.string.dialog_add_bookmark))
             .setView(input)
             .setPositiveButton("Add") { _, _ ->
                 val label = input.text.toString().ifBlank { "${"%.3f".format(hz / 1e6)} MHz" }
@@ -3528,7 +3534,7 @@ class MainActivity : AppCompatActivity() {
                 viewModel.addBookmark(hz, label, demodMode = mode)
                 showSnackbar("Bookmark added: $label")
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(getString(R.string.ui_cancel), null)
             .show()
     }
 
@@ -3573,7 +3579,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun shareRecordingFromTab(meta: RecordingMeta) {
         val file = File(meta.filePath)
-        if (!file.exists()) { Toast.makeText(this, "File not found", Toast.LENGTH_SHORT).show(); return }
+        if (!file.exists()) { Toast.makeText(this, getString(R.string.ui_file_not_found), Toast.LENGTH_SHORT).show(); return }
         val uri = FileProvider.getUriForFile(this, "$packageName.fileprovider", file)
         startActivity(Intent.createChooser(
             Intent(Intent.ACTION_SEND).apply {
@@ -3618,7 +3624,7 @@ class MainActivity : AppCompatActivity() {
                     appendLine("Comment:   ${pkt.comment}")
                     appendLine("Raw:       ${pkt.rawFrame.take(60)}…")
                 })
-                .setPositiveButton("OK", null)
+                .setPositiveButton(getString(R.string.ui_ok), null)
                 .show()
         }
 
@@ -3646,7 +3652,7 @@ class MainActivity : AppCompatActivity() {
             tabLayout.getTabAt(aprsTabIndex)?.view?.visibility = android.view.View.VISIBLE
             // Navigate to it
             binding.controlViewPager.setCurrentItem(aprsTabIndex, true)
-            ctrlViews.tvAprsTabStatus?.text = "Listening…"
+            ctrlViews.tvAprsTabStatus?.text = getString(R.string.ui_listening)
             ctrlViews.tvAprsTabMode?.text   = "${"%.3f".format(viewModel.centerFreqHz.value / 1e6)} MHz  |  ${viewModel.sampleRate.value / 1000} kS/s"
             startAprsCollect()
         } else {
@@ -3714,7 +3720,7 @@ class MainActivity : AppCompatActivity() {
         val dialog = android.app.AlertDialog.Builder(this)
             .setTitle("[$channelTag] ${pkt.source} \u2192 ${pkt.destination}")
             .setMessage(message)
-            .setPositiveButton("OK") { d, _ -> d.dismiss() }
+            .setPositiveButton(getString(R.string.ui_ok)) { d, _ -> d.dismiss() }
             .create()
         dialog.show()
         aprsAutoDialog = dialog
@@ -3766,7 +3772,7 @@ class MainActivity : AppCompatActivity() {
                     appendLine()
                     appendLine(msg.text)
                 })
-                .setPositiveButton("OK", null)
+                .setPositiveButton(getString(R.string.ui_ok), null)
                 .show()
         }
 
@@ -3794,7 +3800,7 @@ class MainActivity : AppCompatActivity() {
             tabLayout.getTabAt(acarsTabIndex)?.view?.visibility = android.view.View.VISIBLE
             // Navigate to it
             binding.controlViewPager.setCurrentItem(acarsTabIndex, true)
-            ctrlViews.tvAcarsTabStatus?.text = "Listening…"
+            ctrlViews.tvAcarsTabStatus?.text = getString(R.string.ui_listening)
             ctrlViews.tvAcarsTabMode?.text   = "${"%.3f".format(viewModel.centerFreqHz.value / 1e6)} MHz  |  ${viewModel.sampleRate.value / 1000} kS/s"
             startAcarsCollect()
         } else {
@@ -3842,7 +3848,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * Formats the elapsed time of a call (lastTimestamp - firstTimestamp) as
      * a compact duration string, e.g. "0s", "45s", "2m 1s", "1h 3m" -- used
-     * by every digital-voice "Recent Calls" list (DMR/Dig/YSF/D-STAR) in
+     * by every digital-voice getString(R.string.ui_recent_calls) list (DMR/Dig/YSF/D-STAR) in
      * place of a start–end time range, which said the same thing far less
      * compactly and didn't read at a glance as "how long was this call".
      */
@@ -3889,7 +3895,7 @@ class MainActivity : AppCompatActivity() {
                     appendLine("Frames:    ${call.frameCount}")
                     appendLine("PCM:       ${call.pcmSamples} samples")
                 })
-                .setPositiveButton("OK", null)
+                .setPositiveButton(getString(R.string.ui_ok), null)
                 .show()
         }
 
@@ -3908,7 +3914,7 @@ class MainActivity : AppCompatActivity() {
         if (mode == com.radiosport.ninegradio.dsp.DemodMode.DMR) {
             tabLayout.getTabAt(dmrTabIndex)?.view?.visibility = android.view.View.VISIBLE
             binding.controlViewPager.setCurrentItem(dmrTabIndex, true)
-            ctrlViews.tvDmrTabStatus?.text  = "Listening…"
+            ctrlViews.tvDmrTabStatus?.text  = getString(R.string.ui_listening)
             ctrlViews.tvDmrTabMode?.text    = "${"%.3f".format(viewModel.centerFreqHz.value / 1e6)} MHz  |  ${viewModel.sampleRate.value / 1000} kS/s"
             ctrlViews.tvDmrTabVocoder?.text = VOCODER_STATUS_TEXT
             startDmrCollect()
@@ -4006,7 +4012,7 @@ class MainActivity : AppCompatActivity() {
                     appendLine("Frames:    ${call.frameCount}")
                     appendLine("PCM:       ${call.pcmSamples} samples")
                 })
-                .setPositiveButton("OK", null)
+                .setPositiveButton(getString(R.string.ui_ok), null)
                 .show()
         }
 
@@ -4088,7 +4094,7 @@ class MainActivity : AppCompatActivity() {
                     appendLine("Frames:    ${call.frameCount}")
                     appendLine("PCM:       ${call.pcmSamples} samples")
                 })
-                .setPositiveButton("OK", null)
+                .setPositiveButton(getString(R.string.ui_ok), null)
                 .show()
         }
 
@@ -4105,7 +4111,7 @@ class MainActivity : AppCompatActivity() {
         if (mode == com.radiosport.ninegradio.dsp.DemodMode.YSF) {
             tabLayout.getTabAt(tabIndex)?.view?.visibility = android.view.View.VISIBLE
             binding.controlViewPager.setCurrentItem(tabIndex, true)
-            ctrlViews.tvYsfTabStatus?.text  = "Listening…"
+            ctrlViews.tvYsfTabStatus?.text  = getString(R.string.ui_listening)
             ctrlViews.tvYsfTabMode?.text    = "${"%.3f".format(viewModel.centerFreqHz.value / 1e6)} MHz  |  ${viewModel.sampleRate.value / 1000} kS/s"
             ctrlViews.tvYsfTabVocoder?.text = VOCODER_STATUS_TEXT
             startYsfCollect()
@@ -4188,7 +4194,7 @@ class MainActivity : AppCompatActivity() {
                     appendLine("Frames:    ${call.frameCount}")
                     appendLine("PCM:       ${call.pcmSamples} samples")
                 })
-                .setPositiveButton("OK", null)
+                .setPositiveButton(getString(R.string.ui_ok), null)
                 .show()
         }
 
@@ -4205,7 +4211,7 @@ class MainActivity : AppCompatActivity() {
         if (mode == com.radiosport.ninegradio.dsp.DemodMode.DSTAR) {
             tabLayout.getTabAt(tabIndex)?.view?.visibility = android.view.View.VISIBLE
             binding.controlViewPager.setCurrentItem(tabIndex, true)
-            ctrlViews.tvDstarTabStatus?.text  = "Listening…"
+            ctrlViews.tvDstarTabStatus?.text  = getString(R.string.ui_listening)
             ctrlViews.tvDstarTabMode?.text    = "${"%.3f".format(viewModel.centerFreqHz.value / 1e6)} MHz  |  ${viewModel.sampleRate.value / 1000} kS/s"
             ctrlViews.tvDstarTabVocoder?.text = VOCODER_STATUS_TEXT
             startDstarCollect()
@@ -4580,11 +4586,11 @@ class MainActivity : AppCompatActivity() {
             AlertDialog.Builder(this)
                 .setTitle("${hz.toExactMhzString()} MHz")
                 .setMessage("Lock this frequency out of the current scan? It will be skipped until the scan is stopped.")
-                .setPositiveButton("Lock out") { _, _ ->
+                .setPositiveButton(getString(R.string.ui_lock_out)) { _, _ ->
                     scanTabScanner?.lockout(hz)
                     Snackbar.make(binding.root, "Locked out ${hz.toExactMhzString()} MHz", Snackbar.LENGTH_SHORT).show()
                 }
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(getString(R.string.ui_cancel), null)
                 .show()
             true
         }
@@ -4607,11 +4613,11 @@ class MainActivity : AppCompatActivity() {
             AlertDialog.Builder(this)
                 .setTitle("${hz.toExactMhzString()} MHz")
                 .setMessage("Lock this frequency out of the current scan? It will be skipped until the scan is stopped.")
-                .setPositiveButton("Lock out") { _, _ ->
+                .setPositiveButton(getString(R.string.ui_lock_out)) { _, _ ->
                     scanTabScanner?.lockout(hz)
                     Snackbar.make(binding.root, "Locked out ${hz.toExactMhzString()} MHz", Snackbar.LENGTH_SHORT).show()
                 }
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(getString(R.string.ui_cancel), null)
                 .show()
             true
         }
@@ -4620,10 +4626,10 @@ class MainActivity : AppCompatActivity() {
             scanTabScanning = false
             scanTabPaused = false
             scanTabSearching = false
-            ctrlViews.btnScanTabStartStop?.text = "Start Scan"
-            ctrlViews.btnScanTabPause?.text = "Pause"
+            ctrlViews.btnScanTabStartStop?.text = getString(R.string.ui_start_scan)
+            ctrlViews.btnScanTabPause?.text = getString(R.string.ui_pause)
             ctrlViews.btnScanTabPause?.isVisible = false
-            ctrlViews.btnScanTabSearch?.text = "Search Mode"
+            ctrlViews.btnScanTabSearch?.text = getString(R.string.ui_search_mode)
             ctrlViews.btnScanTabSearch?.isEnabled = true
             ctrlViews.btnScanTabStartStop?.isEnabled = true
             ctrlViews.progressScanTab?.isVisible = false
@@ -4632,12 +4638,12 @@ class MainActivity : AppCompatActivity() {
         fun scanTabSource(): Pair<RtlSdrService, IqSource>? {
             val svc = sdrService
             if (svc == null) {
-                Snackbar.make(binding.root, "No RTL-SDR connected", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.root, getString(R.string.ui_no_rtlsdr), Snackbar.LENGTH_SHORT).show()
                 return null
             }
             val source = svc.source
             if (source == null) {
-                Snackbar.make(binding.root, "No IQ source connected", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.root, getString(R.string.ui_no_source), Snackbar.LENGTH_SHORT).show()
                 return null
             }
             return svc to source
@@ -4815,7 +4821,7 @@ class MainActivity : AppCompatActivity() {
                     attachScanTabCollectors(sc)
                 }
                 scanTabScanning = true
-                ctrlViews.btnScanTabStartStop?.text = "Stop Scan"
+                ctrlViews.btnScanTabStartStop?.text = getString(R.string.ui_stop_scan)
                 ctrlViews.btnScanTabPause?.isVisible = true
                 ctrlViews.progressScanTab?.isVisible = true
                 ctrlViews.btnScanTabSearch?.isEnabled = false
@@ -4831,11 +4837,11 @@ class MainActivity : AppCompatActivity() {
         ctrlViews.btnScanTabPause?.setOnClickListener {
             if (!scanTabPaused) {
                 scanTabScanner?.pauseScan()
-                ctrlViews.btnScanTabPause?.text = "Resume"
+                ctrlViews.btnScanTabPause?.text = getString(R.string.ui_resume)
                 scanTabPaused = true
             } else {
                 scanTabScanner?.resumeScan()
-                ctrlViews.btnScanTabPause?.text = "Pause"
+                ctrlViews.btnScanTabPause?.text = getString(R.string.ui_pause)
                 scanTabPaused = false
             }
         }
@@ -4884,7 +4890,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 scanTabSearching = true
                 scanTabScanning = true
-                ctrlViews.btnScanTabSearch?.text = "Stop Search"
+                ctrlViews.btnScanTabSearch?.text = getString(R.string.ui_stop_search)
                 ctrlViews.btnScanTabStartStop?.isEnabled = false
                 ctrlViews.progressScanTab?.isVisible = true
             } else {
@@ -4923,27 +4929,27 @@ class MainActivity : AppCompatActivity() {
             ctrlViews.tvScanTabNoiseFloor?.text = "Floor: --- dB"
             ctrlViews.tvScanTabRate?.text = "--- ch/s"
 
-            Snackbar.make(binding.root, "Scan list reset", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(binding.root, getString(R.string.ui_scan_reset), Snackbar.LENGTH_SHORT).show()
         }
 
         ctrlViews.btnScanTabBusiest?.setOnClickListener {
             val sc = scanTabScanner
             if (sc == null) {
-                Snackbar.make(binding.root, "Start a scan first", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.root, getString(R.string.ui_start_scan_first), Snackbar.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             val top = sc.topFrequencies(15)
             if (top.isEmpty()) {
-                Snackbar.make(binding.root, "No hits recorded yet", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.root, getString(R.string.ui_no_hits), Snackbar.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             val message = top.joinToString("\n") { (hz, count) ->
                 "${hz.toExactMhzString()} MHz  —  $count hit${if (count == 1) "" else "s"}"
             }
             AlertDialog.Builder(this)
-                .setTitle("Busiest Frequencies")
+                .setTitle(getString(R.string.ui_busiest_frequencies))
                 .setMessage(message)
-                .setPositiveButton("Close", null)
+                .setPositiveButton(getString(R.string.ui_close), null)
                 .show()
         }
 
@@ -4978,7 +4984,7 @@ class MainActivity : AppCompatActivity() {
         scanTabPaused = false
         scanTabSearching = false
         restoreRfSnapshotAfterScan()
-        ctrlViews.btnScanTabStartStop?.text = "Start Scan"
+        ctrlViews.btnScanTabStartStop?.text = getString(R.string.ui_start_scan)
         ctrlViews.btnScanTabPause?.isVisible = false
         ctrlViews.progressScanTab?.isVisible = false
 

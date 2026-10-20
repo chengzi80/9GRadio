@@ -9,11 +9,11 @@
         android:paddingHorizontal="12dp" android:orientation="horizontal">
         <TextView android:id="@+id/tvAprsStatus"
             android:layout_width="0dp" android:layout_height="wrap_content"
-            android:layout_weight="1" android:text="Listening…"
+            android:layout_weight="1" android:text="@string/aprs_listening"
             android:textColor="#44FF88" android:textSize="13sp" android:fontFamily="monospace"/>
         <TextView android:id="@+id/tvAprsCount"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="Packets: 0" android:textColor="#FFAA00"
+            android:text="@string/protocol_packets_zero" android:textColor="#FFAA00"
             android:textSize="13sp" android:fontFamily="monospace"/>
     </LinearLayout>
 
@@ -22,12 +22,12 @@
         android:orientation="horizontal" android:background="#161B22">
         <Button android:id="@+id/btnAprsNA"
             android:layout_width="0dp" android:layout_height="match_parent"
-            android:layout_weight="1" android:text="NA 144.390 MHz"
+            android:layout_weight="1" android:text="@string/aprs_na"
             android:backgroundTint="#22004488" android:textColor="#00CCFF"
             android:textSize="12sp" android:layout_marginEnd="1dp"/>
         <Button android:id="@+id/btnAprsEU"
             android:layout_width="0dp" android:layout_height="match_parent"
-            android:layout_weight="1" android:text="EU 144.800 MHz"
+            android:layout_weight="1" android:text="@string/aprs_eu"
             android:backgroundTint="#22004488" android:textColor="#00CCFF"
             android:textSize="12sp"/>
     </LinearLayout>
@@ -38,7 +38,7 @@
         android:gravity="center_vertical"
         android:paddingHorizontal="12dp"
         android:background="#0D1117"
-        android:text="Initialising…"
+        android:text="@string/connecting"
         android:textColor="#8899AA"
         android:textSize="11sp"
         android:fontFamily="monospace"
@@ -54,7 +54,7 @@
 
     <!-- Packet log -->
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:text="Packet Log (tap for details):"
+        android:text="@string/protocol_recent_packets"
         android:textColor="#88FFFFFF" android:textSize="12sp"
         android:paddingHorizontal="12dp" android:paddingVertical="4dp"
         android:background="#161B22"/>

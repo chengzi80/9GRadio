@@ -15,7 +15,7 @@
 
             <TextView android:id="@+id/tvChannelName"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Channel Name" android:textColor="#FFFFFF"
+                android:text="@string/memory_channel_name" android:textColor="#FFFFFF"
                 android:textSize="15sp" android:textStyle="bold"/>
 
             <TextView android:id="@+id/tvChannelFreq"
@@ -35,14 +35,14 @@
                 <View android:layout_width="8dp" android:layout_height="1dp"/>
                 <TextView android:id="@+id/tvChannelGroup"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="Default" android:textColor="#88FFFFFF"
+                    android:text="@string/memory_default" android:textColor="#88FFFFFF"
                     android:textSize="11sp"/>
             </LinearLayout>
         </LinearLayout>
 
         <Button android:id="@+id/btnLoadChannel"
             android:layout_width="60dp" android:layout_height="36dp"
-            android:text="TUNE" android:textSize="11sp"
+            android:text="@string/bookmark_tune" android:textSize="11sp"
             android:backgroundTint="#00CCFF" android:textColor="#000000"/>
     </LinearLayout>
 </LinearLayout>

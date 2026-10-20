@@ -13,7 +13,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Label"
+        android:hint="@string/bookmark_label"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etBmLabel"
@@ -27,7 +27,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Frequency (MHz)"
+        android:hint="@string/bookmark_frequency"
         android:layout_marginTop="8dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <com.google.android.material.textfield.TextInputEditText
@@ -43,7 +43,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Demodulation Mode"
+        android:text="@string/bookmark_demod_mode"
         android:textColor="#AAFFFFFF"
         android:textSize="13sp"
         android:layout_marginTop="12dp"/>
@@ -57,7 +57,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bookmark List"
+        android:text="@string/bookmark_list"
         android:textColor="#AAFFFFFF"
         android:textSize="13sp"
         android:layout_marginTop="12dp"/>
@@ -71,7 +71,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Notes (optional)"
+        android:hint="@string/bookmark_notes_optional"
         android:layout_marginTop="8dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <com.google.android.material.textfield.TextInputEditText
@@ -95,7 +95,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Marker Color"
+            android:text="@string/bookmark_marker_color"
             android:textColor="#AAFFFFFF"
             android:textSize="13sp"/>
 
@@ -109,7 +109,7 @@
             android:id="@+id/btnBmPickColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Change"
+            android:text="@string/bookmark_change"
             android:textSize="12sp"
             android:layout_marginStart="8dp"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
@@ -119,7 +119,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Squelch dBFS (e.g. -80, leave blank to disable)"
+        android:hint="@string/bookmark_squelch_hint"
         android:layout_marginTop="8dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <com.google.android.material.textfield.TextInputEditText

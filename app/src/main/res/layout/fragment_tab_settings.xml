@@ -17,7 +17,7 @@
     android:paddingBottom="12dp">
 
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:text="Settings" android:textColor="#AAAAAA" android:textSize="13sp"
+        android:text="@string/settings" android:textColor="#AAAAAA" android:textSize="13sp"
         android:textAllCaps="true" android:letterSpacing="0.1" android:layout_marginBottom="8dp"/>
 
     <!-- Reverse tuning wheel -->
@@ -26,9 +26,9 @@
         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
             android:layout_weight="1" android:orientation="vertical">
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Reverse Tuning Wheel" android:textColor="#AAFFFFFF" android:textSize="13sp"/>
+                android:text="@string/reverse_tuning_wheel" android:textColor="#AAFFFFFF" android:textSize="13sp"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Swap up/down direction on dial and frequency view"
+                android:text="@string/reverse_tuning_wheel_summary"
                 android:textColor="#66FFFFFF" android:textSize="10sp"/>
         </LinearLayout>
         <Switch android:id="@+id/switchReverseTuning"
@@ -42,9 +42,9 @@
         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
             android:layout_weight="1" android:orientation="vertical">
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Out-of-Bound Frequency" android:textColor="#AAFFFFFF" android:textSize="13sp"/>
+                android:text="@string/out_of_bound_frequency" android:textColor="#AAFFFFFF" android:textSize="13sp"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Allow all RTL-SDR frequencies (enable for Blog v4)"
+                android:text="@string/out_of_bound_frequency_summary"
                 android:textColor="#66FFFFFF" android:textSize="10sp"/>
         </LinearLayout>
         <Switch android:id="@+id/switchOutOfBound"
@@ -60,7 +60,7 @@
         android:id="@+id/btnBookmarks"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="Bookmarks"
+        android:text="@string/bookmarks"
         android:textSize="11sp"
         android:backgroundTint="#1A2A3A"
         android:textColor="#AAFFFFFF"/>
@@ -74,7 +74,7 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:text="Scanner"
+            android:text="@string/scanner"
             android:textSize="11sp"
             android:backgroundTint="#1A2A3A"
             android:textColor="#AAFFFFFF"/>
@@ -85,7 +85,7 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:layout_marginStart="6dp"
-            android:text="Debug Panel"
+            android:text="@string/debug_panel"
             android:textSize="11sp"
             android:backgroundTint="#1A2A3A"
             android:textColor="#AAFFFFFF"/>
@@ -101,7 +101,7 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:text="Device Info"
+            android:text="@string/device_info"
             android:textSize="11sp"
             android:backgroundTint="#1A2A3A"
             android:textColor="#AAFFFFFF"/>
@@ -112,7 +112,7 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:layout_marginStart="6dp"
-            android:text="Settings"
+            android:text="@string/settings"
             android:textSize="11sp"
             android:backgroundTint="#1A2A3A"
             android:textColor="#AAFFFFFF"/>
@@ -133,7 +133,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="© RNK 9G5AR RadioSport"
+            android:text="@string/about_credit"
             android:textColor="#FFFFFFFF"
             android:textSize="11sp"
             android:letterSpacing="0.05"/>
@@ -143,7 +143,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="9GRadio v1.07"
+            android:text="@string/app_name"
             android:textColor="#FFFFFFFF"
             android:textSize="10sp"
             android:layout_marginTop="2dp"/>

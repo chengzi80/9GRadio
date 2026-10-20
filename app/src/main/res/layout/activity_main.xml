@@ -37,7 +37,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Not Connected"
+                    android:text="@string/not_connected"
                     android:textColor="#AAFFFFFF"
                     android:textSize="13sp" />
 
@@ -97,7 +97,7 @@
                 android:id="@+id/tvSquelchStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="CLOSED"
+                android:text="@string/squelch_closed"
                 android:textSize="11sp"
                 android:textColor="#FF4444"
                 android:fontFamily="monospace"/>

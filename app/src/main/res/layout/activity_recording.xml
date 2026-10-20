@@ -8,7 +8,7 @@
         android:paddingHorizontal="16dp">
         <TextView android:id="@+id/tvTotalSize"
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:text="Total: 0 MB  (0 files)" android:textColor="#88FFFFFF"
+            android:text="@string/recording_total_zero" android:textColor="#88FFFFFF"
             android:textSize="13sp"/>
     </LinearLayout>
 
