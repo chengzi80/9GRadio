@@ -613,4 +613,8 @@ Tap ★ in the main screen to save a frequency.</string>
     <string name="ui_debug_idle">IDLE</string>
     <string name="ui_debug_never">never</string>
     <string name="aprs_mode_single_detail">Single channel: %1$s MHz  |  %2$d kS/s  (≥820 kS/s for dual-watch)</string>
+    <string name="scan_details">Scanner Details</string>
+    <string name="scan_hold_on_signal">Hold on Signal</string>
+    <string name="scan_channel_table">Channel Table (tap to tune, long-press to lock out):</string>
+    <string name="recording_total_zero">Total: 0 MB  (0 files)</string>
 </resources>
