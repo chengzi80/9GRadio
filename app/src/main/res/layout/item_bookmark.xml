@@ -35,7 +35,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Bookmark Label"
+                android:text="@string/bookmark_item_label"
                 android:textColor="#FFFFFF"
                 android:textSize="15sp"
                 android:textStyle="bold"
@@ -49,7 +49,7 @@
                 android:src="@drawable/ic_star_outline"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:tint="#FFAA00"
-                android:contentDescription="Toggle favorite"/>
+                android:contentDescription="@string/bookmark_toggle_favorite"/>
         </LinearLayout>
 
         <!-- Frequency -->
@@ -112,7 +112,7 @@
         android:id="@+id/btnTune"
         android:layout_width="60dp"
         android:layout_height="36dp"
-        android:text="TUNE"
+        android:text="@string/bookmark_tune"
         android:textSize="11sp"
         android:backgroundTint="#00CCFF"
         android:textColor="#000000"
