@@ -27,7 +27,7 @@ class MemoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_memory)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        title = "Memory Channels"
+        title = getString(R.string.memory_channels)
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerMemory)
         val fabAdd = findViewById<View>(R.id.fabAddMemory)
@@ -35,15 +35,15 @@ class MemoryActivity : AppCompatActivity() {
         adapter = MemoryChannelAdapter(
             onLoad = { ch ->
                 viewModel.loadMemoryChannel(ch)
-                Toast.makeText(this, "Tuned to ${ch.name}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.tuned_to_channel, ch.name), Toast.LENGTH_SHORT).show()
                 finish()
             },
             onDelete = { ch ->
                 AlertDialog.Builder(this)
-                    .setTitle("Delete Channel")
+                    .setTitle(getString(R.string.delete_channel))
                     .setMessage("Delete \"${ch.name}\"?")
-                    .setPositiveButton("Delete") { _, _ -> viewModel.deleteMemoryChannel(ch) }
-                    .setNegativeButton("Cancel", null)
+                    .setPositiveButton(getString(R.string.delete)) { _, _ -> viewModel.deleteMemoryChannel(ch) }
+                    .setNegativeButton(getString(R.string.cancel), null)
                     .show()
             },
             onEdit = { ch -> showEditDialog(ch) }
@@ -66,9 +66,9 @@ class MemoryActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menu.add(0, 1, 0, "Export JSON")
-        menu.add(0, 2, 0, "Import JSON")
-        menu.add(0, 3, 0, "Clear All")
+        menu.add(0, 1, 0, getString(R.string.export_bookmarks))
+        menu.add(0, 2, 0, getString(R.string.import_bookmarks))
+        menu.add(0, 3, 0, getString(R.string.clear_all))
         return true
     }
 
@@ -76,7 +76,7 @@ class MemoryActivity : AppCompatActivity() {
         when (item.itemId) {
             android.R.id.home -> { finish(); return true }
             1 -> exportChannels()
-            2 -> Toast.makeText(this, "Use Files app to select a JSON file", Toast.LENGTH_SHORT).show()
+            2 -> Toast.makeText(this, getString(R.string.select_json_file), Toast.LENGTH_SHORT).show()
             3 -> confirmClearAll()
         }
         return super.onOptionsItemSelected(item)
@@ -99,9 +99,9 @@ class MemoryActivity : AppCompatActivity() {
         spinMode.setSelection(viewModel.demodMode.value.ordinal)
 
         AlertDialog.Builder(this)
-            .setTitle("Add Memory Channel")
+            .setTitle(getString(R.string.add_memory_channel))
             .setView(view)
-            .setPositiveButton("Save") { _, _ ->
+            .setPositiveButton(getString(R.string.save)) { _, _ ->
                 val name = etName.text.toString().ifBlank { "Channel" }
                 val freqMhz = etFreq.text.toString().toDoubleOrNull() ?: return@setPositiveButton
                 val freqHz = (freqMhz * 1_000_000).toLong()
@@ -128,7 +128,7 @@ class MemoryActivity : AppCompatActivity() {
                 }
                 Toast.makeText(this, "Saved \"$name\"", Toast.LENGTH_SHORT).show()
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(getString(R.string.cancel), null)
             .show()
     }
 
@@ -151,9 +151,9 @@ class MemoryActivity : AppCompatActivity() {
         if (modeIdx >= 0) spinMode.setSelection(modeIdx)
 
         AlertDialog.Builder(this)
-            .setTitle("Edit: ${channel.name}")
+            .setTitle(getString(R.string.edit_channel, channel.name))
             .setView(view)
-            .setPositiveButton("Update") { _, _ ->
+            .setPositiveButton(getString(R.string.update)) { _, _ ->
                 val name = etName.text.toString().ifBlank { channel.name }
                 val freqMhz = etFreq.text.toString().toDoubleOrNull()
                     ?: (channel.frequencyHz / 1e6)
@@ -175,24 +175,24 @@ class MemoryActivity : AppCompatActivity() {
                 }
                 Toast.makeText(this, "Updated \"$name\"", Toast.LENGTH_SHORT).show()
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(getString(R.string.cancel), null)
             .show()
     }
 
     private fun confirmClearAll() {
         AlertDialog.Builder(this)
-            .setTitle("Clear All Channels")
-            .setMessage("Delete all memory channels? This cannot be undone.")
-            .setPositiveButton("Delete All") { _, _ ->
+            .setTitle(getString(R.string.clear_all_channels))
+            .setMessage(getString(R.string.delete_all_channels_confirm))
+            .setPositiveButton(getString(R.string.delete_all)) { _, _ ->
                 lifecycleScope.launch {
                     val db = (application as com.radiosport.ninegradio.RtlSdrApplication).database
                     val all = viewModel.memoryChannels.first()
                     all.forEach { db.memoryChannelDao().delete(it) }
                     Toast.makeText(this@MemoryActivity,
-                        "Cleared ${all.size} channels", Toast.LENGTH_SHORT).show()
+                        getString(R.string.cleared_channels, all.size), Toast.LENGTH_SHORT).show()
                 }
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(getString(R.string.cancel), null)
             .show()
     }
 
@@ -204,7 +204,7 @@ class MemoryActivity : AppCompatActivity() {
             file.parentFile?.mkdirs()
             file.writeText(json)
             Toast.makeText(this@MemoryActivity,
-                "Exported ${channels.size} channels to ${file.name}", Toast.LENGTH_LONG).show()
+                getString(R.string.exported_channels, channels.size, file.name), Toast.LENGTH_LONG).show()
         }
     }
 }
