@@ -27,7 +27,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="STEP SIZE"
+        android:text="@string/step_size"
         android:textColor="#00CCFF"
         android:textSize="11sp"
         android:textAllCaps="true"
@@ -62,14 +62,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Fine Tune"
+                android:text="@string/fine_tune"
                 android:textColor="#AAFFFFFF"
                 android:textSize="13sp"/>
             <TextView
                 android:id="@+id/tvFineTuneSub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Long-press dial, or toggle here"
+                android:text="@string/fine_tune_summary"
                 android:textColor="#66FFFFFF"
                 android:textSize="10sp"/>
         </LinearLayout>
@@ -87,7 +87,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="BAND PRESETS"
+        android:text="@string/band_presets"
         android:textColor="#00CCFF"
         android:textSize="11sp"
         android:textAllCaps="true"
@@ -120,13 +120,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Snap to Channel Grid"
+                android:text="@string/snap_to_channel_grid"
                 android:textColor="#AAFFFFFF"
                 android:textSize="13sp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Auto-align to band channel spacing"
+                android:text="@string/channel_grid_summary"
                 android:textColor="#66FFFFFF"
                 android:textSize="10sp"/>
         </LinearLayout>
