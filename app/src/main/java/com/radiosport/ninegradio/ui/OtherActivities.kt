@@ -355,7 +355,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         recs.forEach { app.database.recordingMetaDao().delete(it) }
                         android.widget.Toast.makeText(
                             requireContext(),
-                            "Cleared ${recs.size} recording entries",
+                            getString(R.string.ui_cleared_recordings, recs.size),
                             android.widget.Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -522,7 +522,7 @@ class RecordingActivity : AppCompatActivity() {
             viewModel.recordings.collectLatest { recs ->
                 adapter.submitList(recs)
                 val total = recs.sumOf { it.fileSizeBytes }
-                tvTotalSize.text = "Total: ${"%.2f".format(total / 1e6)} MB  (${recs.size} files)"
+                tvTotalSize.text = getString(R.string.ui_recordings_total, "%.2f".format(total / 1e6), recs.size)
             }
         }
     }
@@ -932,13 +932,13 @@ class AcarsActivity : AppCompatActivity() {
         }
         val text = buildString {
             appendLine("# ACARS Log — ${SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US).format(Date())}")
-            appendLine("# Channel: ${"%.3f".format(currentFreqHz / 1e6)} MHz  |  ${allMessages.size} messages")
+            appendLine("# " + getString(R.string.ui_acars_channel, "%.3f".format(currentFreqHz / 1e6), allMessages.size))
             appendLine()
             for (msg in allMessages.reversed()) {
                 val ts = TS_FMT.format(Date(msg.timestamp))
                 val desc = com.radiosport.ninegradio.dsp.AcarsDecoder.LABEL_DESCRIPTIONS[msg.label] ?: getString(R.string.ui_unknown)
                 appendLine("[$ts] ${msg.registration.padEnd(8)} [${msg.label}] $desc")
-                if (msg.flightId.isNotBlank()) appendLine("  Flight: ${msg.flightId}")
+                if (msg.flightId.isNotBlank()) appendLine("  " + getString(R.string.ui_acars_flight, msg.flightId))
                 appendLine("  ${msg.text}")
                 appendLine()
             }
@@ -971,13 +971,13 @@ class AcarsActivity : AppCompatActivity() {
         val ts   = TS_FMT.format(Date(msg.timestamp))
         val desc = com.radiosport.ninegradio.dsp.AcarsDecoder.LABEL_DESCRIPTIONS[msg.label] ?: getString(R.string.ui_unknown)
         return buildString {
-            appendLine("Time:         $ts")
+            appendLine(getString(R.string.ui_acars_time, ts))
             appendLine(getString(R.string.ui_acars_registration, msg.registration))
             if (msg.flightId.isNotBlank()) appendLine(getString(R.string.ui_acars_flight_id, msg.flightId))
-            appendLine("Label:        ${msg.label}  ($desc)")
+            appendLine(getString(R.string.ui_acars_label, msg.label, desc))
             appendLine(getString(R.string.ui_acars_block_id, msg.blockId))
-            appendLine("ACK:          ${if (msg.ack) "Yes" else "No"}")
-            appendLine("More blocks:  ${if (msg.more) "Yes" else "No"}")
+            appendLine(getString(R.string.ui_acars_ack, if (msg.ack) getString(R.string.ui_yes) else getString(R.string.ui_no)))
+            appendLine(getString(R.string.ui_acars_more_blocks, if (msg.more) getString(R.string.ui_yes) else getString(R.string.ui_no)))
             appendLine()
             appendLine(getString(R.string.ui_acars_message_body))
             appendLine(msg.text.ifBlank { getString(R.string.ui_empty) })
@@ -1379,7 +1379,7 @@ class BookmarkActivity : AppCompatActivity() {
                             0 -> showListEditDialog(list)
                             1 -> viewModel.deleteBookmarkList(list, deleteContents = false)
                             2 -> androidx.appcompat.app.AlertDialog.Builder(this)
-                                    .setTitle("Delete list and all ${list.name} bookmarks?")
+                                    .setTitle(getString(R.string.ui_delete_list_message, list.name))
                                     .setPositiveButton(getString(R.string.ui_delete_all)) { _, _ ->
                                         viewModel.deleteBookmarkList(list, deleteContents = true)
                                     }
@@ -1444,7 +1444,7 @@ class BookmarkActivity : AppCompatActivity() {
             val bms = viewModel.bookmarks.first()
             val result = com.radiosport.ninegradio.data.DataExporter.exportBookmarks(bms, uri, this@BookmarkActivity)
             result.fold(
-                onSuccess = { n -> Toast.makeText(this@BookmarkActivity, "Exported $n bookmarks", Toast.LENGTH_SHORT).show() },
+                onSuccess = { n -> Toast.makeText(this@BookmarkActivity, getString(R.string.ui_exported_bookmarks, n), Toast.LENGTH_SHORT).show() },
                 onFailure = { e -> Toast.makeText(this@BookmarkActivity, getString(R.string.ui_export_failed, e.message ?: ""), Toast.LENGTH_LONG).show() }
             )
         }
@@ -1456,7 +1456,7 @@ class BookmarkActivity : AppCompatActivity() {
             result.fold(
                 onSuccess = { bms ->
                     viewModel.importBookmarks(bms)
-                    Toast.makeText(this@BookmarkActivity, "Imported ${bms.size} bookmarks", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@BookmarkActivity, getString(R.string.ui_imported_bookmarks, bms.size), Toast.LENGTH_SHORT).show()
                 },
                 onFailure = { e -> Toast.makeText(this@BookmarkActivity, getString(R.string.ui_import_failed, e.message ?: ""), Toast.LENGTH_LONG).show() }
             )
