@@ -17,14 +17,14 @@
         <TextView android:id="@+id/tvAdsbStatus"
             android:layout_width="0dp" android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Waiting for device…"
+            android:text="@string/connecting"
             android:textColor="#00FF88"
             android:textSize="13sp"
             android:fontFamily="monospace"/>
 
         <TextView android:id="@+id/tvAircraftCount"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="Aircraft: 0"
+            android:text="@string/adsb_aircraft_count"
             android:textColor="#FFAA00"
             android:textSize="13sp"
             android:fontFamily="monospace"/>
