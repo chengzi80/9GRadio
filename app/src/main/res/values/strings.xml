@@ -612,4 +612,5 @@ Tap ★ in the main screen to save a frequency.</string>
     <string name="ui_debug_error">ERROR</string>
     <string name="ui_debug_idle">IDLE</string>
     <string name="ui_debug_never">never</string>
+    <string name="aprs_mode_single_detail">Single channel: %1$s MHz  |  %2$d kS/s  (≥820 kS/s for dual-watch)</string>
 </resources>
