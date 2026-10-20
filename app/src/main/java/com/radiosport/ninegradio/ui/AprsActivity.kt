@@ -216,15 +216,15 @@ class AprsActivity : AppCompatActivity() {
                 svc.connectionState.collectLatest { state ->
                     when (state) {
                         is RtlSdrService.ConnectionState.Connected -> {
-                            tvStatus.text = "Listening…"
+                            tvStatus.text = getString(R.string.aprs_listening)
                             svc.statsFlow.collect { stats ->
-                                tvStatus.text = if (stats.squelchOpen) "SIGNAL ▲" else "Listening…"
+                                tvStatus.text = if (stats.squelchOpen) getString(R.string.aprs_signal) else getString(R.string.aprs_listening)
                             }
                         }
                         is RtlSdrService.ConnectionState.Connecting ->
-                            tvStatus.text = "Connecting…"
+                            tvStatus.text = getString(R.string.aprs_connecting)
                         else ->
-                            tvStatus.text = "No Device"
+                            tvStatus.text = getString(R.string.aprs_no_device)
                     }
                 }
             }
@@ -303,7 +303,7 @@ class AprsActivity : AppCompatActivity() {
         if (displayList.size > 200) displayList.removeLast()
         adapter.notifyDataSetChanged()
 
-        tvPacketCnt?.text = "Packets: ${packets.size}"
+        tvPacketCnt?.text = getString(R.string.aprs_packets, packets.size)
         aprsMapView?.addPacket(pkt)
     }
 
@@ -472,7 +472,7 @@ class AprsMapView @JvmOverloads constructor(
 
         // Station count label
         textPaint.color = 0xAAFFFFFF.toInt()
-        canvas.drawText("${stations.size} stations", 8f, h - 8f, textPaint)
+        canvas.drawText(getString(R.string.aprs_stations, stations.size), 8f, h - 8f, textPaint)
         textPaint.color = 0xCC44FFAA.toInt()
     }
 }
