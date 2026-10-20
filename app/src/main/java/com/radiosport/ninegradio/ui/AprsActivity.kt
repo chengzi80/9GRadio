@@ -388,7 +388,7 @@ class AprsActivity : AppCompatActivity() {
         android.app.AlertDialog.Builder(this)
             .setTitle("[${dp.channel}] ${pkt.source} → ${pkt.destination}")
             .setMessage(buildString {
-                appendLine("Channel:   ${dp.channel}")
+                appendLine(getString(R.string.aprs_channel_detail, dp.channel))
                 appendLine(getString(R.string.aprs_source_detail, pkt.source))
                 appendLine(getString(R.string.aprs_dest_detail, pkt.destination))
                 appendLine(getString(R.string.aprs_path_detail, pkt.path))
