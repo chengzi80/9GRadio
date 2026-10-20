@@ -617,4 +617,5 @@ Tap ★ in the main screen to save a frequency.</string>
     <string name="scan_hold_on_signal">Hold on Signal</string>
     <string name="scan_channel_table">Channel Table (tap to tune, long-press to lock out):</string>
     <string name="recording_total_zero">Total: 0 MB  (0 files)</string>
+    <string name="app_version">9GRadio v%1$s</string>
 </resources>
