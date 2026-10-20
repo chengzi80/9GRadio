@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="decimation_entries">
+        <item>关闭（全带宽）</item><item>÷2（½ 带宽）</item><item>÷4（¼ 带宽）</item><item>÷8（⅛ 带宽）</item><item>÷16</item><item>÷32</item><item>÷64</item>
+    </string-array>
+    <string-array name="decimation_values">
+        <item>1</item><item>2</item><item>4</item><item>8</item><item>16</item><item>32</item><item>64</item>
+    </string-array>
+    <string-array name="direct_sampling_entries">
+        <item>关闭（调谐器）</item><item>I 路直采（低于 28.8 MHz）</item><item>Q 路直采（V4 短波，推荐）</item>
+    </string-array>
+    <string-array name="direct_sampling_values"><item>0</item><item>1</item><item>2</item></string-array>
+    <string-array name="fft_size_entries">
+        <item>256</item><item>512</item><item>1024</item><item>2048</item><item>4096</item><item>8192</item><item>16384</item>
+    </string-array>
+    <string-array name="fft_size_values">
+        <item>256</item><item>512</item><item>1024</item><item>2048</item><item>4096</item><item>8192</item><item>16384</item>
+    </string-array>
+    <string-array name="fft_window_entries">
+        <item>矩形窗（不加窗）</item><item>汉宁窗（Hann）</item><item>海明窗（Hamming）</item><item>布莱克曼窗（Blackman）</item><item>布莱克曼-哈里斯窗（推荐）</item><item>平顶窗</item><item>凯ייז窗</item><item>Nuttall 四项窗</item>
+    </string-array>
+    <string-array name="fft_window_values">
+        <item>RECTANGULAR</item><item>HANN</item><item>HAMMING</item><item>BLACKMAN</item><item>BLACKMAN_HARRIS</item><item>FLAT_TOP</item><item>KAISER</item><item>NUTTALL</item>
+    </string-array>
+    <string-array name="frame_avg_entries">
+        <item>关闭（1 帧）</item><item>2 帧（噪声降低 3 dB）</item><item>4 帧（噪声降低 6 dB）</item><item>8 帧（噪声降低 9 dB）</item><item>16 帧（噪声降低 12 dB）</item><item>32 帧（噪声降低 15 dB）</item>
+    </string-array>
+    <string-array name="frame_avg_values"><item>1</item><item>2</item><item>4</item><item>8</item><item>16</item><item>32</item></string-array>
+    <string-array name="sample_rate_entries">
+        <item>240 kS/s（÷5 → 48 kHz 中频）</item><item>242 kS/s（÷5 → 48.4 kHz 中频）</item><item>250 kS/s（÷5 → 50 kHz 中频）</item><item>256 kS/s（÷5 → 51.2 kHz 中频）</item><item>264 kS/s（÷5 → 52.8 kHz 中频）</item><item>272 kS/s（÷5 → 54.4 kHz 中频）</item><item>286 kS/s（÷5 → 57.2 kHz 中频）</item><item>288 kS/s（÷6 → 48 kHz 中频）</item><item>300 kS/s（÷6 → 50 kHz 中频）</item><item>912 kS/s（÷19）</item><item>960 kS/s（÷20）</item><item>1.024 MS/s</item><item>1.152 MS/s（÷24）</item><item>1.200 MS/s（÷25）</item><item>1.296 MS/s（÷27）</item><item>1.440 MS/s（÷30）</item><item>1.536 MS/s（÷32）</item><item>1.680 MS/s（÷35）</item><item>1.824 MS/s（÷38）</item><item>1.920 MS/s（÷40）</item><item>2.016 MS/s（÷42）</item><item>2.048 MS/s</item><item>2.160 MS/s（÷45）</item><item>2.256 MS/s（÷47）</item><item>2.400 MS/s（÷50）</item>
+    </string-array>
+    <string-array name="sample_rate_values">
+        <item>240000</item><item>242000</item><item>250000</item><item>256000</item><item>264000</item><item>272000</item><item>286000</item><item>288000</item><item>300000</item><item>912000</item><item>960000</item><item>1024000</item><item>1152000</item><item>1200000</item><item>1296000</item><item>1440000</item><item>1536000</item><item>1680000</item><item>1824000</item><item>1920000</item><item>2016000</item><item>2048000</item><item>2160000</item><item>2256000</item><item>2400000</item>
+    </string-array>
+    <string-array name="waterfall_palette_entries">
+        <item>彩虹</item><item>热度</item><item>灰度</item><item>蓝白</item><item>紫黄</item><item>Viridis</item><item>Inferno</item><item>Magma</item><item>Turbo</item><item>Solar</item><item>夜视</item>
+    </string-array>
+    <string-array name="waterfall_palette_values">
+        <item>RAINBOW</item><item>HEAT</item><item>GRAYSCALE</item><item>BLUE_WHITE</item><item>PURPLE_YELLOW</item><item>VIRIDIS</item><item>INFERNO</item><item>MAGMA</item><item>TURBO</item><item>SOLAR</item><item>NIGHT_VISION</item>
+    </string-array>
+    <string-array name="spectrum_theme_entries">
+        <item>经典（绿色）</item><item>未来感（青色）</item><item>琥珀色</item><item>灰度</item><item>紫色</item><item>日光（橙色）</item><item>霓虹（洋红）</item><item>冰蓝（蓝白）</item><item>午夜（深蓝）</item><item>樱花（粉色）</item>
+    </string-array>
+    <string-array name="spectrum_theme_values">
+        <item>Classic</item><item>Futuristic</item><item>Amber</item><item>Grayscale</item><item>Purple</item><item>Solar</item><item>Neon</item><item>Ice</item><item>Midnight</item><item>Sakura</item>
+    </string-array>
+    <string-array name="iq_format_entries"><item>原始 uint8（.iq）</item><item>GZip 压缩（.iq.gz）</item><item>Float32（.cf32）</item></string-array>
+    <string-array name="iq_format_values"><item>RAW_UINT8</item><item>GZIP_UINT8</item><item>FLOAT32</item></string-array>
+    <string-array name="audio_output_entries"><item>扬声器</item><item>耳机</item><item>蓝牙</item></string-array>
+    <string-array name="audio_output_values"><item>speaker</item><item>earphone</item><item>bluetooth</item></string-array>
+    <string-array name="audio_sink_rate_entries"><item>44.1 kHz（CD 音质）</item><item>32 kHz</item><item>24 kHz</item><item>22.05 kHz</item><item>16 kHz</item><item>48 kHz（DSP 原生）</item></string-array>
+    <string-array name="audio_sink_rate_values"><item>44100</item><item>32000</item><item>24000</item><item>22050</item><item>16000</item><item>48000</item></string-array>
+    <string-array name="freq_offset_entries"><item>关闭（0 Hz）</item><item>+1000 Hz</item><item>−1000 Hz</item><item>+1500 Hz</item><item>−1500 Hz</item><item>+2000 Hz</item><item>−2000 Hz</item></string-array>
+    <string-array name="freq_offset_values"><item>0</item><item>1000</item><item>-1000</item><item>1500</item><item>-1500</item><item>2000</item><item>-2000</item></string-array>
+    <string-array name="demod_mode_entries">
+        <item>AM（调幅）</item><item>FM（窄带调频）</item><item>WFM（广播调频）</item><item>WFM 立体声</item><item>USB（上边带）</item><item>LSB（下边带）</item><item>CW（等幅报）</item><item>CWR（反向等幅报）</item><item>DSB（双边带）</item><item>ADS-B（广播式自动相关监视）</item><item>APRS（业余无线电分组报告）</item><item>ACARS（航空通信寻址与报告系统）</item><item>FLEX（寻呼协议）</item><item>原始 IQ 数据</item>
+    </string-array>
+</resources>
