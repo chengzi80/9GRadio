@@ -209,4 +209,52 @@
     <string name="scan_close">Close</string>
     <string name="scan_stop_title">Stop Scan</string>
     <string name="scan_search_stop_title">Stop Search</string>
+    <string name="adsb_title">ADS-B Radar (1090 MHz)</string>
+    <string name="adsb_live">LIVE — 1090 MHz</string>
+    <string name="adsb_connecting">Connecting…</string>
+    <string name="adsb_no_device">No Device</string>
+    <string name="adsb_aircraft_detail">Aircraft Detail</string>
+    <string name="adsb_ok">OK</string>
+    <string name="adsb_aircraft_count">Aircraft: %1$d</string>
+    <string name="adsb_no_position">no pos</string>
+    <string name="aprs_connecting">Connecting…</string>
+    <string name="aprs_listening">Listening…</string>
+    <string name="aprs_no_device">No Device</string>
+    <string name="aprs_signal">SIGNAL ▲</string>
+    <string name="aprs_packets">Packets: %1$d</string>
+    <string name="aprs_stations">%1$d stations</string>
+    <string name="aprs_na">NA 144.390 MHz</string>
+    <string name="aprs_eu">EU 144.800 MHz</string>
+    <string name="acars_waiting_signal">Waiting for signal…</string>
+    <string name="acars_clear">Clear</string>
+    <string name="acars_export">Export</string>
+    <string name="acars_filter">Filter:</string>
+    <string name="acars_all">All</string>
+    <string name="acars_q0">Q0 Pos</string>
+    <string name="acars_other">Other</string>
+    <string name="acars_tap_details">Tap a message for details · Long-press to copy</string>
+    <string name="acars_showing_all">Showing: all</string>
+    <string name="acars_no_messages">No messages yet.
+
+ACARS uses AM + 2400-baud FSK.
+Common channels: 131.550, 131.725, 131.825 MHz
+
+Ensure mode is set to ACARS
+and an RTL-SDR is connected.</string>
+    <string name="acars_messages_zero">0 msgs</string>
+    <string name="protocol_not_active">Not active</string>
+    <string name="protocol_idle">Idle</string>
+    <string name="protocol_frames_zero">Frames: 0</string>
+    <string name="protocol_packets_zero">Packets: 0</string>
+    <string name="protocol_messages_zero">Messages: 0</string>
+    <string name="protocol_vocoder_checking">Vocoder: checking…</string>
+    <string name="protocol_recent_calls">Recent Calls (tap for detail)</string>
+    <string name="protocol_recent_messages">Recent Messages (tap for detail)</string>
+    <string name="protocol_recent_packets">Packet Log (tap for details):</string>
+    <string name="protocol_dig_monitor">Dig Monitor</string>
+    <string name="protocol_dmr_monitor">DMR Monitor</string>
+    <string name="protocol_dstar_monitor">D-STAR Monitor</string>
+    <string name="protocol_ysf_monitor">YSF Monitor</string>
+    <string name="rtlsdr_run_tests">Run Tests</string>
+    <string name="rtlsdr_clear_log">Clear Log</string>
 </resources>
