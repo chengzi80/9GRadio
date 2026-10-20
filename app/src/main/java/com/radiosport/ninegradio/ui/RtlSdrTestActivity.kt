@@ -64,7 +64,7 @@ class RtlSdrTestActivity : AppCompatActivity() {
             log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
 
             // ── 1. Hardware constants ─────────────────────────────────────
-            section("1. Hardware Constants")
+            section(getString(R.string.test_section_hw))
             test("XTAL frequency is 28.8 MHz") {
                 RtlSdrDevice.XTAL_FREQ == 28_800_000L
             }
@@ -161,7 +161,7 @@ class RtlSdrTestActivity : AppCompatActivity() {
             }
 
             // ── 2. Demodulation modes ─────────────────────────────────────
-            section("2. Demodulation Modes")
+            section(getString(R.string.test_section_demod))
             test("All modes have positive bandwidth") {
                 DemodMode.values().all { it.defaultBwHz > 0 }
             }
@@ -183,7 +183,7 @@ class RtlSdrTestActivity : AppCompatActivity() {
             }
 
             // ── 3. FFT engine correctness ─────────────────────────────────
-            section("3. FFT Engine — Correctness")
+            section(getString(R.string.test_section_fft))
             val fft = FftEngine(1024)
             test("Output length matches FFT size") {
                 fft.processFloat(FloatArray(2048)).size == 1024
@@ -211,7 +211,7 @@ class RtlSdrTestActivity : AppCompatActivity() {
             }
 
             // ── 4. Demodulator correctness ────────────────────────────────
-            section("4. Demodulators — Correctness")
+            section(getString(R.string.test_section_demodulators))
             test("AM envelope is non-negative") {
                 val iq = tone(1_000.0, 11025, 512)
                 AmDemodulator().demodulate(iq, 11025).drop(50).all { it >= -0.01f }
@@ -238,7 +238,7 @@ class RtlSdrTestActivity : AppCompatActivity() {
             }
 
             // ── 5. Polyphase resampler ────────────────────────────────────
-            section("5. Polyphase Resampler")
+            section(getString(R.string.test_section_resampler))
             test("1920k→48k output length is ~48 samples for 2048-sample input") {
                 val r = PolyphaseResampler(1_920_000, 48_000)
                 val n = r.process(FloatArray(2048) { sin(it * 0.01).toFloat() }).size
@@ -255,7 +255,7 @@ class RtlSdrTestActivity : AppCompatActivity() {
             }
 
             // ── 6. Gain calibration ───────────────────────────────────────
-            section("6. Gain Calibration")
+            section(getString(R.string.test_section_gain))
             test("Noise figure interpolates across full frequency range") {
                 listOf(500_000L, 100_000_000L, 433_000_000L, 1_090_000_000L, 1_766_000_000L)
                     .all { GainCalibration.noiseFigureAtFreq(it) in 1f..30f }
@@ -286,7 +286,7 @@ class RtlSdrTestActivity : AppCompatActivity() {
             }
 
             // ── 7. Audio DSP ──────────────────────────────────────────────
-            section("7. Audio DSP")
+            section(getString(R.string.test_section_audio))
             test("DcBlocker removes DC offset") {
                 val dc = AudioDsp.DcBlocker()
                 // R=0.9995 needs ~4600 samples to decay below 0.1; use 8192 to be safe
@@ -340,7 +340,7 @@ class RtlSdrTestActivity : AppCompatActivity() {
             }
 
             // ── 8. Performance benchmarks ─────────────────────────────────
-            section("8. Performance (real-time headroom)")
+            section(getString(R.string.test_section_performance))
             val SR = 1_920_000   // 48 000 × 40 — standard main-band rate
             // ── Pre-build ALL objects so construction cost is NEVER included in timing ──
             // (constructing FftEngine/Demodulator/Resampler inside a perfTest lambda was
@@ -403,7 +403,7 @@ class RtlSdrTestActivity : AppCompatActivity() {
             //   250 kS/s, 1024 kS/s, 1536 kS/s, 1792 kS/s, 1920 kS/s,
             //   2048 kS/s, 2160 kS/s, 2560 kS/s, 2880 kS/s, 3200 kS/s
             // ─────────────────────────────────────────────────────────────
-            section("9. Sample-Rate Sequence  (5 s per rate, in sequence)")
+            section(getString(R.string.test_section_rates))
             for (rate in RtlSdrDevice.SAMPLE_RATES) {
                 val rateStr = when {
                     rate < 1_000_000 -> "${rate / 1_000} kS/s"
@@ -450,8 +450,8 @@ class RtlSdrTestActivity : AppCompatActivity() {
             log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
 
             withContext(Dispatchers.Main) {
-                tvSummary.text = if (failed == 0) "✓ All $total tests passed"
-                                 else             "✗ $failed of $total tests failed"
+                tvSummary.text = if (failed == 0) getString(R.string.test_all_passed)
+                                 else             getString(R.string.test_some_failed)
                 tvSummary.setTextColor(
                     if (failed == 0) 0xFF00CC44.toInt() else 0xFFFF3333.toInt()
                 )
