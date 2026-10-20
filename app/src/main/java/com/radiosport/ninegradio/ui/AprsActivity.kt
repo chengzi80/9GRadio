@@ -193,8 +193,7 @@ class AprsActivity : AppCompatActivity() {
 
             val label = if (singleChannelHz == DspEngine.APRS_NA_HZ) "NA 144.390" else "EU 144.800"
             title = getString(R.string.aprs_title_single, label)
-            tvMode.text = getString(R.string.aprs_mode_single, "%.3f".format(currentCentreHz / 1e6), deviceRate / 1000) +
-                          "${deviceRate / 1000} kS/s  (≥820 kS/s for dual-watch)"
+            tvMode.text = getString(R.string.aprs_mode_single_detail, "%.3f".format(currentCentreHz / 1e6), deviceRate / 1000)
         }
 
         // Keep both decoders' sample-rate caches in sync with the audio rate
