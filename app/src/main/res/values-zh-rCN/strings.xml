@@ -256,4 +256,26 @@ ACARS 使用 AM + 2400 波特 FSK。
     <string name="protocol_ysf_monitor">YSF 监视器</string>
     <string name="rtlsdr_run_tests">运行测试</string>
     <string name="rtlsdr_clear_log">清除日志</string>
+    <string name="test_title">RTL-SDR 测试</string>
+    <string name="test_suite_title">9GRadio RTL-SDR 测试套件</string>
+    <string name="test_passed">通过 %1$d / %2$d</string>
+    <string name="test_failed">失败 %1$d / %2$d</string>
+    <string name="test_all_passed">✓ 全部 %1$d 项测试通过</string>
+    <string name="test_some_failed">✗ %2$d 项测试中有 %1$d 项失败</string>
+    <string name="test_run">运行测试</string>
+    <string name="test_clear_log">清除日志</string>
+    <string name="test_section_hw">1. 硬件常量</string>
+    <string name="test_section_demod">2. 解调模式</string>
+    <string name="test_section_fft">3. FFT 引擎 — 正确性</string>
+    <string name="test_section_demodulators">4. 解调器 — 正确性</string>
+    <string name="test_section_resampler">5. 多相重采样器</string>
+    <string name="test_section_gain">6. 增益校准</string>
+    <string name="test_section_audio">7. 音频 DSP</string>
+    <string name="test_section_performance">8. 性能（实时余量）</string>
+    <string name="test_section_rates">9. 采样率序列（每个采样率运行 5 秒）</string>
+    <string name="test_no_device">未连接设备。</string>
+    <string name="test_all_passed_short">✓ 所有测试均已通过</string>
+    <string name="test_failed_short">测试失败</string>
+    <string name="test_run_first">请先运行测试</string>
+    <string name="adsb_aircraft_zero">飞机数量：0</string>
 </resources>
