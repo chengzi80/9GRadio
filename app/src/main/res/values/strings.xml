@@ -313,7 +313,7 @@ and an RTL-SDR is connected.</string>
     <string name="ui_uncategorized">Uncategorized</string>
     <string name="ui_none_uncategorized">— None (Uncategorized) —</string>
     <string name="ui_unnamed_list">Unnamed List</string>
-    <string name="ui_no_lists">No lists created yet. Use 'New Bookmark List'.</string>
+    <string name="ui_no_lists">No lists created yet. Use \'New Bookmark List\'.</string>
     <string name="ui_no_messages">No messages to export</string>
     <string name="ui_no_export_file">No export file found (%1$s)</string>
     <string name="ui_no_settings_file">No exported settings file found (%1$s)</string>
@@ -459,9 +459,9 @@ and an RTL-SDR is connected.</string>
     <string name="pref_dc_block_summary">Remove IQ DC offset (disable if causing audio artefacts)</string>
     <string name="pref_external_decoder_title">External Decoder</string>
     <string name="pref_external_decoder_enabled_title">Pipe Audio to External Decoder</string>
-    <string name="pref_external_decoder_enabled_summary">Stream the raw 48 kHz discriminator audio over UDP (PCM16LE) to a desktop decoder such as dsd-neo or DSD-FME, e.g. for protocols 9GRadio doesn't decode natively or to cross-check the built-in decoder.</string>
+    <string name="pref_external_decoder_enabled_summary">Stream the raw 48 kHz discriminator audio over UDP (PCM16LE) to a desktop decoder such as dsd-neo or DSD-FME, e.g. for protocols 9GRadio doesn\'t decode natively or to cross-check the built-in decoder.</string>
     <string name="pref_destination_host_title">Destination Host</string>
-    <string name="pref_destination_host_summary">IP address of the PC running the external decoder (127.0.0.1 if it's this same device via a loopback/USB-tether bridge)</string>
+    <string name="pref_destination_host_summary">IP address of the PC running the external decoder (127.0.0.1 if it\'s this same device via a loopback/USB-tether bridge)</string>
     <string name="pref_destination_port_title">Destination Port</string>
     <string name="pref_destination_port_summary">UDP port the external decoder is listening on. dsd-neo/DSD-FME default for -i udp is 7355.</string>
     <string name="pref_recording_title">Recording</string>
