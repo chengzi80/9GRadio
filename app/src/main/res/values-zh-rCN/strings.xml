@@ -642,4 +642,14 @@ ACARS 使用 AM + 2400 波特 FSK。
     <string name="tab_dstar">D-STAR</string>
     <string name="tab_dig">数字</string>
     <string name="tab_scan">扫描</string>
+    <string name="ui_shutdown_countdown">将在 %1$d:%2$02d 后关闭，点击“关闭应用”可取消。</string>
+    <string name="ui_source_usb">信号源：USB</string>
+    <string name="ui_source_driver">信号源：RTL-SDR 驱动</string>
+    <string name="ui_driver_launching">正在启动 %1$s…</string>
+    <string name="ui_driver_launch_failed">无法启动 %1$s</string>
+    <string name="ui_driver_releasing_usb">正在释放 USB…并启动 %1$s</string>
+    <string name="ui_switching_usb">正在切换到 USB：%1$s</string>
+    <string name="ui_source_diagnostic">信号源诊断</string>
+    <string name="ui_running">⏳ 正在运行…</string>
+    <string name="ui_usb_device_name">🔌 %1$s</string>
 </resources>
