@@ -618,7 +618,7 @@ ACARS 使用 AM + 2400 波特 FSK。
     <string name="recording_total_zero">总计：0 MB（0 个文件）</string>
     <string name="app_version">9GRadio 版本 %1$s</string>
     <string name="ui_cleared_recordings">已清除 %1$d 条录制记录</string>
-    <string name="ui_delete_list_message">删除列表及其中所有 %1$s 个书签？</string>
+    <string name="ui_delete_list_message">删除列表“%1$s”及其所有书签？</string>
     <string name="ui_bookmark_removed">将移除 %1$s。</string>
     <string name="ui_acars_time">时间：%1$s</string>
     <string name="ui_acars_label">标签：%1$s（%2$s）</string>
