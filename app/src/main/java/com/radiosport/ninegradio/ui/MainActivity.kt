@@ -2355,9 +2355,6 @@ class MainActivity : AppCompatActivity() {
         ctrlViews.btnScanner?.setOnClickListener {
             showScanTab()
         }
-        ctrlViews.btnAdsbRadar?.setOnClickListener {
-            startActivity(Intent(this, AdsbActivity::class.java))
-        }
         ctrlViews.btnDebugPanel?.setOnClickListener {
             startActivity(android.content.Intent(this,
                 com.radiosport.ninegradio.ui.DebugPanelActivity::class.java))
