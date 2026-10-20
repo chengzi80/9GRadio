@@ -617,4 +617,16 @@ ACARS 使用 AM + 2400 波特 FSK。
     <string name="scan_channel_table">频道列表（点击调谐，长按屏蔽）：</string>
     <string name="recording_total_zero">总计：0 MB（0 个文件）</string>
     <string name="app_version">9GRadio 版本 %1$s</string>
+    <string name="ui_cleared_recordings">已清除 %1$d 条录制记录</string>
+    <string name="ui_delete_list_message">删除列表及其中所有 %1$s 个书签？</string>
+    <string name="ui_bookmark_removed">将移除 %1$s。</string>
+    <string name="ui_acars_time">时间：%1$s</string>
+    <string name="ui_acars_label">标签：%1$s（%2$s）</string>
+    <string name="ui_acars_ack">确认：%1$s</string>
+    <string name="ui_acars_more_blocks">还有更多数据块：%1$s</string>
+    <string name="ui_yes">是</string>
+    <string name="ui_no">否</string>
+    <string name="ui_acars_flight">航班：%1$s</string>
+    <string name="ui_acars_channel">频率：%1$s MHz | %2$d 条报文</string>
+    <string name="ui_recordings_total">总计：%1$s MB（%2$d 个文件）</string>
 </resources>
