@@ -209,4 +209,51 @@
     <string name="scan_close">关闭</string>
     <string name="scan_stop_title">停止扫描</string>
     <string name="scan_search_stop_title">停止搜索</string>
+    <string name="adsb_title">ADS-B 飞机雷达（1090 MHz）</string>
+    <string name="adsb_live">实时接收 — 1090 MHz</string>
+    <string name="adsb_connecting">正在连接…</string>
+    <string name="adsb_no_device">无设备</string>
+    <string name="adsb_aircraft_detail">飞机详情</string>
+    <string name="adsb_ok">确定</string>
+    <string name="adsb_aircraft_count">飞机数量：%1$d</string>
+    <string name="adsb_no_position">无位置</string>
+    <string name="aprs_connecting">正在连接…</string>
+    <string name="aprs_listening">正在监听…</string>
+    <string name="aprs_no_device">无设备</string>
+    <string name="aprs_signal">检测到信号 ▲</string>
+    <string name="aprs_packets">数据包：%1$d</string>
+    <string name="aprs_stations">电台数量：%1$d</string>
+    <string name="aprs_na">北美 144.390 MHz</string>
+    <string name="aprs_eu">欧洲/澳洲 144.800 MHz</string>
+    <string name="acars_waiting_signal">等待信号…</string>
+    <string name="acars_clear">清除</string>
+    <string name="acars_export">导出</string>
+    <string name="acars_filter">筛选：</string>
+    <string name="acars_all">全部</string>
+    <string name="acars_q0">Q0 位置</string>
+    <string name="acars_other">其他</string>
+    <string name="acars_tap_details">点击报文查看详情 · 长按复制</string>
+    <string name="acars_showing_all">当前显示：全部</string>
+    <string name="acars_no_messages">暂无报文。
+
+ACARS 使用 AM + 2400 波特 FSK。
+常见频率：131.550、131.725、131.825 MHz
+
+请将解调模式设为 ACARS，并连接 RTL-SDR 设备。</string>
+    <string name="acars_messages_zero">0 条报文</string>
+    <string name="protocol_not_active">未启用</string>
+    <string name="protocol_idle">空闲</string>
+    <string name="protocol_frames_zero">帧数：0</string>
+    <string name="protocol_packets_zero">数据包：0</string>
+    <string name="protocol_messages_zero">报文：0</string>
+    <string name="protocol_vocoder_checking">语音编解码器：检查中…</string>
+    <string name="protocol_recent_calls">最近呼叫（点击查看详情）</string>
+    <string name="protocol_recent_messages">最近报文（点击查看详情）</string>
+    <string name="protocol_recent_packets">数据包日志（点击查看详情）：</string>
+    <string name="protocol_dig_monitor">数字模式监视器</string>
+    <string name="protocol_dmr_monitor">DMR 监视器</string>
+    <string name="protocol_dstar_monitor">D-STAR 监视器</string>
+    <string name="protocol_ysf_monitor">YSF 监视器</string>
+    <string name="rtlsdr_run_tests">运行测试</string>
+    <string name="rtlsdr_clear_log">清除日志</string>
 </resources>
