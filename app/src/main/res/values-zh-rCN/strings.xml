@@ -500,4 +500,33 @@ ACARS 使用 AM + 2400 波特 FSK。
     <string name="pref_aprs_title">APRS</string>
     <string name="pref_aprs_autodisplay_title">自动显示接收的报文</string>
     <string name="pref_aprs_autodisplay_summary">自动显示收到的 APRS 数据包 5 秒</string>
+    <string name="bookmark_search_hint">搜索书签…</string>
+    <string name="bookmark_favorites_only">仅显示收藏</string>
+    <string name="bookmark_empty_text">暂无书签。
+点击主界面上的 ★ 保存频率。</string>
+    <string name="bookmark_add_button">添加书签</string>
+    <string name="bookmark_label">标签</string>
+    <string name="bookmark_frequency">频率（MHz）</string>
+    <string name="bookmark_demod_mode">解调模式</string>
+    <string name="bookmark_list">书签列表</string>
+    <string name="bookmark_notes_optional">备注（可选）</string>
+    <string name="bookmark_marker_color">标记颜色</string>
+    <string name="bookmark_change">更改</string>
+    <string name="bookmark_squelch_hint">静噪 dBFS（例如 -80，留空则禁用）</string>
+    <string name="bookmark_list_name">列表名称</string>
+    <string name="bookmark_list_color">列表颜色</string>
+    <string name="memory_channel_name">频道名称</string>
+    <string name="memory_frequency">频率（MHz）</string>
+    <string name="memory_demod_mode">解调模式</string>
+    <string name="memory_group">分组</string>
+    <string name="memory_default">默认</string>
+    <string name="memory_notes_optional">备注（可选）</string>
+    <string name="bookmark_item_label">书签标签</string>
+    <string name="bookmark_toggle_favorite">切换收藏状态</string>
+    <string name="bookmark_tune">调谐</string>
+    <string name="scan_header_freq">频率 MHz</string>
+    <string name="scan_header_power">功率</string>
+    <string name="scan_header_floor">噪声底</string>
+    <string name="scan_header_hits">命中</string>
+    <string name="scan_header_age">时间</string>
 </resources>
