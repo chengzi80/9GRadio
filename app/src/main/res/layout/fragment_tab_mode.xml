@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Demodulation Mode"
+        android:text="@string/demodulation_mode"
         android:textColor="#00CCFF"
         android:textSize="13sp"
         android:textAllCaps="true"
@@ -29,7 +29,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select the demodulator used to decode the current frequency."
+        android:text="@string/demodulation_mode_summary"
         android:textColor="#66FFFFFF"
         android:textSize="10sp"
         android:layout_marginBottom="10dp"/>
@@ -64,7 +64,7 @@
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Shutdown"
+                android:text="@string/shutdown"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#CC3333"
@@ -87,7 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Disconnects the SDR device and closes the app."
+            android:text="@string/shutdown_summary"
             android:textColor="#66FFFFFF"
             android:textSize="10sp"/>
 
