@@ -53,7 +53,7 @@
         android:orientation="horizontal">
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp" android:layout_height="wrap_content"
-            android:layout_weight="1" android:hint="Start MHz"
+            android:layout_weight="1" android:hint="@string/scan_start_mhz"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginEnd="8dp">
             <com.google.android.material.textfield.TextInputEditText
@@ -64,7 +64,7 @@
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp" android:layout_height="wrap_content"
-            android:layout_weight="1" android:hint="Stop MHz"
+            android:layout_weight="1" android:hint="@string/scan_stop_mhz"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etScanTabStop"
@@ -78,7 +78,7 @@
         android:orientation="horizontal" android:layout_marginTop="8dp">
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp" android:layout_height="wrap_content"
-            android:layout_weight="1" android:hint="Step Hz"
+            android:layout_weight="1" android:hint="@string/scan_step_hz"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginEnd="8dp">
             <com.google.android.material.textfield.TextInputEditText
@@ -89,7 +89,7 @@
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp" android:layout_height="wrap_content"
-            android:layout_weight="1" android:hint="Squelch dB"
+            android:layout_weight="1" android:hint="@string/scan_squelch_db"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etScanTabSquelch"
@@ -103,7 +103,7 @@
         android:orientation="horizontal" android:layout_marginTop="8dp">
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp" android:layout_height="wrap_content"
-            android:layout_weight="1" android:hint="Dwell ms"
+            android:layout_weight="1" android:hint="@string/scan_dwell_ms"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginEnd="8dp">
             <com.google.android.material.textfield.TextInputEditText
