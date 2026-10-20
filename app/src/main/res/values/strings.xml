@@ -655,4 +655,8 @@ Tap ★ in the main screen to save a frequency.</string>
     <string name="ui_usb_device_name">🔌 %1$s</string>
     <string name="bookmark_more_options">More options</string>
     <string name="scan_busiest_item">%1$s MHz  —  %2$d hits</string>
+    <string name="aprs_channel_detail">Channel:   %1$s</string>
+    <string name="ui_acars_log_header"># ACARS Log — %1$s</string>
+    <string name="ui_acars_export_channel"># Channel: %1$s MHz  |  %2$d messages</string>
+    <string name="ui_acars_export_flight">  Flight: %1$s</string>
 </resources>
