@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dig Monitor"
+        android:text="@string/protocol_dig_monitor"
         android:textColor="#FF6600"
         android:textSize="13sp"
         android:textAllCaps="true"
@@ -31,7 +31,7 @@
         android:id="@+id/tvDigTabMode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Not active"
+        android:text="@string/protocol_not_active"
         android:textColor="#66FFFFFF"
         android:textSize="10sp"
         android:fontFamily="monospace"
@@ -44,7 +44,7 @@
         android:id="@+id/tvDigTabVocoder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Vocoder: checking…"
+        android:text="@string/protocol_vocoder_checking"
         android:textColor="#888888"
         android:textSize="10sp"
         android:fontFamily="monospace"
@@ -62,7 +62,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Idle"
+            android:text="@string/protocol_idle"
             android:textColor="#44FF88"
             android:textSize="11sp"
             android:fontFamily="monospace"/>
@@ -71,7 +71,7 @@
             android:id="@+id/tvDigTabCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Frames: 0"
+            android:text="@string/protocol_frames_zero"
             android:textColor="#FFAA00"
             android:textSize="11sp"
             android:fontFamily="monospace"/>
@@ -96,7 +96,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Recent Calls (tap for detail)"
+        android:text="@string/protocol_recent_calls"
         android:textColor="#88FFFFFF"
         android:textSize="10sp"
         android:layout_marginBottom="4dp"/>
