@@ -471,7 +471,7 @@ class AprsMapView @JvmOverloads constructor(
 
         // Station count label
         textPaint.color = 0xAAFFFFFF.toInt()
-        canvas.drawText(getString(R.string.aprs_stations, stations.size), 8f, h - 8f, textPaint)
+        canvas.drawText(context.getString(R.string.aprs_stations, stations.size), 8f, h - 8f, textPaint)
         textPaint.color = 0xCC44FFAA.toInt()
     }
 }
