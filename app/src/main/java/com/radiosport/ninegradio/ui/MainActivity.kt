@@ -801,7 +801,7 @@ class MainActivity : AppCompatActivity() {
             selectAll()
         }
         androidx.appcompat.app.AlertDialog.Builder(this)
-            .setTitle("Enter Frequency")
+            .setTitle(getString(R.string.dialog_enter_frequency))
             .setMessage("Type frequency in MHz")
             .setView(editText)
             .setPositiveButton("Tune") { _, _ ->
@@ -988,8 +988,8 @@ class MainActivity : AppCompatActivity() {
      */
     private fun confirmShutdown() {
         AlertDialog.Builder(this)
-            .setTitle("Shut down 9GRadio?")
-            .setMessage("This will disconnect the SDR device and close the app.")
+            .setTitle(getString(R.string.dialog_shutdown_title))
+            .setMessage(getString(R.string.dialog_shutdown_message))
             .setPositiveButton("Shutdown") { _, _ -> performShutdown() }
             .setNegativeButton("Cancel", null)
             .show()
@@ -1302,7 +1302,7 @@ class MainActivity : AppCompatActivity() {
         ctrlViews.btnRecordIq!!.setOnClickListener {
             if (viewModel.dspStats.value.isRecordingIq) {
                 viewModel.stopIqRecording()
-                ctrlViews.btnRecordIq!!.text = "Record IQ"
+                ctrlViews.btnRecordIq!!.text = getString(R.string.action_record_iq)
                 ctrlViews.btnRecordIq!!.setBackgroundColor(0xFF444444.toInt())
             } else {
                 val path = getIqFilePath()
@@ -1317,7 +1317,7 @@ class MainActivity : AppCompatActivity() {
         ctrlViews.btnRecordAudio!!.setOnClickListener {
             if (viewModel.dspStats.value.isRecordingAudio) {
                 viewModel.stopAudioRecording()
-                ctrlViews.btnRecordAudio!!.text = "Record Audio"
+                ctrlViews.btnRecordAudio!!.text = getString(R.string.action_record_audio)
                 ctrlViews.btnRecordAudio!!.setBackgroundColor(0xFF444444.toInt())
             } else {
                 val path = getAudioFilePath()
@@ -1942,14 +1942,14 @@ class MainActivity : AppCompatActivity() {
                     ctrlViews.btnRecordIq?.text = "Stop IQ"
                     ctrlViews.btnRecordIq?.setBackgroundColor(0xFFCC0000.toInt())
                 } else {
-                    ctrlViews.btnRecordIq?.text = "Record IQ"
+                    ctrlViews.btnRecordIq?.text = getString(R.string.action_record_iq)
                     ctrlViews.btnRecordIq?.setBackgroundColor(0xFF444444.toInt())
                 }
                 if (stats.isRecordingAudio) {
                     ctrlViews.btnRecordAudio?.text = "Stop Audio"
                     ctrlViews.btnRecordAudio?.setBackgroundColor(0xFFCC0000.toInt())
                 } else {
-                    ctrlViews.btnRecordAudio?.text = "Record Audio"
+                    ctrlViews.btnRecordAudio?.text = getString(R.string.action_record_audio)
                     ctrlViews.btnRecordAudio?.setBackgroundColor(0xFF444444.toInt())
                 }
             }
@@ -3154,7 +3154,7 @@ class MainActivity : AppCompatActivity() {
         binding.statusIndicator.setImageResource(
             if (connected) R.drawable.ic_connected else R.drawable.ic_disconnected
         )
-        binding.tvDeviceName.text = if (connected) "9GRadio" else "Not Connected"
+        binding.tvDeviceName.text = if (connected) "9GRadio" else getString(R.string.label_not_connected)
 
         // When disconnected, clear the live-data widgets so stale readings
         // (−120.0 dBFS, 0 kS/s) don't persist after the device is unplugged.
@@ -3272,7 +3272,7 @@ class MainActivity : AppCompatActivity() {
                 else -> {
                     val devs = viewModel.detectUsbDevices()
                     if (devs.isNotEmpty()) "🔌  ${com.radiosport.ninegradio.usb.RtlSdrDevice.getDeviceName(devs.first())}"
-                    else "No USB RTL-SDR device detected"
+                    else getString(R.string.message_no_usb_device)
                 }
             }
             setTextAppearance(com.google.android.material.R.style.TextAppearance_MaterialComponents_Body2)
@@ -3347,7 +3347,7 @@ class MainActivity : AppCompatActivity() {
                 val detected = viewModel.detectUsbDevices()
                 if (detected.isEmpty()) {
                     showSnackbar("No USB RTL-SDR device found")
-                    tvStatus.text = "No USB RTL-SDR device detected"
+                    tvStatus.text = getString(R.string.message_no_usb_device)
                     ignoreNext = true
                     switchSource.isChecked = true
                     tvToggleLabel.text = "Source: Rtl-sdr Driver"
@@ -3388,9 +3388,9 @@ class MainActivity : AppCompatActivity() {
         })
 
         AlertDialog.Builder(this)
-            .setTitle("Device Information")
+            .setTitle(getString(R.string.dialog_device_information))
             .setView(root)
-            .setNeutralButton("🔬 Run Diagnostic") { _, _ -> /* handled below via view click */ }
+            .setNeutralButton(getString(R.string.action_run_diagnostic)) { _, _ -> /* handled below via view click */ }
             .setPositiveButton("Close", null)
             .create()
             .also { dlg ->
@@ -3399,7 +3399,7 @@ class MainActivity : AppCompatActivity() {
                 dlg.getButton(AlertDialog.BUTTON_NEUTRAL)?.setOnClickListener { btn ->
                     val btn = btn as android.widget.Button
                     val src = sdrService?.source ?: run {
-                        showSnackbar("No active source — connect a device first"); return@setOnClickListener
+                        showSnackbar(getString(R.string.message_no_active_source)); return@setOnClickListener
                     }
                     val dsp = sdrService?.dspEngine ?: run {
                         showSnackbar("DSP engine not running"); return@setOnClickListener
@@ -3412,7 +3412,7 @@ class MainActivity : AppCompatActivity() {
                             diagnostic.run()
                         }
                         btn.isEnabled = true
-                        btn.text = "🔬 Run Diagnostic"
+                        btn.text = getString(R.string.action_run_diagnostic)
                         showDiagnosticReport(report)
                     }
                 }
@@ -3497,7 +3497,7 @@ class MainActivity : AppCompatActivity() {
             "  ${it.name}\n  ${it.frequencyHz / 1e6} MHz  [${it.mode}]"
         }
         AlertDialog.Builder(this)
-            .setTitle("Frequency Database")
+            .setTitle(getString(R.string.dialog_frequency_database))
             .setItems(items) { _, which ->
                 val item = items[which]
                 freqMap[item]?.let { entry ->
@@ -3520,7 +3520,7 @@ class MainActivity : AppCompatActivity() {
             setText("${"%.3f".format(hz / 1e6)} MHz")
         }
         AlertDialog.Builder(this)
-            .setTitle("Add Bookmark")
+            .setTitle(getString(R.string.dialog_add_bookmark))
             .setView(input)
             .setPositiveButton("Add") { _, _ ->
                 val label = input.text.toString().ifBlank { "${"%.3f".format(hz / 1e6)} MHz" }
