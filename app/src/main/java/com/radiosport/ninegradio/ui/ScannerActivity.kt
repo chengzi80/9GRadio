@@ -423,7 +423,7 @@ class ScannerActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             val message = top.joinToString("\n") { (hz, count) ->
-                "${"%.4f".format(hz / 1e6)} MHz  —  $count hit${if (count == 1) "" else "s"}"
+                getString(R.string.scan_busiest_item, "%.4f".format(hz / 1e6), count)
             }
             AlertDialog.Builder(this)
                 .setTitle(getString(R.string.scan_busiest_title))
