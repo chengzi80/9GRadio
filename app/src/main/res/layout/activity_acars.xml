@@ -29,7 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Waiting for signal…"
+            android:text="@string/acars_waiting_signal"
             android:textColor="#44FF88"
             android:textSize="12sp"
             android:fontFamily="monospace"/>
@@ -48,7 +48,7 @@
             android:id="@+id/tvAcarsCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0 msgs"
+            android:text="@string/acars_messages_zero"
             android:textColor="#FFAA00"
             android:textSize="12sp"
             android:fontFamily="monospace"/>
@@ -125,14 +125,14 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content" android:layout_height="40dp"
                 android:minHeight="0dp"
-                android:text="Clear" android:textColor="#FF4444" android:textSize="12sp"
+                android:text="@string/acars_clear" android:textColor="#FF4444" android:textSize="12sp"
                 android:paddingHorizontal="10dp"/>
 
             <Button android:id="@+id/btnAcarsExport"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content" android:layout_height="40dp"
                 android:minHeight="0dp"
-                android:text="Export" android:textColor="#44FF88" android:textSize="12sp"
+                android:text="@string/acars_export" android:textColor="#44FF88" android:textSize="12sp"
                 android:paddingHorizontal="10dp"/>
 
         </LinearLayout>
@@ -154,14 +154,14 @@
             android:gravity="center_vertical">
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Filter:" android:textColor="#668899"
+                android:text="@string/acars_filter" android:textColor="#668899"
                 android:textSize="11sp" android:layout_marginEnd="6dp"/>
 
             <Button android:id="@+id/chipAll"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content" android:layout_height="32dp"
                 android:minHeight="0dp"
-                android:text="All" android:textColor="#FFFFFF"
+                android:text="@string/acars_all" android:textColor="#FFFFFF"
                 android:textSize="11sp" android:paddingHorizontal="10dp"
                 android:backgroundTint="#33004488"/>
 
@@ -169,7 +169,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content" android:layout_height="32dp"
                 android:minHeight="0dp"
-                android:text="H1 OOOI" android:textColor="#44FF88"
+                android:text="@string/acars_h1" android:textColor="#44FF88"
                 android:textSize="11sp" android:paddingHorizontal="10dp"
                 android:backgroundTint="#22004400"/>
 
@@ -177,7 +177,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content" android:layout_height="32dp"
                 android:minHeight="0dp"
-                android:text="Q0 Pos" android:textColor="#00CCFF"
+                android:text="@string/acars_q0" android:textColor="#00CCFF"
                 android:textSize="11sp" android:paddingHorizontal="10dp"
                 android:backgroundTint="#22000044"/>
 
@@ -193,7 +193,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content" android:layout_height="32dp"
                 android:minHeight="0dp"
-                android:text="SA PDC" android:textColor="#FF88CC"
+                android:text="@string/acars_sa" android:textColor="#FF88CC"
                 android:textSize="11sp" android:paddingHorizontal="10dp"
                 android:backgroundTint="#22440022"/>
 
@@ -201,7 +201,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content" android:layout_height="32dp"
                 android:minHeight="0dp"
-                android:text="Other" android:textColor="#AAAAAA"
+                android:text="@string/acars_other" android:textColor="#AAAAAA"
                 android:textSize="11sp" android:paddingHorizontal="10dp"
                 android:backgroundTint="#22222222"/>
 
@@ -221,7 +221,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Tap a message for details · Long-press to copy"
+            android:text="@string/acars_tap_details"
             android:textColor="#446688"
             android:textSize="10sp"
             android:fontFamily="monospace"/>
@@ -229,7 +229,7 @@
         <TextView android:id="@+id/tvAcarsFilter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Showing: all"
+            android:text="@string/acars_showing_all"
             android:textColor="#446688"
             android:textSize="10sp"
             android:fontFamily="monospace"/>
