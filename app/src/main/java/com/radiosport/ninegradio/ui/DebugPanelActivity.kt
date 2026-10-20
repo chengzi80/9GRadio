@@ -165,11 +165,11 @@ class DebugPanelActivity : AppCompatActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         setContentView(buildLayout())
         supportActionBar?.apply {
-            title = "Debug Panel"
+            title = getString(R.string.debug_panel_title)
             setDisplayHomeAsUpEnabled(true)
         }
         bindService(Intent(this, RtlSdrService::class.java), serviceConnection, BIND_AUTO_CREATE)
-        DebugBus.log("DebugPanel", "Debug panel opened")
+        DebugBus.log("DebugPanel", getString(R.string.debug_opened))
         // startRefresh() is called in onResume() so the loop is properly
         // started/stopped across the full activity lifecycle.
     }
@@ -226,12 +226,12 @@ class DebugPanelActivity : AppCompatActivity() {
             orientation = LinearLayout.HORIZONTAL
             setPadding(dp(8), dp(4), dp(8), dp(4))
         }
-        btnResetStats = makeButton("Reset Stats", "#30363D") {
+        btnResetStats = makeButton(getString(R.string.debug_reset_stats), "#30363D") {
             DebugBus.resetAll()
             sdrService?.dspEngine?.aprsDecoder?.resetCounters()
         }
-        btnCopyLog    = makeButton("Copy Log",    "#21262D") { copyLogToClipboard() }
-        btnExportLog  = makeButton("Export Log",  "#21262D") { exportLogToFile() }
+        btnCopyLog    = makeButton(getString(R.string.debug_copy_log),    "#21262D") { copyLogToClipboard() }
+        btnExportLog  = makeButton(getString(R.string.debug_export_log),  "#21262D") { exportLogToFile() }
         tvRefreshTime = TextView(this).apply {
             textSize = 10f
             setTextColor(Color.parseColor("#484F58"))
@@ -366,21 +366,21 @@ class DebugPanelActivity : AppCompatActivity() {
             typeface = Typeface.MONOSPACE
             setTextColor(Color.parseColor(C_TEXT_DIM))
             setPadding(dp(4), 0, 0, dp(6))
-            text = "Waiting for first IQ block…"
+            text = getString(R.string.debug_waiting_iq)
         }
         section.addView(tvChainStatus)
 
-        grcSource = makeGrcBlock("RTL-SDR Source", "rtlsdr_source  •  RF / IO", C_GRC_SRC)
+        grcSource = makeGrcBlock(getString(R.string.debug_rtl_source), "rtlsdr_source  •  RF / IO", C_GRC_SRC)
         section.addView(grcSource.card)
         wireSrcDecim = makeWire()
         section.addView(wireSrcDecim)
 
-        grcDecim = makeGrcBlock("Complex Decimator", "polyphase_fir_filter_ccf  •  Filters / Decimators", C_GRC_FILTER)
+        grcDecim = makeGrcBlock(getString(R.string.debug_complex_decimator), "polyphase_fir_filter_ccf  •  Filters / Decimators", C_GRC_FILTER)
         section.addView(grcDecim.card)
         wireDecimDemod = makeWire()
         section.addView(wireDecimDemod)
 
-        grcDemod = makeGrcBlock("Demodulator", "nbfm_rx / wfm_rcv / am_demod  •  Demodulators", C_GRC_DEMOD)
+        grcDemod = makeGrcBlock(getString(R.string.debug_demodulator), "nbfm_rx / wfm_rcv / am_demod  •  Demodulators", C_GRC_DEMOD)
         section.addView(grcDemod.card)
         wireDemodResamp = makeWire()
         section.addView(wireDemodResamp)
@@ -390,7 +390,7 @@ class DebugPanelActivity : AppCompatActivity() {
         wireResampSink = makeWire()
         section.addView(wireResampSink)
 
-        grcSink = makeGrcBlock("Audio Sink", "audio_sink (AudioTrack)  •  Audio", C_GRC_SINK)
+        grcSink = makeGrcBlock(getString(R.string.debug_audio_sink), "audio_sink (AudioTrack)  •  Audio", C_GRC_SINK)
         section.addView(grcSink.card)
 
         return section
@@ -578,7 +578,7 @@ class DebugPanelActivity : AppCompatActivity() {
         ))
 
         if (chain == null) {
-            tvChainStatus.text = "No IQ blocks processed yet — connect a device"
+            tvChainStatus.text = getString(R.string.debug_no_iq)
             tvChainStatus.setTextColor(Color.parseColor(C_TEXT_DIM))
 
             grcSource.tvPortOut.text = "out0 ▶ complex<float32> @ —"
@@ -1596,13 +1596,13 @@ class DebugPanelActivity : AppCompatActivity() {
 
     private fun copyLogToClipboard() {
         val cm = getSystemService(ClipboardManager::class.java)
-        cm.setPrimaryClip(ClipData.newPlainText("9GRadio Debug Log", buildExportText()))
-        Toast.makeText(this, "Debug log copied", Toast.LENGTH_SHORT).show()
+        cm.setPrimaryClip(ClipData.newPlainText(getString(R.string.debug_log_title), buildExportText()))
+        Toast.makeText(this, getString(R.string.debug_copy_success), Toast.LENGTH_SHORT).show()
     }
 
     private fun exportLogToFile() {
         try {
-            val dir = File(getExternalFilesDir(null), "Debug")
+            val dir = File(getExternalFilesDir(null), getString(R.string.debug_title))
             dir.mkdirs()
             val ts = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
             val file = File(dir, "debug_$ts.txt")
@@ -1613,7 +1613,7 @@ class DebugPanelActivity : AppCompatActivity() {
                     type = "text/plain"
                     putExtra(Intent.EXTRA_STREAM, uri)
                     addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                }, "Share Debug Log"))
+                }, getString(R.string.debug_share_log)))
         } catch (e: Exception) {
             Toast.makeText(this, "Export failed: ${e.message}", Toast.LENGTH_LONG).show()
         }
@@ -1624,7 +1624,7 @@ class DebugPanelActivity : AppCompatActivity() {
         sb.appendLine("9GRadio Debug Report — ${Date()}")
         sb.appendLine("=".repeat(60))
         sb.appendLine()
-        sb.appendLine("PIPELINE STAGES:")
+        sb.appendLine(getString(R.string.debug_pipeline_stages))
         for (snap in DebugBus.snapshot()) {
             sb.appendLine("  ${snap.name.padEnd(20)} [${snap.status}]  ${snap.detail}")
             sb.appendLine("     cnt=${snap.counter}  rate=${"%.1f".format(snap.ratePerSec)}/s  last=${DebugBus.formatElapsed(snap.lastEventMs)}")
@@ -1641,16 +1641,16 @@ class DebugPanelActivity : AppCompatActivity() {
         sb.appendLine("  Short reads         : ${iqPerf.shortReadCount}")
         sb.appendLine("  Drop rate           : %.2f%% (of ${iqPerf.totalReads} reads)".format(iqPerf.dropRatePct))
         sb.appendLine()
-        sb.appendLine("GLOBAL METRICS:")
+        sb.appendLine(getString(R.string.debug_global_metrics))
         for ((k, v) in DebugBus.getGlobals()) sb.appendLine("  $k: $v")
         sb.appendLine()
-        sb.appendLine("LIVE METRICS:")
+        sb.appendLine(getString(R.string.debug_metrics))
         val dsp = sdrService?.dspEngine?.statsFlow?.value
         if (dsp != null) {
             sb.appendLine("  demod=${dsp.demodMode} rate=${dsp.sampleRate} signal=${"%.1f".format(dsp.signalDb)}dBFS squelch=${if(dsp.squelchOpen) "OPEN" else "CLOSED"}")
         }
         sb.appendLine()
-        sb.appendLine("DIAGNOSTIC LOG:")
+        sb.appendLine(getString(R.string.debug_diagnostic_log))
         for (line in DebugBus.getLog()) sb.appendLine(line)
         return sb.toString()
     }
