@@ -53,4 +53,10 @@
     <string name="rtl_tcp_source">rtl_tcp (Network)</string>
     <string name="usb_source">USB RTL-SDR</string>
     <string name="digital_voice">Digital Voice</string>
+    <string name="bookmarks">Bookmarks</string>
+    <string name="adsb_radar">ADS-B Radar</string>
+    <string name="aprs_monitor">APRS Monitor</string>
+    <string name="acars_monitor">ACARS Monitor</string>
+    <string name="rtl_sdr_tests">RTL-SDR Tests</string>
+    <string name="not_connected">Not Connected</string>
 </resources>
