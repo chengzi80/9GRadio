@@ -618,4 +618,16 @@ Tap ★ in the main screen to save a frequency.</string>
     <string name="scan_channel_table">Channel Table (tap to tune, long-press to lock out):</string>
     <string name="recording_total_zero">Total: 0 MB  (0 files)</string>
     <string name="app_version">9GRadio v%1$s</string>
+    <string name="ui_cleared_recordings">Cleared %1$d recording entries</string>
+    <string name="ui_delete_list_message">Delete list and all %1$s bookmarks?</string>
+    <string name="ui_bookmark_removed">%1$s will be removed.</string>
+    <string name="ui_acars_time">Time:         %1$s</string>
+    <string name="ui_acars_label">Label:        %1$s  (%2$s)</string>
+    <string name="ui_acars_ack">ACK:          %1$s</string>
+    <string name="ui_acars_more_blocks">More blocks:  %1$s</string>
+    <string name="ui_yes">Yes</string>
+    <string name="ui_no">No</string>
+    <string name="ui_acars_flight">Flight: %1$s</string>
+    <string name="ui_acars_channel">Channel: %1$s MHz  |  %2$d messages</string>
+    <string name="ui_recordings_total">Total: %1$s MB  (%2$d files)</string>
 </resources>
