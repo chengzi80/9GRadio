@@ -59,4 +59,20 @@
     <string name="acars_monitor">ACARS Monitor</string>
     <string name="rtl_sdr_tests">RTL-SDR Tests</string>
     <string name="not_connected">Not Connected</string>
+
+    <string name="dialog_enter_frequency">Enter Frequency</string>
+    <string name="dialog_shutdown_title">Shut down 9GRadio?</string>
+    <string name="dialog_shutdown_message">This will disconnect the SDR device and close the app.</string>
+    <string name="label_not_connected">Not Connected</string>
+    <string name="action_run_diagnostic">🔬 Run Diagnostic</string>
+    <string name="dialog_device_information">Device Information</string>
+    <string name="message_no_usb_device">No USB RTL-SDR device detected</string>
+    <string name="message_no_active_source">No active source — connect a device first</string>
+    <string name="dialog_frequency_database">Frequency Database</string>
+    <string name="dialog_add_bookmark">Add Bookmark</string>
+    <string name="action_record_iq">Record IQ</string>
+    <string name="action_record_audio">Record Audio</string>
+    <string name="action_stop_iq">Stop IQ</string>
+    <string name="action_stop_audio">Stop Audio</string>
+
 </resources>
