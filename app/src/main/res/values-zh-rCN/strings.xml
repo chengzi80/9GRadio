@@ -59,4 +59,20 @@
     <string name="acars_monitor">ACARS 航空报文</string>
     <string name="rtl_sdr_tests">RTL-SDR 测试</string>
     <string name="not_connected">未连接</string>
+
+    <string name="dialog_enter_frequency">输入频率</string>
+    <string name="dialog_shutdown_title">关闭 9GRadio？</string>
+    <string name="dialog_shutdown_message">这将断开 SDR 设备连接并退出应用。</string>
+    <string name="label_not_connected">未连接</string>
+    <string name="action_run_diagnostic">🔬 运行诊断</string>
+    <string name="dialog_device_information">设备信息</string>
+    <string name="message_no_usb_device">未检测到 USB RTL-SDR 设备</string>
+    <string name="message_no_active_source">没有活动信号源，请先连接设备</string>
+    <string name="dialog_frequency_database">频率数据库</string>
+    <string name="dialog_add_bookmark">添加书签</string>
+    <string name="action_record_iq">录制 IQ 数据</string>
+    <string name="action_record_audio">录制音频</string>
+    <string name="action_stop_iq">停止 IQ 录制</string>
+    <string name="action_stop_audio">停止音频录制</string>
+
 </resources>
