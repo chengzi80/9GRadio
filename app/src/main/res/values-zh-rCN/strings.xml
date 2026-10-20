@@ -654,4 +654,8 @@ ACARS 使用 AM + 2400 波特 FSK。
     <string name="ui_usb_device_name">🔌 %1$s</string>
     <string name="bookmark_more_options">更多选项</string>
     <string name="scan_busiest_item">%1$s MHz — 命中 %2$d 次</string>
+    <string name="aprs_channel_detail">频道：%1$s</string>
+    <string name="ui_acars_log_header"># ACARS 报文日志 — %1$s</string>
+    <string name="ui_acars_export_channel"># 频率：%1$s MHz | %2$d 条报文</string>
+    <string name="ui_acars_export_flight">  航班：%1$s</string>
 </resources>
