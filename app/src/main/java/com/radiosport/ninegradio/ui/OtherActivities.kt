@@ -346,7 +346,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         findPreference<Preference>("pref_clear_recordings")?.setOnPreferenceClickListener {
             androidx.appcompat.app.AlertDialog.Builder(requireContext())
                 .setTitle(getString(R.string.ui_clear_all_recordings))
-                .setMessage("Delete all recording metadata? (Files on disk are NOT deleted.)")
+                .setMessage(getString(R.string.ui_delete_recording_metadata))
                 .setPositiveButton(getString(R.string.ui_acars_clear)) { _, _ ->
                     lifecycleScope.launch {
                         val app = requireActivity().application
@@ -406,7 +406,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     "Settings imported from ${file.name}", android.widget.Toast.LENGTH_LONG).show()
             } catch (e: Exception) {
                 android.widget.Toast.makeText(requireContext(),
-                    "Import failed: ${e.message}", android.widget.Toast.LENGTH_LONG).show()
+                    getString(R.string.ui_import_failed, e.message ?: ""), android.widget.Toast.LENGTH_LONG).show()
             }
             true
         }
@@ -450,7 +450,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         "Imported ${channels.size} channels", android.widget.Toast.LENGTH_LONG).show()
                 } catch (e: Exception) {
                     android.widget.Toast.makeText(requireContext(),
-                        "Import failed: ${e.message}", android.widget.Toast.LENGTH_LONG).show()
+                        getString(R.string.ui_import_failed, e.message ?: ""), android.widget.Toast.LENGTH_LONG).show()
                 }
             }
             true
@@ -809,11 +809,11 @@ class AcarsActivity : AppCompatActivity() {
                     tvStatus.setTextColor(0xFF884422.toInt())
                     viewLamp.backgroundTintList = android.content.res.ColorStateList.valueOf(0xFF333333.toInt())
                 } else if (stats.squelchOpen) {
-                    tvStatus.text = "SIGNAL \u25b2  ${"%.0f".format(stats.signalDb)} dBFS"
+                    tvStatus.text = getString(R.string.ui_acars_signal, "%.0f".format(stats.signalDb))
                     tvStatus.setTextColor(0xFF44FF88.toInt())
                     viewLamp.backgroundTintList = android.content.res.ColorStateList.valueOf(0xFF00FF44.toInt())
                 } else {
-                    tvStatus.text = "Listening\u2026"
+                    tvStatus.text = getString(R.string.ui_acars_listening)
                     tvStatus.setTextColor(0xFF44FF88.toInt())
                     viewLamp.backgroundTintList = android.content.res.ColorStateList.valueOf(0xFF334455.toInt())
                 }
@@ -843,7 +843,7 @@ class AcarsActivity : AppCompatActivity() {
         }
         val mhz = "%.3f".format(hz / 1e6)
         tvFreq.text = "$mhz MHz"
-        title = "ACARS Monitor — $mhz MHz"
+        title = getString(R.string.ui_acars_title_freq, mhz)
         // Update button highlights
         highlightChannelButton(hz)
     }
@@ -878,7 +878,7 @@ class AcarsActivity : AppCompatActivity() {
     private fun wireFilterChip(resId: Int, label: String?) {
         findViewById<android.widget.Button>(resId).setOnClickListener {
             activeFilter = label
-            tvFilterLabel.text = "Showing: ${label ?: "all"}"
+            tvFilterLabel.text = getString(R.string.ui_acars_showing, label ?: getString(R.string.ui_all))
             refreshList()
         }
     }
@@ -901,7 +901,7 @@ class AcarsActivity : AppCompatActivity() {
     }
 
     private fun updateCount() {
-        tvCount.text = "${allMessages.size} msgs"
+        tvCount.text = getString(R.string.ui_acars_count, allMessages.size)
         val breakdown = allMessages.groupBy { it.label }
             .entries.sortedByDescending { it.value.size }
             .take(4).joinToString("  ") { "${it.key}:${it.value.size}" }
@@ -920,7 +920,7 @@ class AcarsActivity : AppCompatActivity() {
         allMessages.clear()
         adapter.clear()
         adapter.notifyDataSetChanged()
-        tvCount.text = "0 msgs"
+        tvCount.text = getString(R.string.acars_messages_zero)
         tvStats.text = getString(R.string.ui_cleared)
         updateEmptyState()
     }
@@ -945,7 +945,7 @@ class AcarsActivity : AppCompatActivity() {
         }
         val clipboard = getSystemService(android.content.ClipboardManager::class.java)
         clipboard.setPrimaryClip(android.content.ClipData.newPlainText(getString(R.string.ui_acars_log), text))
-        android.widget.Toast.makeText(this, "${allMessages.size} messages copied to clipboard", android.widget.Toast.LENGTH_SHORT).show()
+        android.widget.Toast.makeText(this, getString(R.string.ui_messages_copied, allMessages.size), android.widget.Toast.LENGTH_SHORT).show()
     }
 
     private fun copyToClipboard(msg: com.radiosport.ninegradio.dsp.AcarsDecoder.AcarsMessage) {
@@ -972,14 +972,14 @@ class AcarsActivity : AppCompatActivity() {
         val desc = com.radiosport.ninegradio.dsp.AcarsDecoder.LABEL_DESCRIPTIONS[msg.label] ?: getString(R.string.ui_unknown)
         return buildString {
             appendLine("Time:         $ts")
-            appendLine("Registration: ${msg.registration}")
-            if (msg.flightId.isNotBlank()) appendLine("Flight ID:    ${msg.flightId}")
+            appendLine(getString(R.string.ui_acars_registration, msg.registration))
+            if (msg.flightId.isNotBlank()) appendLine(getString(R.string.ui_acars_flight_id, msg.flightId))
             appendLine("Label:        ${msg.label}  ($desc)")
-            appendLine("Block ID:     ${msg.blockId}")
+            appendLine(getString(R.string.ui_acars_block_id, msg.blockId))
             appendLine("ACK:          ${if (msg.ack) "Yes" else "No"}")
             appendLine("More blocks:  ${if (msg.more) "Yes" else "No"}")
             appendLine()
-            appendLine("Message body:")
+            appendLine(getString(R.string.ui_acars_message_body))
             appendLine(msg.text.ifBlank { getString(R.string.ui_empty) })
         }.trim()
     }
@@ -1445,7 +1445,7 @@ class BookmarkActivity : AppCompatActivity() {
             val result = com.radiosport.ninegradio.data.DataExporter.exportBookmarks(bms, uri, this@BookmarkActivity)
             result.fold(
                 onSuccess = { n -> Toast.makeText(this@BookmarkActivity, "Exported $n bookmarks", Toast.LENGTH_SHORT).show() },
-                onFailure = { e -> Toast.makeText(this@BookmarkActivity, "Export failed: ${e.message}", Toast.LENGTH_LONG).show() }
+                onFailure = { e -> Toast.makeText(this@BookmarkActivity, getString(R.string.ui_export_failed, e.message ?: ""), Toast.LENGTH_LONG).show() }
             )
         }
     }
@@ -1458,7 +1458,7 @@ class BookmarkActivity : AppCompatActivity() {
                     viewModel.importBookmarks(bms)
                     Toast.makeText(this@BookmarkActivity, "Imported ${bms.size} bookmarks", Toast.LENGTH_SHORT).show()
                 },
-                onFailure = { e -> Toast.makeText(this@BookmarkActivity, "Import failed: ${e.message}", Toast.LENGTH_LONG).show() }
+                onFailure = { e -> Toast.makeText(this@BookmarkActivity, getString(R.string.ui_import_failed, e.message ?: ""), Toast.LENGTH_LONG).show() }
             )
         }
     }
