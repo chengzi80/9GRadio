@@ -111,6 +111,7 @@ class ControlsTabManager(private val adapter: ControlsPagerAdapter) {
     val btnScanner:          android.widget.Button? get() = adapter.getViewAt(ControlsPagerAdapter.TAB_SETTINGS)?.findViewById(R.id.btnScanner)
     val btnDebugPanel:       android.widget.Button? get() = adapter.getViewAt(ControlsPagerAdapter.TAB_SETTINGS)?.findViewById(R.id.btnDebugPanel)
     val btnBookmarks:        android.widget.Button? get() = adapter.getViewAt(ControlsPagerAdapter.TAB_SETTINGS)?.findViewById(R.id.btnBookmarks)
+    val btnAdsbRadar:        android.widget.Button? get() = adapter.getViewAt(ControlsPagerAdapter.TAB_SETTINGS)?.findViewById(R.id.btnAdsbRadar)
     val tvAppVersion:        android.widget.TextView? get() = adapter.getViewAt(ControlsPagerAdapter.TAB_SETTINGS)?.findViewById(R.id.tvAppVersion)
 
 
