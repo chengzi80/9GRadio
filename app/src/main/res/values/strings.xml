@@ -619,7 +619,7 @@ Tap ★ in the main screen to save a frequency.</string>
     <string name="recording_total_zero">Total: 0 MB  (0 files)</string>
     <string name="app_version">9GRadio v%1$s</string>
     <string name="ui_cleared_recordings">Cleared %1$d recording entries</string>
-    <string name="ui_delete_list_message">Delete list and all %1$s bookmarks?</string>
+    <string name="ui_delete_list_message">Delete list "%1$s" and all its bookmarks?</string>
     <string name="ui_bookmark_removed">%1$s will be removed.</string>
     <string name="ui_acars_time">Time:         %1$s</string>
     <string name="ui_acars_label">Label:        %1$s  (%2$s)</string>
