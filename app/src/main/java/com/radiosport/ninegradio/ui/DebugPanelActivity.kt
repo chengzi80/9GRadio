@@ -1,5 +1,7 @@
 package com.radiosport.ninegradio.ui
 
+import com.radiosport.ninegradio.R
+
 import android.content.*
 import android.graphics.Color
 import android.graphics.Typeface
