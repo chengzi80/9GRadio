@@ -1217,7 +1217,7 @@ class DebugPanelActivity : AppCompatActivity() {
         }
         val tvCounter = makeMonoSmall("cnt: 0")
         val tvRate    = makeMonoSmall("  0.0/s")
-        val tvLast    = makeMonoSmall("  never")
+        val tvLast    = makeMonoSmall("  " + getString(R.string.ui_debug_never))
         row3.addView(tvCounter); row3.addView(tvRate); row3.addView(tvLast)
         card.addView(row3)
 
@@ -1541,7 +1541,7 @@ class DebugPanelActivity : AppCompatActivity() {
         v.card.setBackgroundColor(Color.parseColor(C_CARD))
         v.statusDot.setBackgroundColor(Color.parseColor(C_GREEN))
         v.tvName.text = s.name
-        v.tvStatus.text = "OK"; v.tvStatus.setTextColor(Color.parseColor(C_GREEN))
+        v.tvStatus.text = getString(R.string.ui_debug_ok); v.tvStatus.setTextColor(Color.parseColor(C_GREEN))
         v.tvStatus.setBackgroundColor(Color.parseColor(C_GREEN_BG))
         v.tvDetail.text = s.detail.ifBlank { "—" }
         v.tvCounter.text = "cnt: ${s.counter}"
@@ -1554,7 +1554,7 @@ class DebugPanelActivity : AppCompatActivity() {
         v.card.setBackgroundColor(Color.parseColor(C_CARD))
         v.statusDot.setBackgroundColor(Color.parseColor(C_AMBER))
         v.tvName.text = s.name
-        v.tvStatus.text = "STALE"; v.tvStatus.setTextColor(Color.parseColor(C_AMBER))
+        v.tvStatus.text = getString(R.string.ui_debug_stale); v.tvStatus.setTextColor(Color.parseColor(C_AMBER))
         v.tvStatus.setBackgroundColor(Color.parseColor(C_AMBER_BG))
         v.tvDetail.text = s.detail.ifBlank { "No events for >5s" }
         v.tvCounter.text = "cnt: ${s.counter}"
@@ -1567,7 +1567,7 @@ class DebugPanelActivity : AppCompatActivity() {
         v.card.setBackgroundColor(Color.parseColor("#1A0D0D"))
         v.statusDot.setBackgroundColor(Color.parseColor(C_RED))
         v.tvName.text = s.name
-        v.tvStatus.text = "ERROR"; v.tvStatus.setTextColor(Color.parseColor(C_RED))
+        v.tvStatus.text = getString(R.string.ui_debug_error); v.tvStatus.setTextColor(Color.parseColor(C_RED))
         v.tvStatus.setBackgroundColor(Color.parseColor(C_RED_BG))
         v.tvDetail.text = s.detail.ifBlank { "—" }
         v.tvCounter.text = "cnt: ${s.counter}"
@@ -1583,12 +1583,12 @@ class DebugPanelActivity : AppCompatActivity() {
         v.card.setBackgroundColor(Color.parseColor(C_CARD))
         v.statusDot.setBackgroundColor(Color.parseColor("#30363D"))
         v.tvName.text = s.name
-        v.tvStatus.text = "IDLE"; v.tvStatus.setTextColor(Color.parseColor("#484F58"))
+        v.tvStatus.text = getString(R.string.ui_debug_idle); v.tvStatus.setTextColor(Color.parseColor("#484F58"))
         v.tvStatus.setBackgroundColor(Color.parseColor("#21262D"))
         v.tvDetail.text = "—"
         v.tvCounter.text = "cnt: 0"
         v.tvRate.text    = "  0.0/s"
-        v.tvLastEvent.text = "  never"
+        v.tvLastEvent.text = "  " + getString(R.string.ui_debug_never)
         v.errorRow.visibility = View.GONE
     }
 
@@ -1615,7 +1615,7 @@ class DebugPanelActivity : AppCompatActivity() {
                     addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 }, getString(R.string.debug_share_log)))
         } catch (e: Exception) {
-            Toast.makeText(this, "Export failed: ${e.message}", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.ui_debug_export_failed, e.message ?: ""), Toast.LENGTH_LONG).show()
         }
     }
 
