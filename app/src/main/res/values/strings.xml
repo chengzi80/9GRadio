@@ -643,4 +643,14 @@ Tap ★ in the main screen to save a frequency.</string>
     <string name="tab_dstar">D-STAR</string>
     <string name="tab_dig">Dig</string>
     <string name="tab_scan">Scan</string>
+    <string name="ui_shutdown_countdown">Shutting down in %1$d:%2$02d — tap Shutdown to cancel.</string>
+    <string name="ui_source_usb">Source: USB</string>
+    <string name="ui_source_driver">Source: Rtl-sdr Driver</string>
+    <string name="ui_driver_launching">Launching %1$s…</string>
+    <string name="ui_driver_launch_failed">Could not launch %1$s</string>
+    <string name="ui_driver_releasing_usb">Releasing USB… launching %1$s</string>
+    <string name="ui_switching_usb">Switching to USB: %1$s</string>
+    <string name="ui_source_diagnostic">Source Diagnostic</string>
+    <string name="ui_running">⏳ Running…</string>
+    <string name="ui_usb_device_name">🔌 %1$s</string>
 </resources>
