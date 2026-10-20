@@ -501,4 +501,33 @@ and an RTL-SDR is connected.</string>
     <string name="pref_aprs_title">APRS</string>
     <string name="pref_aprs_autodisplay_title">Auto-Display Received Messages</string>
     <string name="pref_aprs_autodisplay_summary">Automatically show incoming APRS packets for 5 seconds</string>
+    <string name="bookmark_search_hint">Search bookmarks…</string>
+    <string name="bookmark_favorites_only">Show favorites only</string>
+    <string name="bookmark_empty_text">No bookmarks.
+Tap ★ in the main screen to save a frequency.</string>
+    <string name="bookmark_add_button">Add bookmark</string>
+    <string name="bookmark_label">Label</string>
+    <string name="bookmark_frequency">Frequency (MHz)</string>
+    <string name="bookmark_demod_mode">Demodulation Mode</string>
+    <string name="bookmark_list">Bookmark List</string>
+    <string name="bookmark_notes_optional">Notes (optional)</string>
+    <string name="bookmark_marker_color">Marker Color</string>
+    <string name="bookmark_change">Change</string>
+    <string name="bookmark_squelch_hint">Squelch dBFS (e.g. -80, leave blank to disable)</string>
+    <string name="bookmark_list_name">List Name</string>
+    <string name="bookmark_list_color">List Color</string>
+    <string name="memory_channel_name">Channel Name</string>
+    <string name="memory_frequency">Frequency (MHz)</string>
+    <string name="memory_demod_mode">Demod Mode</string>
+    <string name="memory_group">Group</string>
+    <string name="memory_default">Default</string>
+    <string name="memory_notes_optional">Notes (optional)</string>
+    <string name="bookmark_item_label">Bookmark Label</string>
+    <string name="bookmark_toggle_favorite">Toggle favorite</string>
+    <string name="bookmark_tune">TUNE</string>
+    <string name="scan_header_freq">FREQ MHZ</string>
+    <string name="scan_header_power">PWR</string>
+    <string name="scan_header_floor">FLOOR</string>
+    <string name="scan_header_hits">HITS</string>
+    <string name="scan_header_age">AGE</string>
 </resources>
