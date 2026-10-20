@@ -612,4 +612,8 @@ ACARS 使用 AM + 2400 波特 FSK。
     <string name="ui_debug_idle">空闲</string>
     <string name="ui_debug_never">从未</string>
     <string name="aprs_mode_single_detail">单频道：%1$s MHz | %2$d kS/s（≥820 kS/s 可双频道监听）</string>
+    <string name="scan_details">扫描器详情</string>
+    <string name="scan_hold_on_signal">有信号时停留</string>
+    <string name="scan_channel_table">频道列表（点击调谐，长按屏蔽）：</string>
+    <string name="recording_total_zero">总计：0 MB（0 个文件）</string>
 </resources>
