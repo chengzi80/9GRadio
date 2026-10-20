@@ -616,4 +616,5 @@ ACARS 使用 AM + 2400 波特 FSK。
     <string name="scan_hold_on_signal">有信号时停留</string>
     <string name="scan_channel_table">频道列表（点击调谐，长按屏蔽）：</string>
     <string name="recording_total_zero">总计：0 MB（0 个文件）</string>
+    <string name="app_version">9GRadio 版本 %1$s</string>
 </resources>
