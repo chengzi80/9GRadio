@@ -257,4 +257,26 @@ and an RTL-SDR is connected.</string>
     <string name="protocol_ysf_monitor">YSF Monitor</string>
     <string name="rtlsdr_run_tests">Run Tests</string>
     <string name="rtlsdr_clear_log">Clear Log</string>
+    <string name="test_title">RTL-SDR Tests</string>
+    <string name="test_suite_title">9GRadio RTL-SDR Test Suite</string>
+    <string name="test_passed">PASSED %1$d / %2$d</string>
+    <string name="test_failed">FAILED %1$d / %2$d</string>
+    <string name="test_all_passed">✓ All %1$d tests passed</string>
+    <string name="test_some_failed">✗ %1$d of %2$d tests failed</string>
+    <string name="test_run">Run Tests</string>
+    <string name="test_clear_log">Clear Log</string>
+    <string name="test_section_hw">1. Hardware Constants</string>
+    <string name="test_section_demod">2. Demodulation Modes</string>
+    <string name="test_section_fft">3. FFT Engine — Correctness</string>
+    <string name="test_section_demodulators">4. Demodulators — Correctness</string>
+    <string name="test_section_resampler">5. Polyphase Resampler</string>
+    <string name="test_section_gain">6. Gain Calibration</string>
+    <string name="test_section_audio">7. Audio DSP</string>
+    <string name="test_section_performance">8. Performance (real-time headroom)</string>
+    <string name="test_section_rates">9. Sample-Rate Sequence  (5 s per rate, in sequence)</string>
+    <string name="test_no_device">No device connected.</string>
+    <string name="test_all_passed_short">✓ All tests passed</string>
+    <string name="test_failed_short">Tests failed</string>
+    <string name="test_run_first">Run the tests first</string>
+    <string name="adsb_aircraft_zero">Aircraft: 0</string>
 </resources>
