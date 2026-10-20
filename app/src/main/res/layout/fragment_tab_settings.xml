@@ -112,7 +112,7 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:layout_marginStart="6dp"
-            android:text="Settings"
+            android:text="@string/settings"
             android:textSize="11sp"
             android:backgroundTint="#1A2A3A"
             android:textColor="#AAFFFFFF"/>
