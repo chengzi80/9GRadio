@@ -964,14 +964,14 @@ class MainActivity : AppCompatActivity() {
                 }
                 val mins = (remaining / 60000).toInt()
                 val secs = ((remaining % 60000) / 1000).toInt()
-                statusTv?.text = "Shutting down in %d:%02d — tap Shutdown to cancel.".format(mins, secs)
+                statusTv?.text = getString(R.string.ui_shutdown_countdown, mins, secs)
                 ctrlViews.btnShutdown?.text = getString(R.string.ui_cancel)
                 shutdownHandler.postDelayed(this, 1000)
             }
         }
         shutdownRunnable = ticker
         shutdownHandler.post(ticker)
-        statusTv?.text = "Shutdown scheduled in $label. Tap Shutdown to cancel."
+        statusTv?.text = getString(R.string.ui_shutdown_cancel, label)
         ctrlViews.btnShutdown?.text = getString(R.string.ui_cancel)
     }
 
@@ -3252,7 +3252,7 @@ class MainActivity : AppCompatActivity() {
             setPadding(0, 0, 0, (4 * dp).toInt())
         }
         val tvToggleLabel = android.widget.TextView(this).apply {
-            text = if (isDriverMode) "Source: Rtl-sdr Driver" else "Source: USB"
+            text = if (isDriverMode) getString(R.string.ui_source_driver) else getString(R.string.ui_source_usb)
             layoutParams = android.widget.LinearLayout.LayoutParams(
                 0, android.widget.LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
         }
@@ -3287,7 +3287,7 @@ class MainActivity : AppCompatActivity() {
         var ignoreNext = false
         switchSource.setOnCheckedChangeListener { _, useDriver ->
             if (ignoreNext) { ignoreNext = false; return@setOnCheckedChangeListener }
-            tvToggleLabel.text = if (useDriver) "Source: Rtl-sdr Driver" else "Source: USB"
+            tvToggleLabel.text = if (useDriver) getString(R.string.ui_source_driver) else getString(R.string.ui_source_usb)
 
             if (useDriver) {
                 // USB → Rtl-sdr Driver
@@ -3295,7 +3295,7 @@ class MainActivity : AppCompatActivity() {
                     showSnackbar(getString(R.string.ui_driver_not_installed))
                     ignoreNext = true
                     switchSource.isChecked = false
-                    tvToggleLabel.text = "Source: USB"
+                    tvToggleLabel.text = getString(R.string.ui_source_usb)
                     RtlSdrDriverApp.openPlayStore(this)
                     return@setOnCheckedChangeListener
                 }
@@ -3314,8 +3314,8 @@ class MainActivity : AppCompatActivity() {
                 val handler = android.os.Handler(android.os.Looper.getMainLooper())
                 val usbSettleMs = if (wasUsb) 400L else 0L
 
-                showSnackbar(if (wasUsb) "Releasing USB… launching $driverLabel" else "Launching $driverLabel…")
-                tvStatus.text = "📡  $driverLabel  (launching…)"
+                showSnackbar(if (wasUsb) getString(R.string.ui_driver_releasing_usb, driverLabel) else getString(R.string.ui_driver_launching, driverLabel))
+                tvStatus.text = "📡  " + getString(R.string.ui_driver_launching, driverLabel)
 
                 // Wait for USB to settle before launching (only if we just released a USB device).
                 handler.postDelayed({
@@ -3329,11 +3329,11 @@ class MainActivity : AppCompatActivity() {
                     )
                     if (!launched) {
                         suppressUsbAttach = false
-                        showSnackbar("Could not launch $driverLabel")
+                        showSnackbar(getString(R.string.ui_driver_launch_failed, driverLabel))
                         ignoreNext = true
                         switchSource.isChecked = false
-                        tvToggleLabel.text = "Source: USB"
-                        tvStatus.text = "Could not launch $driverLabel"
+                        tvToggleLabel.text = getString(R.string.ui_source_usb)
+                        tvStatus.text = getString(R.string.ui_driver_launch_failed, driverLabel)
                         return@postDelayed
                     }
                     // Driver app is now in foreground -- user grants USB permission there.
@@ -3350,12 +3350,12 @@ class MainActivity : AppCompatActivity() {
                     tvStatus.text = getString(R.string.message_no_usb_device)
                     ignoreNext = true
                     switchSource.isChecked = true
-                    tvToggleLabel.text = "Source: Rtl-sdr Driver"
+                    tvToggleLabel.text = getString(R.string.ui_source_driver)
                 } else {
                     val dev = detected.first()
                     val name = com.radiosport.ninegradio.usb.RtlSdrDevice.getDeviceName(dev)
-                    tvStatus.text = "🔌  $name"
-                    showSnackbar("Switching to USB: $name")
+                    tvStatus.text = getString(R.string.ui_usb_device_name, name)
+                    showSnackbar(getString(R.string.ui_switching_usb, name))
                     viewModel.connectDevice(dev)
                 }
             }
@@ -3405,7 +3405,7 @@ class MainActivity : AppCompatActivity() {
                         showSnackbar("DSP engine not running"); return@setOnClickListener
                     }
                     btn.isEnabled = false
-                    btn.text = "⏳ Running…"
+                    btn.text = getString(R.string.ui_running)
                     lifecycleScope.launch {
                         val diagnostic = com.radiosport.ninegradio.dsp.SourceDiagnostic(dsp, src)
                         val report = withContext(kotlinx.coroutines.Dispatchers.Default) {
@@ -3469,7 +3469,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         AlertDialog.Builder(this)
-            .setTitle("Source Diagnostic")
+            .setTitle(getString(R.string.ui_source_diagnostic))
             .setView(root)
             .setPositiveButton(getString(R.string.ui_close), null)
             .setNeutralButton("📋 Copy") { _, _ ->
