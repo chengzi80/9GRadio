@@ -151,4 +151,19 @@
     <string name="out_of_bound_frequency_summary">Allow all RTL-SDR frequencies (enable for Blog v4)</string>
     <string name="scanner">Scanner</string>
     <string name="about_credit">© RNK 9G5AR RadioSport</string>
+    <string name="delete_channel">Delete Channel</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="clear_all">Clear All</string>
+    <string name="select_json_file">Use Files app to select a JSON file</string>
+    <string name="add_memory_channel">Add Memory Channel</string>
+    <string name="save">Save</string>
+    <string name="edit_channel">Edit: %1$s</string>
+    <string name="update">Update</string>
+    <string name="clear_all_channels">Clear All Channels</string>
+    <string name="delete_all_channels_confirm">Delete all memory channels? This cannot be undone.</string>
+    <string name="delete_all">Delete All</string>
+    <string name="tuned_to_channel">Tuned to %1$s</string>
+    <string name="cleared_channels">Cleared %1$d channels</string>
+    <string name="exported_channels">Exported %1$d channels to %2$s</string>
 </resources>
