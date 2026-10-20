@@ -1019,7 +1019,7 @@ class AcarsMessageAdapter(context: android.content.Context) :
         tvLabelDesc.visibility = if (desc != null) android.view.View.VISIBLE else android.view.View.GONE
 
         // Message text (show blank placeholder if empty)
-        tvText.text = msg.text.trim().ifBlank { getString(R.string.ui_no_text_body) }
+        tvText.text = msg.text.trim().ifBlank { view.context.getString(R.string.ui_no_text_body) }
 
         // Color-code label badge by message type
         val (badgeColor, textColor) = when (msg.label) {
