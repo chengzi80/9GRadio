@@ -75,7 +75,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1.4"
-        android:text="never"
+        android:text="@string/ui_debug_never"
         android:textColor="#88FFFFFF"
         android:textSize="11sp"
         android:fontFamily="monospace"
