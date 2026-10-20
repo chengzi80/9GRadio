@@ -8,7 +8,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="List Name"
+        android:hint="@string/bookmark_list_name"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etListName"
@@ -21,7 +21,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Notes (optional)"
+        android:hint="@string/bookmark_notes_optional"
         android:layout_marginTop="8dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <com.google.android.material.textfield.TextInputEditText
@@ -44,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="List Color"
+            android:text="@string/bookmark_list_color"
             android:textColor="#AAFFFFFF"
             android:textSize="13sp"/>
 
@@ -58,7 +58,7 @@
             android:id="@+id/btnListPickColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Change"
+            android:text="@string/bookmark_change"
             android:textSize="12sp"
             android:layout_marginStart="8dp"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
