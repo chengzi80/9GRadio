@@ -151,4 +151,19 @@
     <string name="out_of_bound_frequency_summary">允许使用 RTL-SDR 的全部频率范围（RTL-SDR Blog V4 可启用）</string>
     <string name="scanner">扫描</string>
     <string name="about_credit">© RNK 9G5AR RadioSport</string>
+    <string name="delete_channel">删除频道</string>
+    <string name="delete">删除</string>
+    <string name="cancel">取消</string>
+    <string name="clear_all">全部清除</string>
+    <string name="select_json_file">请使用文件管理器选择 JSON 文件</string>
+    <string name="add_memory_channel">添加记忆频道</string>
+    <string name="save">保存</string>
+    <string name="edit_channel">编辑：%1$s</string>
+    <string name="update">更新</string>
+    <string name="clear_all_channels">清除所有频道</string>
+    <string name="delete_all_channels_confirm">确定删除所有记忆频道吗？此操作无法撤销。</string>
+    <string name="delete_all">全部删除</string>
+    <string name="tuned_to_channel">已调谐至 %1$s</string>
+    <string name="cleared_channels">已清除 %1$d 个频道</string>
+    <string name="exported_channels">已将 %1$d 个频道导出至 %2$s</string>
 </resources>
