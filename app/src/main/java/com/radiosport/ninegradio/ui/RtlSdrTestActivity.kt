@@ -465,42 +465,42 @@ class RtlSdrTestActivity : AppCompatActivity() {
     // ─────────────────────────────────────────────────────────────────────────
 
     private fun localizeTestName(name: String): String = when (name) {
-            "XTAL frequency is 28.8 MHz" -> "晶振频率为 28.8 MHz",
-            "Frequency range 500 kHz – 1766 MHz" -> "频率范围为 500 kHz–1766 MHz",
-            "HF cutoff at 28.8 MHz" -> "短波截止频率为 28.8 MHz",
-            "Direct-sampling constants 0/1/2" -> "直采模式常量为 0/1/2",
-            "Bias-tee GPIO bit is 0x08" -> "偏置供电 GPIO 位为 0x08",
-            "Gain table has 29 entries" -> "增益表包含 29 个条目",
-            "Gain table is monotonically non-decreasing" -> "增益表单调不递减",
-            "Sample-rate PLL ratio in valid range for ALL rates (low-band and main-band)" -> "所有采样率（低频段和主频段）的 PLL 比率均在有效范围内",
-            "Low-rate band entries are within valid IQ range (225 001–300 000 Hz)" -> "低采样率频段条目位于有效 IQ 范围内（225001–300000 Hz）",
-            "nearestSampleRate snaps dead-zone value to nearer band boundary" -> "nearestSampleRate 将禁用区采样率映射到较近的频段边界",
-            "nearestSampleRate stays within low-rate band for low-band requests" -> "低频段请求的采样率保持在低频段内",
-            "nearestSampleRate stays within main band for main-band requests" -> "主频段请求的采样率保持在主频段内",
-            "ADS-B pinned at 1090 MHz" -> "ADS-B 固定使用 1090 MHz",
-            "All modes have positive bandwidth" -> "所有模式的带宽均为正数",
-            "DRM requires direct sampling; FM/NFM/WFM/AM/ADSB do not" -> "DRM 需要直采；FM/NFM/WFM/AM/ADSB 不需要",
-            "All window types produce NaN-free output" -> "所有窗函数的输出均不含 NaN",
-            "DC input peaks at centre bin" -> "直流输入在中心频点产生峰值",
-            "FFT size change: 256/512/1024/2048/4096 all correct length" -> "FFT 点数切换 256/512/1024/2048/4096 后输出长度均正确",
-            "Output length matches FFT size" -> "输出长度与 FFT 点数一致",
-            "DemodulatorFactory creates correct type for every mode" -> "DemodulatorFactory 为每种模式创建正确的解调器类型",
-            "NFM output bounded (no overflow)" -> "NFM 输出范围正常（无溢出）",
-            "NFM demodulator ≥ 10× real-time" -> "NFM 解调器速度达到实时的 10 倍以上",
-            "WFM mono output length = N/2" -> "WFM 单声道输出长度为 N/2",
-            "WFM is max 250k" -> "WFM 最高为 250 kS/s",
-            "USB zero-input gives near-zero output" -> "USB 零输入产生接近零的输出",
-            "RAW demodulator produces non-negative magnitudes" -> "RAW 解调器产生非负幅度值",
-            "AM envelope is non-negative" -> "AM 包络为非负值",
-            "LSB zero-input gives near-zero output" -> "LSB 零输入产生接近零的输出",
-            "DcBlocker removes DC offset" -> "DcBlocker 可去除直流偏移",
-            "NoiseReducer calibrates in 20 frames and processes without throwing" -> "NoiseReducer 在 20 帧内完成校准并正常处理",
-            "NoiseBlanker passes low-level signal at steady state" -> "NoiseBlanker 在稳态下可通过低电平信号",
-            "AudioAgc reduces loud signal below input level" -> "AudioAgc 将大音量信号降低到输入电平以下",
-            "AutoNotchFilter converges on a pure tone" -> "AutoNotchFilter 对纯音收敛",
-            "estimateSaturation on clipped data returns near-100 %" -> "削波数据的 estimateSaturation 结果接近 100%",
-            "estimateSaturation on mid-range data returns near-zero" -> "中等幅度数据的 estimateSaturation 结果接近零",
-            "suggestGain returns index in 0..28 for all scenarios" -> "suggestGain 在所有场景中返回 0–28 的索引",
+            "XTAL frequency is 28.8 MHz" -> "晶振频率为 28.8 MHz"
+            "Frequency range 500 kHz – 1766 MHz" -> "频率范围为 500 kHz–1766 MHz"
+            "HF cutoff at 28.8 MHz" -> "短波截止频率为 28.8 MHz"
+            "Direct-sampling constants 0/1/2" -> "直采模式常量为 0/1/2"
+            "Bias-tee GPIO bit is 0x08" -> "偏置供电 GPIO 位为 0x08"
+            "Gain table has 29 entries" -> "增益表包含 29 个条目"
+            "Gain table is monotonically non-decreasing" -> "增益表单调不递减"
+            "Sample-rate PLL ratio in valid range for ALL rates (low-band and main-band)" -> "所有采样率（低频段和主频段）的 PLL 比率均在有效范围内"
+            "Low-rate band entries are within valid IQ range (225 001–300 000 Hz)" -> "低采样率频段条目位于有效 IQ 范围内（225001–300000 Hz）"
+            "nearestSampleRate snaps dead-zone value to nearer band boundary" -> "nearestSampleRate 将禁用区采样率映射到较近的频段边界"
+            "nearestSampleRate stays within low-rate band for low-band requests" -> "低频段请求的采样率保持在低频段内"
+            "nearestSampleRate stays within main band for main-band requests" -> "主频段请求的采样率保持在主频段内"
+            "ADS-B pinned at 1090 MHz" -> "ADS-B 固定使用 1090 MHz"
+            "All modes have positive bandwidth" -> "所有模式的带宽均为正数"
+            "DRM requires direct sampling; FM/NFM/WFM/AM/ADSB do not" -> "DRM 需要直采；FM/NFM/WFM/AM/ADSB 不需要"
+            "All window types produce NaN-free output" -> "所有窗函数的输出均不含 NaN"
+            "DC input peaks at centre bin" -> "直流输入在中心频点产生峰值"
+            "FFT size change: 256/512/1024/2048/4096 all correct length" -> "FFT 点数切换 256/512/1024/2048/4096 后输出长度均正确"
+            "Output length matches FFT size" -> "输出长度与 FFT 点数一致"
+            "DemodulatorFactory creates correct type for every mode" -> "DemodulatorFactory 为每种模式创建正确的解调器类型"
+            "NFM output bounded (no overflow)" -> "NFM 输出范围正常（无溢出）"
+            "NFM demodulator ≥ 10× real-time" -> "NFM 解调器速度达到实时的 10 倍以上"
+            "WFM mono output length = N/2" -> "WFM 单声道输出长度为 N/2"
+            "WFM is max 250k" -> "WFM 最高为 250 kS/s"
+            "USB zero-input gives near-zero output" -> "USB 零输入产生接近零的输出"
+            "RAW demodulator produces non-negative magnitudes" -> "RAW 解调器产生非负幅度值"
+            "AM envelope is non-negative" -> "AM 包络为非负值"
+            "LSB zero-input gives near-zero output" -> "LSB 零输入产生接近零的输出"
+            "DcBlocker removes DC offset" -> "DcBlocker 可去除直流偏移"
+            "NoiseReducer calibrates in 20 frames and processes without throwing" -> "NoiseReducer 在 20 帧内完成校准并正常处理"
+            "NoiseBlanker passes low-level signal at steady state" -> "NoiseBlanker 在稳态下可通过低电平信号"
+            "AudioAgc reduces loud signal below input level" -> "AudioAgc 将大音量信号降低到输入电平以下"
+            "AutoNotchFilter converges on a pure tone" -> "AutoNotchFilter 对纯音收敛"
+            "estimateSaturation on clipped data returns near-100 %" -> "削波数据的 estimateSaturation 结果接近 100%"
+            "estimateSaturation on mid-range data returns near-zero" -> "中等幅度数据的 estimateSaturation 结果接近零"
+            "suggestGain returns index in 0..28 for all scenarios" -> "suggestGain 在所有场景中返回 0–28 的索引"
             else -> name
     }
 
