@@ -33,7 +33,7 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        title = "Settings"
+        title = getString(R.string.ui_settings)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.settings_container, SettingsFragment())
@@ -345,9 +345,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         findPreference<Preference>("pref_clear_recordings")?.setOnPreferenceClickListener {
             androidx.appcompat.app.AlertDialog.Builder(requireContext())
-                .setTitle("Clear All Recordings")
+                .setTitle(getString(R.string.ui_clear_all_recordings))
                 .setMessage("Delete all recording metadata? (Files on disk are NOT deleted.)")
-                .setPositiveButton("Clear") { _, _ ->
+                .setPositiveButton(getString(R.string.ui_acars_clear)) { _, _ ->
                     lifecycleScope.launch {
                         val app = requireActivity().application
                             as com.radiosport.ninegradio.RtlSdrApplication
@@ -360,7 +360,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         ).show()
                     }
                 }
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(getString(R.string.ui_cancel), null)
                 .show()
             true
         }
@@ -499,7 +499,7 @@ class RecordingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recording)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        title = "Recordings"
+        title = getString(R.string.ui_recordings)
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerRecordings)
         val tvTotalSize  = findViewById<TextView>(R.id.tvTotalSize)
@@ -541,13 +541,13 @@ class RecordingActivity : AppCompatActivity() {
                 addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             })
         } else {
-            Toast.makeText(this, "IQ files require an external SDR app to play", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.ui_iq_external), Toast.LENGTH_LONG).show()
         }
     }
 
     private fun shareRecording(meta: RecordingMeta) {
         val file = File(meta.filePath)
-        if (!file.exists()) { Toast.makeText(this, "File not found", Toast.LENGTH_SHORT).show(); return }
+        if (!file.exists()) { Toast.makeText(this, getString(R.string.ui_file_not_found), Toast.LENGTH_SHORT).show(); return }
         val uri = FileProvider.getUriForFile(this, "$packageName.fileprovider", file)
         startActivity(Intent.createChooser(
             Intent(Intent.ACTION_SEND).apply {
@@ -715,7 +715,7 @@ class AcarsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_acars)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        title = "ACARS Monitor"
+        title = getString(R.string.ui_acars_monitor)
 
         // Wire views
         listView      = findViewById(R.id.listAcarsMessages)
@@ -805,7 +805,7 @@ class AcarsActivity : AppCompatActivity() {
                 val connected = state is
                     com.radiosport.ninegradio.usb.RtlSdrService.ConnectionState.Connected
                 if (!connected) {
-                    tvStatus.text = "No device"
+                    tvStatus.text = getString(R.string.ui_no_device)
                     tvStatus.setTextColor(0xFF884422.toInt())
                     viewLamp.backgroundTintList = android.content.res.ColorStateList.valueOf(0xFF333333.toInt())
                 } else if (stats.squelchOpen) {
@@ -905,7 +905,7 @@ class AcarsActivity : AppCompatActivity() {
         val breakdown = allMessages.groupBy { it.label }
             .entries.sortedByDescending { it.value.size }
             .take(4).joinToString("  ") { "${it.key}:${it.value.size}" }
-        tvStats.text = if (breakdown.isNotEmpty()) breakdown else "Tap message for details · Long-press to copy"
+        tvStats.text = if (breakdown.isNotEmpty()) breakdown else getString(R.string.ui_acars_tap)
     }
 
     private fun updateEmptyState() {
@@ -921,13 +921,13 @@ class AcarsActivity : AppCompatActivity() {
         adapter.clear()
         adapter.notifyDataSetChanged()
         tvCount.text = "0 msgs"
-        tvStats.text = "Cleared"
+        tvStats.text = getString(R.string.ui_cleared)
         updateEmptyState()
     }
 
     private fun exportMessages() {
         if (allMessages.isEmpty()) {
-            android.widget.Toast.makeText(this, "No messages to export", android.widget.Toast.LENGTH_SHORT).show()
+            android.widget.Toast.makeText(this, getString(R.string.ui_no_messages), android.widget.Toast.LENGTH_SHORT).show()
             return
         }
         val text = buildString {
@@ -936,7 +936,7 @@ class AcarsActivity : AppCompatActivity() {
             appendLine()
             for (msg in allMessages.reversed()) {
                 val ts = TS_FMT.format(Date(msg.timestamp))
-                val desc = com.radiosport.ninegradio.dsp.AcarsDecoder.LABEL_DESCRIPTIONS[msg.label] ?: "Unknown"
+                val desc = com.radiosport.ninegradio.dsp.AcarsDecoder.LABEL_DESCRIPTIONS[msg.label] ?: getString(R.string.ui_unknown)
                 appendLine("[$ts] ${msg.registration.padEnd(8)} [${msg.label}] $desc")
                 if (msg.flightId.isNotBlank()) appendLine("  Flight: ${msg.flightId}")
                 appendLine("  ${msg.text}")
@@ -944,7 +944,7 @@ class AcarsActivity : AppCompatActivity() {
             }
         }
         val clipboard = getSystemService(android.content.ClipboardManager::class.java)
-        clipboard.setPrimaryClip(android.content.ClipData.newPlainText("ACARS Log", text))
+        clipboard.setPrimaryClip(android.content.ClipData.newPlainText(getString(R.string.ui_acars_log), text))
         android.widget.Toast.makeText(this, "${allMessages.size} messages copied to clipboard", android.widget.Toast.LENGTH_SHORT).show()
     }
 
@@ -952,24 +952,24 @@ class AcarsActivity : AppCompatActivity() {
         val text = formatMessageFull(msg)
         val clipboard = getSystemService(android.content.ClipboardManager::class.java)
         clipboard.setPrimaryClip(android.content.ClipData.newPlainText("ACARS", text))
-        android.widget.Toast.makeText(this, "Copied to clipboard", android.widget.Toast.LENGTH_SHORT).show()
+        android.widget.Toast.makeText(this, getString(R.string.ui_copied_clipboard), android.widget.Toast.LENGTH_SHORT).show()
     }
 
     // ─── Detail dialog ────────────────────────────────────────────────────────
 
     private fun showDetail(msg: com.radiosport.ninegradio.dsp.AcarsDecoder.AcarsMessage) {
-        val labelDesc = com.radiosport.ninegradio.dsp.AcarsDecoder.LABEL_DESCRIPTIONS[msg.label] ?: "Unknown label"
+        val labelDesc = com.radiosport.ninegradio.dsp.AcarsDecoder.LABEL_DESCRIPTIONS[msg.label] ?: getString(R.string.ui_unknown_label)
         android.app.AlertDialog.Builder(this)
             .setTitle("${msg.registration}  [${msg.label}]")
             .setMessage(formatMessageFull(msg))
-            .setPositiveButton("Close", null)
-            .setNeutralButton("Copy") { _, _ -> copyToClipboard(msg) }
+            .setPositiveButton(getString(R.string.ui_close), null)
+            .setNeutralButton(getString(R.string.ui_copy)) { _, _ -> copyToClipboard(msg) }
             .show()
     }
 
     private fun formatMessageFull(msg: com.radiosport.ninegradio.dsp.AcarsDecoder.AcarsMessage): String {
         val ts   = TS_FMT.format(Date(msg.timestamp))
-        val desc = com.radiosport.ninegradio.dsp.AcarsDecoder.LABEL_DESCRIPTIONS[msg.label] ?: "Unknown"
+        val desc = com.radiosport.ninegradio.dsp.AcarsDecoder.LABEL_DESCRIPTIONS[msg.label] ?: getString(R.string.ui_unknown)
         return buildString {
             appendLine("Time:         $ts")
             appendLine("Registration: ${msg.registration}")
@@ -980,7 +980,7 @@ class AcarsActivity : AppCompatActivity() {
             appendLine("More blocks:  ${if (msg.more) "Yes" else "No"}")
             appendLine()
             appendLine("Message body:")
-            appendLine(msg.text.ifBlank { "(empty)" })
+            appendLine(msg.text.ifBlank { getString(R.string.ui_empty) })
         }.trim()
     }
 }
@@ -1019,7 +1019,7 @@ class AcarsMessageAdapter(context: android.content.Context) :
         tvLabelDesc.visibility = if (desc != null) android.view.View.VISIBLE else android.view.View.GONE
 
         // Message text (show blank placeholder if empty)
-        tvText.text = msg.text.trim().ifBlank { "(no text body)" }
+        tvText.text = msg.text.trim().ifBlank { getString(R.string.ui_no_text_body) }
 
         // Color-code label badge by message type
         val (badgeColor, textColor) = when (msg.label) {
@@ -1098,7 +1098,7 @@ class BookmarkActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bookmark)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        title = "Bookmarks"
+        title = getString(R.string.ui_bookmarks)
 
         recycler            = findViewById(R.id.recyclerBookmarks)
         tvEmpty             = findViewById(R.id.tvEmpty)
@@ -1174,10 +1174,10 @@ class BookmarkActivity : AppCompatActivity() {
     // ── Options menu ─────────────────────────────────────────────────────────
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menu.add(0, 10, 0, "New Bookmark List")
-        menu.add(0, 11, 0, "Manage Lists")
-        menu.add(0, 20, 0, "Export JSON")
-        menu.add(0, 21, 0, "Import JSON")
+        menu.add(0, 10, 0, getString(R.string.ui_new_bookmark_list))
+        menu.add(0, 11, 0, getString(R.string.ui_manage_lists))
+        menu.add(0, 20, 0, getString(R.string.ui_export_json))
+        menu.add(0, 21, 0, getString(R.string.ui_import_json))
         return true
     }
 
@@ -1220,8 +1220,8 @@ class BookmarkActivity : AppCompatActivity() {
             }
         }
 
-        listChipsContainer.addView(makeChip("All", FILTER_ALL))
-        listChipsContainer.addView(makeChip("Uncategorized", FILTER_UNCATEGORIZED))
+        listChipsContainer.addView(makeChip(getString(R.string.ui_all), FILTER_ALL))
+        listChipsContainer.addView(makeChip(getString(R.string.ui_uncategorized), FILTER_UNCATEGORIZED))
         lists.forEach { bl ->
             listChipsContainer.addView(makeChip(bl.name, bl.id))
         }
@@ -1285,7 +1285,7 @@ class BookmarkActivity : AppCompatActivity() {
         }
 
         // Bookmark list spinner
-        val listLabels = listOf("— None (Uncategorized) —") + allLists.map { it.name }
+        val listLabels = listOf(getString(R.string.ui_none_uncategorized)) + allLists.map { it.name }
         spinList.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, listLabels)
             .also { it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
         if (existing?.bookmarkListId != null) {
@@ -1301,14 +1301,14 @@ class BookmarkActivity : AppCompatActivity() {
             }
         }
 
-        val title = if (existing == null) "Add Bookmark" else "Edit Bookmark"
+        val title = if (existing == null) getString(R.string.ui_add_bookmark) else getString(R.string.ui_edit_bookmark)
         androidx.appcompat.app.AlertDialog.Builder(this)
             .setTitle(title)
             .setView(view)
-            .setPositiveButton("Save") { _, _ ->
-                val label = etLabel.text.toString().trim().ifBlank { "Unlabeled" }
+            .setPositiveButton(getString(R.string.ui_save)) { _, _ ->
+                val label = etLabel.text.toString().trim().ifBlank { getString(R.string.ui_unlabeled) }
                 val freqMhz = etFreq.text.toString().toDoubleOrNull()
-                if (freqMhz == null) { Toast.makeText(this, "Invalid frequency", Toast.LENGTH_SHORT).show(); return@setPositiveButton }
+                if (freqMhz == null) { Toast.makeText(this, getString(R.string.ui_invalid_frequency), Toast.LENGTH_SHORT).show(); return@setPositiveButton }
                 val freqHz = (freqMhz * 1_000_000).toLong()
                 val modeIdx = spinMode.selectedItemPosition
                 val demodMode = if (modeIdx == 0) "" else com.radiosport.ninegradio.dsp.DemodMode.values()[modeIdx - 1].name
@@ -1326,8 +1326,8 @@ class BookmarkActivity : AppCompatActivity() {
                     )
                 }
             }
-            .setNegativeButton("Cancel", null)
-            .also { if (existing != null) it.setNeutralButton("Delete") { _, _ -> confirmDelete(existing) } }
+            .setNegativeButton(getString(R.string.ui_cancel), null)
+            .also { if (existing != null) it.setNeutralButton(getString(R.string.ui_delete)) { _, _ -> confirmDelete(existing) } }
             .show()
     }
 
@@ -1349,29 +1349,29 @@ class BookmarkActivity : AppCompatActivity() {
         }
 
         androidx.appcompat.app.AlertDialog.Builder(this)
-            .setTitle(if (existing == null) "New Bookmark List" else "Edit List")
+            .setTitle(if (existing == null) getString(R.string.ui_new_bookmark_list) else getString(R.string.ui_edit_list))
             .setView(view)
-            .setPositiveButton("Save") { _, _ ->
-                val name = etName.text.toString().trim().ifBlank { "Unnamed List" }
+            .setPositiveButton(getString(R.string.ui_save)) { _, _ ->
+                val name = etName.text.toString().trim().ifBlank { getString(R.string.ui_unnamed_list) }
                 val notes = etNotes.text.toString().trim()
                 if (existing == null) viewModel.addBookmarkList(name, notes, pickedColor)
                 else viewModel.updateBookmarkList(existing.copy(name = name, notes = notes, color = pickedColor))
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(getString(R.string.ui_cancel), null)
             .show()
     }
 
     private fun showManageListsDialog() {
         if (allLists.isEmpty()) {
-            Toast.makeText(this, "No lists created yet. Use 'New Bookmark List'.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.ui_no_lists), Toast.LENGTH_SHORT).show()
             return
         }
         val names = allLists.map { it.name }.toTypedArray()
         androidx.appcompat.app.AlertDialog.Builder(this)
-            .setTitle("Manage Lists")
+            .setTitle(getString(R.string.ui_manage_lists))
             .setItems(names) { _, idx ->
                 val list = allLists[idx]
-                val opts = arrayOf("Edit", "Delete (keep bookmarks)", "Delete (delete bookmarks)")
+                val opts = arrayOf(getString(R.string.ui_edit), getString(R.string.ui_delete_keep_bookmarks), getString(R.string.ui_delete_bookmarks))
                 androidx.appcompat.app.AlertDialog.Builder(this)
                     .setTitle(list.name)
                     .setItems(opts) { _, opt ->
@@ -1380,16 +1380,16 @@ class BookmarkActivity : AppCompatActivity() {
                             1 -> viewModel.deleteBookmarkList(list, deleteContents = false)
                             2 -> androidx.appcompat.app.AlertDialog.Builder(this)
                                     .setTitle("Delete list and all ${list.name} bookmarks?")
-                                    .setPositiveButton("Delete All") { _, _ ->
+                                    .setPositiveButton(getString(R.string.ui_delete_all)) { _, _ ->
                                         viewModel.deleteBookmarkList(list, deleteContents = true)
                                     }
-                                    .setNegativeButton("Cancel", null)
+                                    .setNegativeButton(getString(R.string.ui_cancel), null)
                                     .show()
                         }
                     }
                     .show()
             }
-            .setNeutralButton("New List") { _, _ -> showListEditDialog(null) }
+            .setNeutralButton(getString(R.string.ui_new_list)) { _, _ -> showListEditDialog(null) }
             .show()
     }
 
@@ -1397,10 +1397,10 @@ class BookmarkActivity : AppCompatActivity() {
 
     private fun confirmDelete(bm: com.radiosport.ninegradio.data.Bookmark) {
         androidx.appcompat.app.AlertDialog.Builder(this)
-            .setTitle("Delete bookmark?")
+            .setTitle(getString(R.string.ui_delete_bookmark))
             .setMessage("\"${bm.label}\" will be removed.")
-            .setPositiveButton("Delete") { _, _ -> viewModel.deleteBookmark(bm) }
-            .setNegativeButton("Cancel", null)
+            .setPositiveButton(getString(R.string.ui_delete)) { _, _ -> viewModel.deleteBookmark(bm) }
+            .setNegativeButton(getString(R.string.ui_cancel), null)
             .show()
     }
 
@@ -1430,10 +1430,10 @@ class BookmarkActivity : AppCompatActivity() {
             }
         }
         androidx.appcompat.app.AlertDialog.Builder(this)
-            .setTitle("Pick Color")
+            .setTitle(getString(R.string.ui_pick_color))
             .setSingleChoiceItems(labels, selectedIdx) { _, which -> selectedIdx = which }
             .setPositiveButton("OK") { _, _ -> onPick(colors[selectedIdx]) }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(getString(R.string.ui_cancel), null)
             .show()
     }
 
