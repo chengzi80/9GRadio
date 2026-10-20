@@ -28,7 +28,7 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
-                android:hint="Search bookmarks…"
+                android:hint="@string/bookmark_search_hint"
                 android:textColorHint="#66FFFFFF"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp"
@@ -47,7 +47,7 @@
                 android:src="@drawable/ic_star_outline"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:tint="#88FFFFFF"
-                android:contentDescription="Show favorites only"/>
+                android:contentDescription="@string/bookmark_favorites_only"/>
 
             <!-- Sort/options menu -->
             <ImageButton
@@ -110,6 +110,6 @@
         android:layout_margin="16dp"
         android:src="@drawable/ic_add"
         app:backgroundTint="#00CCFF"
-        android:contentDescription="Add bookmark"/>
+        android:contentDescription="@string/bookmark_add_button"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
