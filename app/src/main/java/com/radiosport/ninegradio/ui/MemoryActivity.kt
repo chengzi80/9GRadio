@@ -92,7 +92,7 @@ class MemoryActivity : AppCompatActivity() {
 
         // Pre-fill from current receiver state
         etFreq.setText("%.6f".format(viewModel.centerFreqHz.value / 1e6))
-        etGroup.setText("Default")
+        etGroup.setText(getString(R.string.memory_default))
 
         val modes = DemodMode.values().map { it.displayName }
         spinMode.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, modes)
@@ -102,11 +102,11 @@ class MemoryActivity : AppCompatActivity() {
             .setTitle(getString(R.string.add_memory_channel))
             .setView(view)
             .setPositiveButton(getString(R.string.save)) { _, _ ->
-                val name = etName.text.toString().ifBlank { "Channel" }
+                val name = etName.text.toString().ifBlank { getString(R.string.memory_channel) }
                 val freqMhz = etFreq.text.toString().toDoubleOrNull() ?: return@setPositiveButton
                 val freqHz = (freqMhz * 1_000_000).toLong()
                 val mode = DemodMode.values().getOrElse(spinMode.selectedItemPosition) { DemodMode.NFM }
-                val group = etGroup.text.toString().ifBlank { "Default" }
+                val group = etGroup.text.toString().ifBlank { getString(R.string.memory_default) }
                 val notes = etNotes?.text?.toString() ?: ""
                 lifecycleScope.launch {
                     (application as com.radiosport.ninegradio.RtlSdrApplication).database
