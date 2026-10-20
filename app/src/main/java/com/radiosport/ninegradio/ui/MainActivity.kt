@@ -2058,7 +2058,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         TabLayoutMediator(binding.controlTabLayout, pager) { tab, pos ->
-            tab.text = ControlsPagerAdapter.TAB_TITLES[pos]
+            tab.text = getString(ControlsPagerAdapter.TAB_TITLE_RES_IDS[pos])
         }.attach()
 
         // Scroll to top of the drawer content whenever a tab label is tapped --
