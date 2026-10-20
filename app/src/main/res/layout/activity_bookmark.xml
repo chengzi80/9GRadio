@@ -58,7 +58,7 @@
                 android:src="@drawable/ic_settings"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:tint="#88FFFFFF"
-                android:contentDescription="More options"/>
+                android:contentDescription="@string/bookmark_more_options"/>
         </LinearLayout>
 
         <!-- Horizontal list-selector (All / Uncategorized / each list) -->
@@ -94,7 +94,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="No bookmarks.\nTap ★ in the main screen to save a frequency."
+        android:text="@string/no_bookmarks"
         android:textColor="#55FFFFFF"
         android:textSize="14sp"
         android:gravity="center"
