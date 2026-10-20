@@ -878,7 +878,7 @@ class MainActivity : AppCompatActivity() {
         val modes = listOf(
             DemodMode.AM, DemodMode.NFM, DemodMode.WFM, DemodMode.WFM_STEREO,
             DemodMode.USB, DemodMode.LSB, DemodMode.CW, DemodMode.CWR,
-            DemodMode.DSB, DemodMode.APRS, DemodMode.RAW,
+            DemodMode.DSB, DemodMode.APRS, DemodMode.RAW, DemodMode.ADSB,
             DemodMode.DMR, DemodMode.YSF, DemodMode.DSTAR, DemodMode.DIG
         )
         val chipGroup = ctrlViews.chipGroupDemod ?: return
@@ -889,8 +889,14 @@ class MainActivity : AppCompatActivity() {
                 isCheckable = true
                 tag = mode
                 setOnClickListener {
-                    viewModel.setDemodMode(mode)
-                    syncFrequencyDisplay()
+                    if (mode == DemodMode.ADSB) {
+                        // Selecting ADS-B opens the aircraft radar, which tunes
+                        // to 1090 MHz and configures the ADS-B decoder itself.
+                        startActivity(Intent(this@MainActivity, AdsbActivity::class.java))
+                    } else {
+                        viewModel.setDemodMode(mode)
+                        syncFrequencyDisplay()
+                    }
                 }
             }
             chipGroup.addView(chip)
