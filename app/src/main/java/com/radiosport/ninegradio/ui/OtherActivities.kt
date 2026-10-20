@@ -1398,7 +1398,7 @@ class BookmarkActivity : AppCompatActivity() {
     private fun confirmDelete(bm: com.radiosport.ninegradio.data.Bookmark) {
         androidx.appcompat.app.AlertDialog.Builder(this)
             .setTitle(getString(R.string.ui_delete_bookmark))
-            .setMessage("\"${bm.label}\" will be removed.")
+            .setMessage(getString(R.string.ui_bookmark_removed, "\"${bm.label}\""))
             .setPositiveButton(getString(R.string.ui_delete)) { _, _ -> viewModel.deleteBookmark(bm) }
             .setNegativeButton(getString(R.string.ui_cancel), null)
             .show()
